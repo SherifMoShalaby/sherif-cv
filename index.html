@@ -55,16 +55,49 @@
 @font-face{font-family:'Plex Mono';src:url(vendor/plex-mono-500-latin.woff2) format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:'Grotesk';src:url(vendor/space-grotesk-latin.woff2) format('woff2');font-weight:400 700;font-display:swap}
 
+/* Light is the bare :root so a browser with no preference still gets a complete
+   palette. Dark is applied by preference OR by the toggle, and the toggle wins in
+   both directions. --on-acc is the text colour that sits ON the accent; the accent
+   itself has to change value between modes to hold WCAG AA on each background. */
 :root{
-  --bg:#0B0D11; --surface:#111520; --raised:#161B26;
-  --line:rgba(154,174,204,.13); --line-2:rgba(154,174,204,.22);
-  --ink:#E7EAF0; --mut:#98A2B3; --dim:#6B7484;
-  --acc:#E0A040; --acc-dim:rgba(224,160,64,.16);
+  --bg:#F6F6F4; --surface:#FFFFFF; --raised:#F1F2EF;
+  --line:rgba(22,30,46,.14); --line-2:rgba(22,30,46,.26);
+  --ink:#12161C; --mut:#4B5563; --dim:#6B7280;
+  --acc:#8A5A0F; --acc-dim:rgba(138,90,15,.10); --on-acc:#FFFFFF;
+  --acc-hi:#6E480C;
+  --nav-bg:rgba(246,246,244,.86);
+  --glow:rgba(138,90,15,.05);
+  --strip-shadow:0 18px 44px -20px rgba(20,24,32,.42);
+  --grain:.028;
   --sans:'Plex Sans',ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
   --disp:'Grotesk','Plex Sans',ui-sans-serif,system-ui,sans-serif;
   --mono:'Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   --pad:clamp(20px,5vw,64px); --max:1220px;
   --z-nav:20; --z-skip:30;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B0D11; --surface:#111520; --raised:#161B26;
+    --line:rgba(154,174,204,.13); --line-2:rgba(154,174,204,.22);
+    --ink:#E7EAF0; --mut:#98A2B3; --dim:#6B7484;
+    --acc:#E0A040; --acc-dim:rgba(224,160,64,.16); --on-acc:#14100A;
+    --acc-hi:#EEB259;
+    --nav-bg:rgba(11,13,17,.82);
+    --glow:rgba(224,160,64,.055);
+    --strip-shadow:0 26px 60px -22px rgba(0,0,0,.85),0 0 0 1px rgba(224,160,64,.16);
+    --grain:.035;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B0D11; --surface:#111520; --raised:#161B26;
+  --line:rgba(154,174,204,.13); --line-2:rgba(154,174,204,.22);
+  --ink:#E7EAF0; --mut:#98A2B3; --dim:#6B7484;
+  --acc:#E0A040; --acc-dim:rgba(224,160,64,.16); --on-acc:#14100A;
+  --acc-hi:#EEB259;
+  --nav-bg:rgba(11,13,17,.82);
+  --glow:rgba(224,160,64,.055);
+  --strip-shadow:0 26px 60px -22px rgba(0,0,0,.85),0 0 0 1px rgba(224,160,64,.16);
+  --grain:.035;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -72,14 +105,14 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);
   font-family:var(--sans);font-size:16px;line-height:1.6;
   font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
-::selection{background:var(--acc);color:#14100A}
+::selection{background:var(--acc);color:var(--on-acc)}
 
 /* a fixed grain + a very faint structural grid: the site is about systems */
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.035;
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opacity:var(--grain);
   mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse 70% 50% at 50% -10%,rgba(224,160,64,.055),transparent 70%);
+  background:radial-gradient(ellipse 70% 50% at 50% -10%,var(--glow),transparent 70%);
   opacity:.85;
   -webkit-mask-image:linear-gradient(to bottom,#000,transparent 62%);
   mask-image:linear-gradient(to bottom,#000,transparent 62%)}
@@ -92,7 +125,7 @@ p{margin:0;text-wrap:pretty}
 :focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:3px}
 
 .skip{position:absolute;left:-9999px;top:0;z-index:var(--z-skip);
-  background:var(--acc);color:#14100A;padding:12px 18px;font:500 13px/1 var(--mono)}
+  background:var(--acc);color:var(--on-acc);padding:12px 18px;font:500 13px/1 var(--mono)}
 .skip:focus{left:12px;top:12px}
 
 .wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad);position:relative;z-index:2}
@@ -103,7 +136,7 @@ p{margin:0;text-wrap:pretty}
 
 /* ─────────────────────────────────────────────── nav */
 .nav{position:sticky;top:0;z-index:var(--z-nav);
-  background:rgba(11,13,17,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid transparent;transition:border-color .3s ease}
 .nav.stuck{border-bottom-color:var(--line)}
 .nav .wrap{display:flex;align-items:center;gap:22px;min-height:62px}
@@ -122,9 +155,19 @@ p{margin:0;text-wrap:pretty}
   transition:background .2s,border-color .2s,transform .15s,color .2s}
 .btn:hover{border-color:var(--acc);background:var(--acc-dim)}
 .btn:active{transform:translateY(1px)}
-.btn-p{background:var(--acc);border-color:var(--acc);color:#14100A;font-weight:600}
-.btn-p:hover{background:#EEB259;border-color:#EEB259}
+.btn-p{background:var(--acc);border-color:var(--acc);color:var(--on-acc);font-weight:600}
+.btn-p:hover{background:var(--acc-hi);border-color:var(--acc-hi)}
 .btn svg{width:14px;height:14px;flex:none}
+
+/* Theme control. Deliberately not a sun/moon switch: it cycles Auto, Light, Dark
+   and says which one is active, so "Auto" is a visible, selectable state rather
+   than an invisible default. */
+.mode{font:500 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim);background:none;border:1px solid var(--line);border-radius:3px;
+  padding:9px 10px;cursor:pointer;white-space:nowrap;
+  transition:color .2s,border-color .2s}
+.mode:hover{color:var(--acc);border-color:var(--acc)}
+@media (max-width:520px){.mode{display:none}}
 
 /* ─────────────────────────────────────────────── hero */
 .hero{padding:clamp(56px,10vh,110px) 0 clamp(48px,8vh,86px);position:relative}
@@ -151,7 +194,7 @@ p{margin:0;text-wrap:pretty}
 /* the flight strip, as real markup — the site's one piece of inherited personality */
 .strip{background:linear-gradient(176deg,#F4EEE1,#E7DDC6);border-radius:3px;
   border:1px solid rgba(0,0,0,.35);padding:5px;
-  box-shadow:0 26px 60px -22px rgba(0,0,0,.85),0 0 0 1px rgba(224,160,64,.16);
+  box-shadow:var(--strip-shadow);
   transform:rotate(-1.05deg);transition:transform .5s cubic-bezier(.2,.75,.2,1)}
 .strip:hover{transform:rotate(-.35deg) translateY(-3px)}
 @media (prefers-reduced-motion:reduce){.strip,.strip:hover{transition:none;transform:none}}
@@ -174,7 +217,7 @@ p{margin:0;text-wrap:pretty}
 .strip-note{display:flex;justify-content:space-between;gap:12px;margin:12px 2px 0;
   font:400 10px/1.5 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
 .strip-note a{color:var(--acc);text-decoration:none;border-bottom:1px solid rgba(224,160,64,.4)}
-.strip-note a:hover{color:#F0C078}
+.strip-note a:hover{color:var(--acc-hi)}
 
 .now{margin:30px 0 0;border-top:1px solid var(--line);display:grid;gap:0}
 .now div{display:grid;grid-template-columns:78px minmax(0,1fr);gap:16px;
@@ -249,6 +292,35 @@ section{position:relative;z-index:2}
   letter-spacing:-.03em;line-height:1.05}
 .figure span{display:block;font:400 10.5px/1.4 var(--mono);letter-spacing:.15em;
   text-transform:uppercase;color:var(--dim);margin-top:5px}
+/* Architecture diagrams, built from markup rather than SVG so the node labels are
+   real selectable text: they theme with the page, scale with the type, read out to
+   a screen reader in order, and survive the print stylesheet. Connectors are a rule
+   plus a border-drawn chevron, not an icon path. */
+.dia{grid-column:1 / -1;margin:6px 0 0;padding-top:20px;border-top:1px solid var(--line)}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 30px;margin:0;padding:0;
+  list-style:none}
+/* .case-body li already styles list items in this section: it adds a bullet on
+   ::before and margin-bottom that :last-child then removes. Both leaked in here,
+   putting a stray amber tick inside the first node and dropping the last node 4px
+   below the row. Reset both before drawing connectors. */
+.flow li{position:relative;font:400 11.5px/1 var(--mono);color:var(--mut);
+  border:1px solid var(--line);border-radius:3px;padding:9px 11px;background:var(--raised);
+  white-space:nowrap;margin:0}
+.flow li::before{content:none}
+.flow li.hi{border-color:var(--acc);color:var(--ink);background:var(--acc-dim)}
+.flow li + li::before{content:'';position:absolute;left:-30px;top:50%;width:30px;height:1px;
+  background:var(--line-2)}
+.flow li + li::after{content:'';position:absolute;left:-11px;top:50%;width:5px;height:5px;
+  border-top:1px solid var(--line-2);border-right:1px solid var(--line-2);
+  transform:translateY(-50%) rotate(45deg)}
+.dia figcaption{margin:14px 0 0;font-size:13.4px;color:var(--dim);line-height:1.55;max-width:70ch}
+@media (max-width:620px){
+  .flow{flex-direction:column;align-items:stretch;gap:22px}
+  .flow li{white-space:normal}
+  .flow li + li::before{left:16px;top:-22px;width:1px;height:22px}
+  .flow li + li::after{left:14px;top:-9px;transform:rotate(135deg)}
+}
+
 .tech{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0 0;padding:0;list-style:none}
 .tech li{padding:0;margin:0;font:400 11.5px/1 var(--mono);color:var(--mut);
   border:1px solid var(--line);border-radius:3px;padding:6px 8px;background:var(--raised)}
@@ -341,7 +413,7 @@ section{position:relative;z-index:2}
 .oss .foot{padding-top:6px;display:flex;align-items:center;gap:22px}
 .oss .foot a{font:500 11.5px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;
   color:var(--acc);text-decoration:none}
-.oss .foot a:hover{color:#F0C078}
+.oss .foot a:hover{color:var(--acc-hi)}
 
 /* ─────────────────────────────────────────────── contact */
 .contact{border-top:1px solid var(--line);padding:clamp(60px,10vh,120px) 0 clamp(46px,7vh,80px)}
@@ -397,6 +469,13 @@ footer a:hover{color:var(--acc);border-bottom-color:var(--acc)}
   .xp summary,.full summary{color:#666 !important;padding:2pt 0 !important}
   .xp summary::after,.full summary::after{display:none}
   .xp details{margin:4pt 0 0 !important}
+  .flow{gap:6pt 18pt !important}
+  .flow li{background:#fff !important;border-color:#ddd !important;padding:4pt 5pt !important;
+    font-size:7.6pt !important}
+  .flow li + li::before{left:-18pt !important;width:18pt !important}
+  .flow li + li::after{left:-7pt !important}
+  .dia{padding-top:8pt !important;margin-top:4pt !important}
+  .dia figcaption{font-size:8pt !important;margin-top:6pt !important}
   .case-body p,.case-body li,.xp details li,.xp .one,.oss .desc{font-size:8.6pt !important;
     line-height:1.42 !important}
   .case-body h4{margin:0 0 3pt !important}
@@ -422,6 +501,13 @@ footer a:hover{color:var(--acc);border-bottom-color:var(--acc)}
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 </style>
+<script>
+/* Set the theme before first paint. Without this a visitor who chose Light on a
+   dark OS (or the reverse) gets a flash of the wrong palette while the deferred
+   script at the bottom of the page waits for parsing to finish. */
+try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')
+document.documentElement.setAttribute('data-theme',t);}catch(e){}
+</script>
 </head>
 <body>
 
@@ -438,6 +524,7 @@ footer a:hover{color:var(--acc);border-bottom-color:var(--acc)}
       <li><a href="#open-source">Open source</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="mode" id="mode" type="button">Auto</button>
     <a class="btn" href="cv.pdf" download>
       <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216,144v64a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H200V144a8,8,0,0,1,16,0Zm-93.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></svg>
       Download CV
@@ -566,6 +653,17 @@ footer a:hover{color:var(--acc);border-bottom-color:var(--acc)}
               reviews code against, including the AI-assisted review and planning workflow now shared
               across the repository. Own backlog planning, architecture overviews and code review.</p>
           </section>
+          <figure class="dia">
+            <ol class="flow">
+              <li>Angular on AWS ECS</li>
+              <li class="hi">Spring AI, Java 25</li>
+              <li>Tool-calling loop</li>
+              <li>pgvector retrieval</li>
+              <li>Streamed answer</li>
+            </ol>
+            <figcaption>Retrieval and generation sit on the request path. Third-party sync was
+              moved off it into a transactional outbox.</figcaption>
+          </figure>
         </div>
       </article>
 
@@ -609,6 +707,18 @@ footer a:hover{color:var(--acc);border-bottom-color:var(--acc)}
                 traffic and live system health.</li>
             </ul>
           </section>
+          <figure class="dia">
+            <ol class="flow">
+              <li>INO, AFTN, PIB</li>
+              <li>Ingest</li>
+              <li class="hi">Kafka</li>
+              <li>Quarkus services</li>
+              <li>PostgreSQL, MongoDB</li>
+              <li>Operations dashboard</li>
+            </ol>
+            <figcaption>Keycloak authenticates at the edge; the whole thing runs on
+              OpenShift and Kubernetes.</figcaption>
+          </figure>
         </div>
       </article>
 
@@ -649,6 +759,16 @@ footer a:hover{color:var(--acc);border-bottom-color:var(--acc)}
             <p>Drove the migration and its architecture decisions, and raised the quality baseline with
               JUnit 5, Mockito, REST Assured and WireMock.</p>
           </section>
+          <figure class="dia">
+            <ol class="flow">
+              <li>Nginx routing</li>
+              <li>Legacy WildFly, JSF</li>
+              <li class="hi">Spring Boot 3.4 services</li>
+              <li>Shared database</li>
+            </ol>
+            <figcaption>Both stacks served behind one routing layer against one database, which is
+              what let the migration be phased instead of cut over.</figcaption>
+          </figure>
         </div>
       </article>
 
@@ -686,6 +806,17 @@ footer a:hover{color:var(--acc);border-bottom-color:var(--acc)}
               reviews and drove refactoring. Later ran a six-person delivery team as Service Delivery
               Manager, holding contractual accountability for SLA and uptime commitments, scope and change requests, and client steering and escalation, while continuing in the Software Architect role.</p>
           </section>
+          <figure class="dia">
+            <ol class="flow">
+              <li>JobSeeker portal</li>
+              <li>Takafo UI</li>
+              <li class="hi">Backend services</li>
+              <li>Elasticsearch</li>
+              <li>Recruitment analytics</li>
+            </ol>
+            <figcaption>Elasticsearch queries powered the analytics and statistical insight HR
+              stakeholders worked from.</figcaption>
+          </figure>
         </div>
       </article>
 
@@ -1022,6 +1153,25 @@ footer a:hover{color:var(--acc);border-bottom-color:var(--acc)}
 (function () {
   'use strict';
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 0. theme: auto (follow the OS) / light / dark, remembered per browser */
+  var MODES = ['auto', 'light', 'dark'];
+  var modeBtn = document.getElementById('mode');
+  var mode = 'auto';
+  try { mode = localStorage.getItem('theme') || 'auto'; } catch (e) {}
+  if (MODES.indexOf(mode) < 0) mode = 'auto';
+  function applyMode() {
+    if (mode === 'auto') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', mode);
+    modeBtn.textContent = mode.charAt(0).toUpperCase() + mode.slice(1);
+    modeBtn.setAttribute('aria-label', 'Colour theme: ' + mode + '. Activate to change.');
+    try { localStorage.setItem('theme', mode); } catch (e) {}
+  }
+  modeBtn.addEventListener('click', function () {
+    mode = MODES[(MODES.indexOf(mode) + 1) % MODES.length];
+    applyMode();
+  });
+  applyMode();
 
   /* 1. hairline under the nav only once you have left the top */
   var nav = document.getElementById('nav');

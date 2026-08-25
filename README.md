@@ -41,6 +41,31 @@ asides.
 Regenerate by serving the directory and printing it to A4 with `printBackground`,
 14mm margins, after setting `open` on every `<details>`.
 
+## Themes
+
+Light is the bare `:root`, so a browser with no preference gets a complete palette.
+Dark is applied by `prefers-color-scheme` OR by the control in the nav, and the
+control wins in both directions. A tiny inline script in `<head>` applies the stored
+choice before first paint, otherwise a visitor who picked Light on a dark OS sees a
+flash of the wrong palette while the page finishes parsing.
+
+The control cycles Auto, Light, Dark and names the active state, so "Auto" is
+selectable rather than an invisible default. Contrast is measured, not asserted:
+every text token holds WCAG AA against its background in both modes (lowest
+measured 5.47:1).
+
+## Architecture diagrams
+
+The case-study diagrams are markup, not SVG. Node labels are real selectable text,
+so they theme with the page, scale with the type, read out to a screen reader in
+order, and survive the print stylesheet. Connectors are a rule plus a chevron drawn
+from two borders.
+
+Watch out when editing: `.case-body li` styles list items in that section, and its
+bullet `::before` and `margin-bottom` leak into the diagram nodes. `.flow li` resets
+both. Without the reset the first node carries a stray tick and the last sits 4px
+below the row.
+
 ## Content rule
 
 Everything factual comes from the CV or from public repository metadata. Where a
