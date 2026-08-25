@@ -100,12 +100,40 @@ canvas,.plate,.cue,.bay{transition:filter .45s ease,opacity .45s ease}
 /* the mark is drawn on a pseudo-element so the button keeps a 34x12 hit target
    while the rule itself stays hairline */
 .bay button::before{content:'';display:block;width:22px;height:3px;margin:4.5px 0 4.5px auto;
-  background:#3E4854;transition:background .3s ease,width .3s ease}
-.bay button[aria-current]::before{background:#C88A2E;width:34px}
-.bay button:hover::before{background:#78889B}
+  background:#3E4854;transition:background .3s ease,width .3s ease,transform .3s ease;
+  transform-origin:100% 50%;
+  /* the incoming strip passes straight through the bay's column on its way to
+     the holder, so for about a second these sit on lit cream paper. Without a
+     dark halo they read as specks on the page rather than as instrument marks. */
+  box-shadow:0 0 4px 1px rgba(6,8,12,.55)}
+
+/* THE ACTIVE MARK IS DRIVEN BY THE STRIP, NOT BY A CSS TRANSITION.
+   --prog is written once a frame from the strip's real position on the rail, so
+   the mark extends in the same three ratchet steps the paper does, settles when
+   the paper settles, and retracts as the outgoing strip is pulled off. A CSS
+   transition would only have looked similar; this IS the same motion.
+   --hit flashes on each print strike, decayed in the same loop. */
+.bay button[aria-current]::before{
+  width:calc(22px + 13px * var(--prog,0));
+  background:#C88A2E;   /* fallback: anything without color-mix still gets amber */
+  background:color-mix(in oklab,#3E4854,#C88A2E calc(35% + 65% * var(--prog,0)));
+  box-shadow:0 0 4px 1px rgba(6,8,12,.55),
+             0 0 calc(9px * var(--hit,0)) rgba(216,166,87,calc(.85 * var(--hit,0)));
+  filter:brightness(calc(1 + .55 * var(--hit,0)))}
+
+/* the bay fills on arrival, one mark at a time, top down */
+@keyframes markIn{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
+.bay button::before{animation:markIn .42s cubic-bezier(.2,.75,.2,1) backwards;
+  animation-delay:calc(var(--n,0) * 42ms + 250ms)}
+
+.bay button:hover::before{background:#78889B;transform:translateX(-3px)}
 .bay button:focus{outline:none}
 .bay button:focus-visible::before{background:#EDE7D8;width:34px;
   box-shadow:0 0 0 2px rgba(200,138,46,.55)}
+@media (prefers-reduced-motion:reduce){
+  .bay button::before{animation:none}
+  .bay button[aria-current]::before{width:34px;background:#C88A2E;filter:none}
+}
 /* what the strip holds, on hover and on keyboard focus. The bay is a row of
    hairlines; without this you have to work the whole thing to find anything. */
 .bay .tip{position:absolute;right:100%;top:50%;margin-right:13px;
@@ -767,7 +795,7 @@ var camBase = new THREE.Vector3(), lookBase = new THREE.Vector3();
    mains, and the camera drifts a few hundredths of a unit. Both are motivated —
    they say "this is a room, not a picture" — and both are off under
    prefers-reduced-motion. */
-var hovering = false, hoverAmt = 0;
+var hovering = false, hoverAmt = 0, bayProg = -1, bayHit = -1;
 var ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
 
 function pointerOverStrip(e) {
@@ -1031,6 +1059,19 @@ function tick(now) {
       spot.intensity *= 1 + 0.13 * hoverAmt;
     }
 
+    /* the bay mark rides the strip. 0 when the paper is off at the slot, 1 when
+       it is home and square in the holder. */
+    var prog = 1 - Math.min(1, Math.abs(strip.position.x) / STRIP_START);
+    if (Math.abs(prog - bayProg) > 0.002) {
+      bayProg = prog;
+      bayEl.style.setProperty('--prog', prog.toFixed(3));
+    }
+    var hit = T > impT ? Math.exp(-(T - impT) / 0.16) : 0;
+    if (Math.abs(hit - bayHit) > 0.004) {
+      bayHit = hit;
+      bayEl.style.setProperty('--hit', hit.toFixed(3));
+    }
+
     /* and the camera is held by a person, not bolted to the desk */
     camera.position.set(camBase.x + Math.sin(T * 0.37) * 0.055,
                         camBase.y + Math.sin(T * 0.29 + 1.3) * 0.035,
@@ -1221,6 +1262,7 @@ CARDS.forEach(function (c, i) {
   tip.querySelector('b').textContent = what;
   tip.querySelector('i').textContent = who;
   b.appendChild(tip);
+  b.style.setProperty('--n', i);
   b.addEventListener('click', function () { goTo(i); });
   bayEl.appendChild(b);
 });
