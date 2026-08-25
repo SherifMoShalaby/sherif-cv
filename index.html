@@ -1147,7 +1147,11 @@ function nav(d) {
   var now = performance.now();
   if (now - lastNav < 260) return;          /* one gesture, one strip */
   lastNav = now;
-  goTo(CARD + d);
+  /* the bay wraps. A real bay is worked round and round, and dead-ending on the
+     last strip left the only exit as scrolling back up through nine of them.
+     Wrapped here rather than in goTo(), because goTo() also takes an absolute
+     index from the bay marks, where an out-of-range index is a bug, not a wrap. */
+  goTo((CARD + d + CARDS.length) % CARDS.length);
 }
 
 /* ------------------------------------------------------------- the logbook */
