@@ -674,28 +674,34 @@ scene.add(bounce);
 /* ------------------------------------------------------------- the framing */
 var PORTRAIT = false;
 /* PORTRAIT COMPOSITION
-   An 8:1 object cannot cross a 390px screen and stay legible, so portrait does
-   not try: the board swings into depth and the camera watches ONE station on
-   the strip at a time, then travels. Without the travel the sign-off — the
-   whole payoff — fires off the top-right corner, which is exactly what it did
-   before this existed. */
-var PORTRAIT_LOOK = 372;          /* canvas x the phone camera is watching */
-var LOOK_NAME = 372, LOOK_SIGN = 1880;
-var _lp = new THREE.Vector3();
-function portraitCam() {
-  _lp.set((PORTRAIT_LOOK / 2048) * SW - SW / 2, 0.05, 0);
-  board.localToWorld(_lp);
-  camera.position.set(_lp.x + 1.0, 7.9, _lp.z + 7.15);
-  camera.lookAt(_lp);
-  camera.updateMatrixWorld();
-  /* the pool travels with the camera. A fixed cone wide enough to cover an
-     8-unit strip from one position is flat and still leaves the far end dim —
-     this keeps the watched station lit at a constant angle the whole way. */
-  lampGroup.position.set(_lp.x - 1.7, 6.2, _lp.z + 2.5);
-  spot.position.copy(lampGroup.position);
-  spot.target.position.copy(_lp);
-  spot.target.updateMatrixWorld();
+   The earlier version reasoned about the strip crossing a 390px WIDTH, decided
+   an 8:1 object could not do it legibly, and had the camera watch one station
+   at a time and travel between them. That was the wrong axis. A 390x844 screen
+   has a 928px DIAGONAL — within a pixel or two of the 934px the strip gets in
+   landscape — so the whole object fits at the same size, and nothing has to be
+   cut off or travelled to.
+
+   The strip stays along world X; the CAMERA rolls instead, which puts the strip
+   on the screen diagonal without rotating the board into depth. Distance is
+   then solved rather than guessed, so it holds at any phone size. */
+var _c = new THREE.Vector3();
+
+function fitStrip(target) {
+  var dir = _fitDir, d = 11, k, bx, over;
+  for (k = 0; k < 22; k++) {
+    camera.position.copy(_c).addScaledVector(dir, d);
+    camera.lookAt(_c);
+    camera.updateProjectionMatrix();
+    camera.updateMatrixWorld();
+    bx = screenBox(0, 2048);
+    over = Math.max(Math.abs(bx.x0), Math.abs(bx.x1), Math.abs(bx.y0), Math.abs(bx.y1));
+    if (!isFinite(over) || over <= 0) break;
+    if (Math.abs(over - target) < 0.005) break;
+    d *= over / target;                       /* apparent size goes as 1/d */
+  }
+  return d;
 }
+var _fitDir = new THREE.Vector3();
 
 function frame() {
   PORTRAIT = innerWidth / innerHeight < 1.0;
@@ -703,13 +709,26 @@ function frame() {
      so it does not try. The board swings into depth: the NAME box sits near and
      large, the rest of the strip recedes toward the feed slot. The phone becomes
      a lamp held over one end of a document rather than a shrunk-down desk. */
-  board.rotation.y = PORTRAIT ? 1.02 : 0;
-  camera.fov = PORTRAIT ? 46 : 36;
+  board.rotation.y = 0;
+  camera.fov = PORTRAIT ? 32 : 36;
   camera.aspect = innerWidth / innerHeight;
   slot.visible = !PORTRAIT;
   if (PORTRAIT) {
-    portraitCam();
+    /* roll the camera so the strip lies along the screen diagonal, then solve
+       the distance that makes it fill that diagonal with a margin */
+    /* Roll so the strip runs top-left to bottom-right: the first field (ORG)
+       lands at the top and the form reads downward, the way the eye already
+       scans. Rolled the other way the strip read bottom-to-top like a book
+       spine, and its lower end sat exactly where the title plate does. */
+    var ang = Math.atan2(innerHeight, innerWidth) * 0.94;
+    camera.up.set(-Math.sin(ang), Math.cos(ang), 0);
+    _c.set(0, 0.05, 0); board.localToWorld(_c);
+    /* looking down steeply keeps foreshortening off the 1-unit width, which is
+       what carries the type */
+    _fitDir.set(-0.06, 0.90, 0.43).normalize();
+    fitStrip(0.90);
   } else {
+    camera.up.set(0, 1, 0);
     camera.position.set(-0.9, 8.6, 8.6);
     camera.lookAt(0.05, 0.05, -0.10);
   }
@@ -717,10 +736,10 @@ function frame() {
   camera.updateMatrixWorld();
 
   if (PORTRAIT) {
-    /* the phone camera travels the strip, so the pool cannot be a puddle around
-       the NAME box any more — it has to cover the whole object */
-    spot.angle = 0.62;
-    portraitCam();          /* sets lamp + target together */
+    /* the whole strip is in frame now, so the pool has to cover the whole strip */
+    lampGroup.position.set(-1.2, 6.4, 3.0);
+    spot.target.position.set(0.2, 0, -0.05);
+    spot.angle = 0.74;
   } else {
     /* The pool has to REACH the sign-off. Aimed at -0.9 with a 0.56 cone it
        stopped around canvas x~1950 of 2048, so the CLEARED stamp — the payoff
@@ -734,6 +753,13 @@ function frame() {
   spot.position.copy(lampGroup.position);
   spot.target.updateMatrixWorld();
 }
+
+/* Declared before the first frame(). fitStrip measures the strip at its home
+   position, so an undefined STRIP_HOME made screenBox return NaN, which tripped
+   the solver's isFinite guard on iteration zero and left the camera parked at its
+   arbitrary starting distance — on every phone, identically. */
+var STRIP_HOME = 0, STRIP_START = 9.6;
+
 frame();
 
 /* xa/xb are positions along the strip in canvas pixels (0..2048) */
@@ -753,21 +779,17 @@ window.__framing = function () {
   /* Landscape must hold the whole strip. Portrait only has to hold the NAME box
      (canvas 0-552) fully and legibly; the rest is allowed to run off toward the
      slot, which is the point of the portrait composition. */
-  /* Portrait no longer has one fixed station — the camera travels — so the
-     contract is "whatever the camera is watching right now is fully in frame",
-     not "the NAME box is fully in frame". */
+  /* One contract for both orientations again: the whole strip is in frame.
+     Portrait earns that by using the diagonal instead of the width. */
   return { portrait: PORTRAIT, full: screenBox(0, 2048),
            name: screenBox(0, 552), role: screenBox(552, 1266),
-           look: PORTRAIT_LOOK,
-           watched: screenBox(Math.max(0, PORTRAIT_LOOK - 340),
-                              Math.min(2048, PORTRAIT_LOOK + 340)) };
+           watched: screenBox(0, 2048) };
 };
 
 /* ================================================================ TIMELINE
    Discrete cues, not one long ramp. The whole point of a ratchet is that it
    ARRIVES — three hard stops, each one audible if this had sound. */
 
-var STRIP_HOME = 0, STRIP_START = 9.6;
 var t0 = performance.now() / 1000, T = 0;
 var plate = document.getElementById('plate'), cue = document.getElementById('cue');
 var bayEl = document.getElementById('bay'), bookEl = document.getElementById('book'),
@@ -842,7 +864,6 @@ function reset(force) {
   struck = FIELDS.map(function () { return 0; });
   burstAt = 0; lit = false; cued = false;
   stamp = 0; impT = -9; headParked = 40; headX = 40;
-  PORTRAIT_LOOK = LOOK_NAME; if (PORTRAIT) portraitCam();
   head.visible = false; head.position.y = HEAD_UP;
   plate.classList.remove('on'); cue.classList.remove('on');
   strip.position.x = STRIP_START; strip.position.y = 0.075; holder.position.x = 0;
@@ -858,7 +879,6 @@ function skipToEnd() {
   spot.intensity = 10.1;
   stamp = SIGN ? 1 : 0; headOn = 0;
   headX = SIGN ? FIELDS[4].x + 76 : fieldRight(FIELDS.length - 1) - 40;
-  PORTRAIT_LOOK = LOOK_SIGN; if (PORTRAIT) portraitCam();
   head.visible = false;
   plate.classList.add('on'); cue.classList.add('on');
   lit = cued = true;
@@ -962,16 +982,6 @@ function tick(now) {
     head.position.y = (T >= STAMP_T + 0.26)
       ? HEAD_UP + 0.9 * Math.min(1, (T - STAMP_T - 0.26) / 0.5)   /* lifts out of shot */
       : HEAD_UP - (HEAD_UP - HEAD_DOWN) * imp;
-
-    /* portrait travels from the name to the sign-off, arriving before the
-       stamp lands at STAMP_T. In landscape the whole strip is already in
-       frame and the camera stays put. */
-    if (PORTRAIT) {
-      var lu = Math.max(0, Math.min(1, (T - 2.30) / 1.05));
-      PORTRAIT_LOOK = LOOK_NAME + (LOOK_SIGN - LOOK_NAME) *
-                      (lu < 0.5 ? 4 * lu * lu * lu : 1 - Math.pow(-2 * lu + 2, 3) / 2);
-      portraitCam();
-    }
 
     if (!lit && T > PLATE_T) { plate.classList.add('on'); lit = true; }
     if (!cued && T > CUE_T) { cue.classList.add('on'); cued = true; }
