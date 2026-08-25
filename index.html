@@ -56,6 +56,16 @@ canvas,.plate,.cue,.bay{transition:filter .45s ease,opacity .45s ease}
   border-left:7px solid #C88A2E}
 .book.on .sheet{transform:none}
 .sheet:focus{outline:none}
+/* Motivated motion (skill §5): the log is read top to bottom, so it arrives top
+   to bottom. Sequence matches the reading order — it is not decoration. */
+@keyframes logIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.book.on .sheet > *{animation:logIn .46s cubic-bezier(.2,.75,.2,1) backwards;
+  animation-delay:calc(var(--i,0) * 48ms)}
+.book.on .sheet li{animation:logIn .46s cubic-bezier(.2,.75,.2,1) backwards;
+  animation-delay:calc((var(--i,0) + 2) * 48ms)}
+@media (prefers-reduced-motion:reduce){
+  .book.on .sheet > *,.book.on .sheet li{animation:none}
+}
 .sheet h3{font-family:Grotesk,system-ui,sans-serif;font-weight:700;letter-spacing:-.02em;
   font-size:clamp(23px,3.3vw,36px);line-height:1.1;margin:0 0 8px;color:#1B1712}
 .sheet .meta{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;
@@ -67,6 +77,15 @@ canvas,.plate,.cue,.bay{transition:filter .45s ease,opacity .45s ease}
   background:#C88A2E}
 .sheet li b{color:#1B1712;font-weight:600}
 .sheet a{color:#8A5E14}
+/* A capability list is breadth, not prose: eleven hairline rows is the spec-sheet
+   default the skill bans outright. Grouped pills scan in one pass. */
+.sheet .grp{margin:0 0 22px}
+.sheet .grp h4{margin:0 0 9px;font-size:10px;letter-spacing:.17em;text-transform:uppercase;
+  color:#8A6A2E;font-weight:600}
+.sheet .pills{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+.sheet .pills span{display:inline-block;padding:5px 10px;font-size:12px;line-height:1.25;
+  color:#2E2820;background:rgba(40,32,20,.055);border:1px solid rgba(40,32,20,.13);
+  border-radius:2px}
 .bk{margin-top:30px;padding-top:16px;border-top:1px solid rgba(40,32,20,.22);
   display:flex;justify-content:space-between;gap:14px;align-items:baseline;
   font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;color:#7C6A44}
@@ -81,9 +100,9 @@ canvas,.plate,.cue,.bay{transition:filter .45s ease,opacity .45s ease}
 /* the mark is drawn on a pseudo-element so the button keeps a 34x12 hit target
    while the rule itself stays hairline */
 .bay button::before{content:'';display:block;width:22px;height:3px;margin:4.5px 0 4.5px auto;
-  background:#4A422F;transition:background .3s ease,width .3s ease}
+  background:#3E4854;transition:background .3s ease,width .3s ease}
 .bay button[aria-current]::before{background:#C88A2E;width:34px}
-.bay button:hover::before{background:#8A7A52}
+.bay button:hover::before{background:#78889B}
 .bay button:focus{outline:none}
 .bay button:focus-visible::before{background:#EDE7D8;width:34px;
   box-shadow:0 0 0 2px rgba(200,138,46,.55)}
@@ -135,28 +154,33 @@ canvas,.plate,.cue,.bay{transition:filter .45s ease,opacity .45s ease}
 /* a job title is not a name — it runs long and must not span half the frame */
 .plate.sm{max-width:min(52ch,46vw)}
 .plate.sm .nm{font-size:clamp(20px,2.5vw,31px);line-height:1.14}
-.plate .mt{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7E7768;margin:0}
+.plate .mt{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7C8694;margin:0}
 .plate .mt b{color:#D8A657;font-weight:500}
 
 .cue{position:fixed;right:clamp(22px,5vw,74px);bottom:clamp(26px,5vh,66px);z-index:3;
-  font-size:11px;letter-spacing:.19em;text-transform:uppercase;color:#5E594E;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;color:#6A7482;
   opacity:0;transition:opacity .45s ease 0s}
 .cue.on{opacity:1}
 
 .hud{position:fixed;left:clamp(22px,5vw,74px);top:clamp(20px,4vh,44px);z-index:3;
-  font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:#4E4A42}
+  font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:#5A6472}
 
-/* keyboard replay, for looking at the opening more than once */
-.rep{position:fixed;right:clamp(22px,5vw,74px);top:clamp(20px,4vh,44px);z-index:4;
+/* The opening is the whole verb of this site and it plays once. Removing this
+   button meant anyone landing after it finished never saw the site move at all. */
+.rep{position:fixed;right:clamp(22px,5vw,74px);top:clamp(20px,4vh,44px);z-index:5;
   font:500 10.5px/1 'Plex Mono',monospace;letter-spacing:.15em;text-transform:uppercase;
-  color:#6F6A5E;background:rgba(18,19,22,.7);border:1px solid rgba(201,195,180,.16);
+  color:#7A8493;background:rgba(14,17,22,.72);border:1px solid rgba(150,170,195,.18);
   padding:8px 12px;border-radius:2px;cursor:pointer}
-.rep:hover,.rep:focus-visible{color:#D8A657;border-color:rgba(216,166,87,.5);outline:none}
+.rep:hover,.rep:focus-visible{color:#D8A657;border-color:rgba(216,166,87,.5);outline:none;
+  transform:translateY(-1px)}
+.rep:active{transform:translateY(0)}
+.rep{transition:color .2s ease,border-color .2s ease,transform .2s cubic-bezier(.2,.75,.2,1)}
 
 @media (max-width:620px){
   /* stack the cue above the plate instead of letting it overprint the location */
   .cue{right:auto;left:clamp(22px,5vw,74px);bottom:calc(clamp(24px,5vh,64px) + 104px)}
   .hud{display:none}
+  .rep{right:auto;left:clamp(22px,5vw,74px);top:clamp(14px,2.4vh,28px);padding:7px 10px}
 }
 @media (prefers-reduced-motion:reduce){
   .plate{transition:none}
@@ -166,6 +190,7 @@ canvas,.plate,.cue,.bay{transition:filter .45s ease,opacity .45s ease}
 <body>
 
 <div class="hud" id="hud">Sherif Shalaby · Software Architect</div>
+<button class="rep" id="rep" type="button">Replay ⏎ R</button>
 
 
 <div class="vig"></div>
@@ -280,19 +305,17 @@ canvas,.plate,.cue,.bay{transition:filter .45s ease,opacity .45s ease}
     <article class="role" id="r7" data-org="CORE SKILLS" data-role="JAVA / SPRING / ANGULAR / AI" data-period="12+ YRS" data-domain="STACK">
       <h3>Core skills</h3>
       <p class="meta">Twelve years of production stack &middot; aviation, energy, government, recruitment</p>
-      <ul>
-        <li><b>Languages</b> — Java (8–25), TypeScript, JavaScript, Python, SQL</li>
-        <li><b>Backend</b> — Spring Boot 3.x, Spring AI, Spring Security / Data / Cloud, Quarkus, Jakarta EE, Hibernate / JPA, REST &amp; OpenAPI, GraphQL, SOAP</li>
-        <li><b>Architecture</b> — Microservices, Hexagonal Architecture, DDD, Event-Driven Design, API-First, System Integration / ESB (Apache Camel), BPMN &amp; CMMN (Flowable, Camunda)</li>
-        <li><b>Frontend</b> — Angular (5–21), RxJS, NgRx, Angular Material, SCSS, Ionic, Flutter</li>
-        <li><b>Data</b> — PostgreSQL &amp; pgvector, Oracle, MS SQL Server, MongoDB, Elasticsearch, Liquibase, Spring Data, Ehcache</li>
-        <li><b>Messaging</b> — Apache Kafka, RabbitMQ, ActiveMQ / JMS</li>
-        <li><b>Cloud &amp; DevOps</b> — Docker, Kubernetes, OpenShift, Azure, AWS (ECS), Terraform, Jenkins, GitLab CI/CD, SonarQube, Nginx, Maven, Git</li>
-        <li><b>Security</b> — Keycloak, OAuth2 / OIDC, SAML, LDAP</li>
-        <li><b>Testing</b> — JUnit 5, Mockito, REST Assured, WireMock, Playwright, TDD, Jasmine / Karma, Postman</li>
-        <li><b>AI engineering</b> — Retrieval-Augmented Generation (RAG), vector search &amp; embeddings, tool-calling agents, streaming responses, model evaluation harnesses</li>
-        <li><b>Leadership</b> — Team leadership, service delivery management, mentoring, code review, technical design, Scrum / Kanban, stakeholder management</li>
-      </ul>
+      <div class="grp"><h4>Languages</h4><p class="pills"><span>Java 8–25</span><span>TypeScript</span><span>JavaScript</span><span>Python</span><span>SQL</span></p></div>
+      <div class="grp"><h4>Backend</h4><p class="pills"><span>Spring Boot 3.x</span><span>Spring AI</span><span>Spring Security / Data / Cloud</span><span>Quarkus</span><span>Jakarta EE</span><span>Hibernate / JPA</span><span>REST &amp; OpenAPI</span><span>GraphQL</span><span>SOAP</span></p></div>
+      <div class="grp"><h4>Architecture</h4><p class="pills"><span>Microservices</span><span>Hexagonal</span><span>DDD</span><span>Event-Driven</span><span>API-First</span><span>ESB / Apache Camel</span><span>BPMN &amp; CMMN</span><span>Flowable</span><span>Camunda</span></p></div>
+      <div class="grp"><h4>Frontend</h4><p class="pills"><span>Angular 5–21</span><span>RxJS</span><span>NgRx</span><span>Angular Material</span><span>SCSS</span><span>Ionic</span><span>Flutter</span></p></div>
+      <div class="grp"><h4>Data</h4><p class="pills"><span>PostgreSQL</span><span>pgvector</span><span>Oracle</span><span>MS SQL Server</span><span>MongoDB</span><span>Elasticsearch</span><span>Liquibase</span><span>Ehcache</span></p></div>
+      <div class="grp"><h4>Messaging</h4><p class="pills"><span>Apache Kafka</span><span>RabbitMQ</span><span>ActiveMQ / JMS</span></p></div>
+      <div class="grp"><h4>Cloud &amp; DevOps</h4><p class="pills"><span>Docker</span><span>Kubernetes</span><span>OpenShift</span><span>Azure</span><span>AWS ECS</span><span>Terraform</span><span>Jenkins</span><span>GitLab CI/CD</span><span>SonarQube</span><span>Nginx</span><span>Maven</span><span>Git</span></p></div>
+      <div class="grp"><h4>Security</h4><p class="pills"><span>Keycloak</span><span>OAuth2 / OIDC</span><span>SAML</span><span>LDAP</span></p></div>
+      <div class="grp"><h4>Testing</h4><p class="pills"><span>JUnit 5</span><span>Mockito</span><span>REST Assured</span><span>WireMock</span><span>Playwright</span><span>TDD</span><span>Jasmine / Karma</span><span>Postman</span></p></div>
+      <div class="grp"><h4>AI engineering</h4><p class="pills"><span>RAG</span><span>Vector search &amp; embeddings</span><span>Tool-calling agents</span><span>Streaming responses</span><span>Model evaluation harnesses</span></p></div>
+      <div class="grp"><h4>Leadership</h4><p class="pills"><span>Team leadership</span><span>Service delivery management</span><span>Mentoring</span><span>Code review</span><span>Technical design</span><span>Scrum / Kanban</span><span>Stakeholder management</span></p></div>
     </article>
 
     <article class="role" id="r8" data-org="ON STATION" data-role="SOFIA, BULGARIA" data-period="OPEN" data-domain="HANDOVER">
@@ -691,7 +714,14 @@ spot.shadow.radius = 2.2;
 scene.add(spot); scene.add(spot.target);
 
 /* a very small cool fill so the far edges are not pure void */
-scene.add(new THREE.HemisphereLight(0x1A2430, 0x05060A, 0.09));
+/* A cool fill light was tried here and removed. Swept 0 -> 2.2: the dark desk
+   moved from B-R -6.1 to only -4.3, because everything outside the pool is
+   near-black by design and ACES crushes it further. Making it read would have
+   meant lifting the shadows, which is the one thing about this scene that
+   already works. The temperature separation lives in the interface layer
+   instead (see the chrome colours): the object is warm tungsten, the
+   instrument furniture around it is cold. */
+scene.add(new THREE.HemisphereLight(0x24313F, 0x05060A, 0.16));
 /* a low warm bounce off the desk, which real paper under a lamp always gets */
 var bounce = new THREE.PointLight(0xFFB870, 0.09, 10, 2);
 bounce.position.set(1.2, 0.5, 2.6);
@@ -728,6 +758,24 @@ function fitStrip(target) {
   return d;
 }
 var _fitDir = new THREE.Vector3();
+var camBase = new THREE.Vector3(), lookBase = new THREE.Vector3();
+
+/* ------------------------------------------------------- the room is alive
+   A 3D scene that stops dead reads as a still image, and this one had nothing
+   moving after t=4.6s. Two very small continuous signals fix that without
+   turning into an infinite-loop toy: the lamp breathes like a real filament on
+   mains, and the camera drifts a few hundredths of a unit. Both are motivated —
+   they say "this is a room, not a picture" — and both are off under
+   prefers-reduced-motion. */
+var hovering = false, hoverAmt = 0;
+var ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
+
+function pointerOverStrip(e) {
+  ptr.x = (e.clientX / innerWidth) * 2 - 1;
+  ptr.y = -(e.clientY / innerHeight) * 2 + 1;
+  ray.setFromCamera(ptr, camera);
+  return ray.intersectObject(strip, false).length > 0;
+}
 
 function frame() {
   PORTRAIT = innerWidth / innerHeight < 1.0;
@@ -760,6 +808,8 @@ function frame() {
   }
   camera.updateProjectionMatrix();
   camera.updateMatrixWorld();
+  camBase.copy(camera.position);
+  if (PORTRAIT) lookBase.copy(_c); else lookBase.set(0.05, 0.05, -0.10);
 
   if (PORTRAIT) {
     /* the whole strip is in frame now, so the pool has to cover the whole strip */
@@ -819,7 +869,7 @@ window.__framing = function () {
 var t0 = performance.now() / 1000, T = 0;
 var plate = document.getElementById('plate'), cue = document.getElementById('cue');
 var bayEl = document.getElementById('bay'), bookEl = document.getElementById('book'),
-    sheetEl = document.getElementById('sheet');
+    sheetEl = document.getElementById('sheet'), repEl = document.getElementById('rep');
 var lit = false, cued = false;
 
 /* three ratchet steps: [start time, end time, from x, to x].
@@ -968,6 +1018,24 @@ function tick(now) {
     var imp = T > impT ? Math.exp(-(T - impT) / 0.09) : 0;
     spot.intensity *= (1 - 0.12 * imp);
     strip.position.y = 0.075 - 0.05 * imp;
+
+    /* the filament never sits perfectly still */
+    spot.intensity *= 1 + 0.020 * Math.sin(T * 0.85) + 0.011 * Math.sin(T * 2.37 + 1.1);
+
+    /* hover: the strip lifts toward the light and the pool comes up with it.
+       Feedback — the whole site turns on clicking this thing, and until now it
+       gave no sign it could be clicked. */
+    hoverAmt += ((hovering ? 1 : 0) - hoverAmt) * 0.13;
+    if (hoverAmt > 0.002) {
+      strip.position.y += 0.055 * hoverAmt;
+      spot.intensity *= 1 + 0.13 * hoverAmt;
+    }
+
+    /* and the camera is held by a person, not bolted to the desk */
+    camera.position.set(camBase.x + Math.sin(T * 0.37) * 0.055,
+                        camBase.y + Math.sin(T * 0.29 + 1.3) * 0.035,
+                        camBase.z + Math.sin(T * 0.23 + 2.1) * 0.040);
+    camera.lookAt(lookBase);
     /* the holder is nudged by the strip landing in it */
     holder.position.x = Math.sin(Math.max(0, T - 1.34) * 26) * 0.012 *
                         Math.exp(-Math.max(0, T - 1.34) * 7);
@@ -1046,17 +1114,25 @@ var bookOpen = false, returnFocus = null;
 function openBook() {
   var c = CARDS[CARD];
   if (!c.art || bookOpen) return;
+  /* whatever the card's body is — a list, or grouped pills */
+  var body = '';
+  [].forEach.call(c.art.children, function (el) {
+    if (el.tagName !== 'H3' && !el.classList.contains('meta')) body += el.outerHTML;
+  });
   sheetEl.innerHTML =
     '<h3 id="bookttl">' + c.art.querySelector('h3').innerHTML + '</h3>' +
-    '<p class="meta">' + c.art.querySelector('.meta').innerHTML + '</p>' +
-    c.art.querySelector('ul').outerHTML +
+    '<p class="meta">' + c.art.querySelector('.meta').innerHTML + '</p>' + body +
     '<div class="bk"><span>' + c.f[3].t + ' &middot; ' + c.f[2].t + '</span>' +
     '<button type="button" id="bkc">Return the strip &#8593;</button></div>';
+  /* index every row so the cascade follows the reading order */
+  [].forEach.call(sheetEl.children, function (el, n) { el.style.setProperty('--i', n); });
+  [].forEach.call(sheetEl.querySelectorAll('li'), function (el, n) { el.style.setProperty('--i', n); });
   bookOpen = true;
   returnFocus = document.activeElement;
   document.documentElement.classList.add('reading');
   bookEl.classList.add('on');
   document.getElementById('bkc').addEventListener('click', closeBook);
+  repEl.style.opacity = '0'; repEl.style.pointerEvents = 'none';
   sheetEl.scrollTop = 0;
   sheetEl.focus();
 }
@@ -1065,6 +1141,7 @@ function closeBook() {
   bookOpen = false;
   document.documentElement.classList.remove('reading');
   bookEl.classList.remove('on');
+  repEl.style.opacity = ''; repEl.style.pointerEvents = '';
   /* hand focus back where it came from, or to this strip's mark in the bay */
   var back = (returnFocus && document.contains(returnFocus) && returnFocus !== document.body)
              ? returnFocus : bayEl.children[CARD];
@@ -1085,6 +1162,7 @@ addEventListener('keydown', function (e) {
   if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft'  || e.key === 'PageUp')   { e.preventDefault(); nav(-1); }
   if (e.key === 'r' || e.key === 'R') reset(true);
 });
+repEl.addEventListener('click', function () { reset(true); repEl.blur(); });
 addEventListener('wheel', function (e) {
   if (bookOpen) return;
   if (Math.abs(e.deltaY) < 8) return;
@@ -1100,7 +1178,20 @@ addEventListener('touchend', function (e) {
   touchY = null;
 });
 bookEl.addEventListener('click', function (e) { if (e.target === bookEl) closeBook(); });
-renderer.domElement.addEventListener('click', function () { if (!bookOpen && CARDS[CARD].art) openBook(); });
+renderer.domElement.addEventListener('pointermove', function (e) {
+  var over = !bookOpen && !leaving && !!CARDS[CARD].art && pointerOverStrip(e);
+  if (over !== hovering) {
+    hovering = over;
+    renderer.domElement.style.cursor = over ? 'pointer' : '';
+  }
+});
+renderer.domElement.addEventListener('pointerleave', function () {
+  hovering = false; renderer.domElement.style.cursor = '';
+});
+renderer.domElement.addEventListener('click', function (e) {
+  /* opening on a click anywhere was too loose — it fired on the empty desk */
+  if (!bookOpen && CARDS[CARD].art && pointerOverStrip(e)) openBook();
+});
 
 
 /* ---------------------------------------------------------------- the bay */
