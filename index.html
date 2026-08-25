@@ -76,8 +76,8 @@ canvas,.plate,.cue,.bay{transition:filter .45s ease,opacity .45s ease}
 /* ---- the bay: one mark per strip, the worked one filled ---- */
 .bay{position:fixed;right:clamp(16px,2.4vw,30px);top:50%;transform:translateY(-50%);
   z-index:4;display:flex;flex-direction:column;gap:3px}
-.bay button{display:block;width:34px;height:12px;padding:0;border:0;background:none;
-  cursor:pointer;line-height:0}
+.bay button{position:relative;display:block;width:34px;height:12px;padding:0;border:0;
+  background:none;cursor:pointer;line-height:0}
 /* the mark is drawn on a pseudo-element so the button keeps a 34x12 hit target
    while the rule itself stays hairline */
 .bay button::before{content:'';display:block;width:22px;height:3px;margin:4.5px 0 4.5px auto;
@@ -87,11 +87,37 @@ canvas,.plate,.cue,.bay{transition:filter .45s ease,opacity .45s ease}
 .bay button:focus{outline:none}
 .bay button:focus-visible::before{background:#EDE7D8;width:34px;
   box-shadow:0 0 0 2px rgba(200,138,46,.55)}
+/* what the strip holds, on hover and on keyboard focus. The bay is a row of
+   hairlines; without this you have to work the whole thing to find anything. */
+.bay .tip{position:absolute;right:100%;top:50%;margin-right:13px;
+  transform:translate(7px,-50%);transition:opacity .17s ease,transform .17s ease;
+  opacity:0;pointer-events:none;text-align:right;
+  padding:7px 11px 8px;border-radius:2px;border-right:2px solid #C88A2E;
+  background:rgba(9,10,13,.90);box-shadow:0 10px 30px rgba(0,0,0,.55);
+  /* right:100% with no left makes the shrink-to-fit width resolve against
+     almost no available space, so the label wrapped to its minimum content
+     width and read as a narrow column. max-content ignores that. */
+  width:max-content;max-width:min(42vw,300px)}
+.bay .tip b{display:block;font-family:Grotesk,system-ui,sans-serif;font-weight:700;
+  font-size:13px;line-height:1.22;letter-spacing:-.012em;color:#EDE7D8}
+.bay .tip i{display:block;font-style:normal;font-size:9.5px;letter-spacing:.155em;
+  text-transform:uppercase;color:#C88A2E;margin-top:5px;line-height:1.3}
+/* hover only where hovering exists; focus always, so the keyboard gets it too */
+@media (hover:hover){
+  .bay button:hover .tip{opacity:1;transform:translate(0,-50%)}
+  /* the pointer wins inside the bay: otherwise a still-focused mark keeps its
+     label up and two overlap */
+  .bay:hover button:not(:hover) .tip{opacity:0}
+}
+.bay button:focus-visible .tip{opacity:1;transform:translate(0,-50%)}
+
 @media (max-width:620px){
   .bay{right:8px}
   .bay button{width:26px}
   .bay button::before{width:15px}
   .bay button[aria-current]::before,.bay button:focus-visible::before{width:24px}
+  .bay .tip{margin-right:10px;padding:6px 9px}
+  .bay .tip b{font-size:12px}
 }
 
 /* the lamp's falloff, faked cheaply over the whole frame */
@@ -1080,10 +1106,30 @@ renderer.domElement.addEventListener('click', function () { if (!bookOpen && CAR
 /* ---------------------------------------------------------------- the bay */
 CARDS.forEach(function (c, i) {
   var b = document.createElement('button');
-  var name = c.art ? c.art.dataset.org + ', ' + c.art.dataset.period : 'On station';
+  var what = c.art ? c.art.querySelector('h3').textContent : 'On station';
+  /* the second line normally names the client, but on the cards where the
+     title already IS the client ("Listify / LISTIFY") it names the domain
+     instead, so the label never just repeats itself */
+  var who;
+  if (!c.art) {
+    who = 'Sherif Shalaby \u00B7 Sofia';
+  } else {
+    var org = c.art.dataset.org;
+    var echo = what.toUpperCase().indexOf(org) === 0 || org.indexOf(what.toUpperCase()) === 0;
+    who = (echo ? c.art.dataset.domain : org) + ' \u00B7 ' + c.art.dataset.period;
+  }
   b.type = 'button';
-  b.title = name;
-  b.setAttribute('aria-label', 'Strip ' + (i + 1) + ' of ' + CARDS.length + ': ' + name);
+  /* no title attribute: the native tooltip is slow, unstyleable, and would sit
+     on top of the real one */
+  b.setAttribute('aria-label', 'Strip ' + (i + 1) + ' of ' + CARDS.length + ': ' +
+                 what + ', ' + who);
+  var tip = document.createElement('span');
+  tip.className = 'tip';
+  tip.setAttribute('aria-hidden', 'true');   /* aria-label already says it */
+  tip.innerHTML = '<b></b><i></i>';
+  tip.querySelector('b').textContent = what;
+  tip.querySelector('i').textContent = who;
+  b.appendChild(tip);
   b.addEventListener('click', function () { goTo(i); });
   bayEl.appendChild(b);
 });
