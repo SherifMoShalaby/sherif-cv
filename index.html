@@ -75,11 +75,24 @@ canvas,.plate,.cue,.bay{transition:filter .45s ease,opacity .45s ease}
 
 /* ---- the bay: one mark per strip, the worked one filled ---- */
 .bay{position:fixed;right:clamp(16px,2.4vw,30px);top:50%;transform:translateY(-50%);
-  z-index:4;display:flex;flex-direction:column;gap:9px}
-.bay b{display:block;width:22px;height:3px;background:#4A422F;cursor:pointer;
-  transition:background .3s ease,width .3s ease}
-.bay b.on{background:#C88A2E;width:34px}
-@media (max-width:620px){.bay{right:10px}.bay b{width:15px}.bay b.on{width:24px}}
+  z-index:4;display:flex;flex-direction:column;gap:3px}
+.bay button{display:block;width:34px;height:12px;padding:0;border:0;background:none;
+  cursor:pointer;line-height:0}
+/* the mark is drawn on a pseudo-element so the button keeps a 34x12 hit target
+   while the rule itself stays hairline */
+.bay button::before{content:'';display:block;width:22px;height:3px;margin:4.5px 0 4.5px auto;
+  background:#4A422F;transition:background .3s ease,width .3s ease}
+.bay button[aria-current]::before{background:#C88A2E;width:34px}
+.bay button:hover::before{background:#8A7A52}
+.bay button:focus{outline:none}
+.bay button:focus-visible::before{background:#EDE7D8;width:34px;
+  box-shadow:0 0 0 2px rgba(200,138,46,.55)}
+@media (max-width:620px){
+  .bay{right:8px}
+  .bay button{width:26px}
+  .bay button::before{width:15px}
+  .bay button[aria-current]::before,.bay button:focus-visible::before{width:24px}
+}
 
 /* the lamp's falloff, faked cheaply over the whole frame */
 .vig{position:fixed;inset:0;pointer-events:none;
@@ -796,7 +809,9 @@ function loadCard(i) {
       '<p class="mt">' + c.art.querySelector('.meta').innerHTML + '</p>';
   cue.textContent = SIGN ? 'Scroll to work the strip'
                          : 'Enter or tap the strip to read the log';
-  [].forEach.call(bayEl.children, function (b, n) { b.classList.toggle('on', n === i); });
+  [].forEach.call(bayEl.children, function (b, n) {
+    if (n === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+  });
 }
 
 /* ------------------------------------------------- the fit is a contract
@@ -991,7 +1006,7 @@ function nav(d) {
 }
 
 /* ------------------------------------------------------------- the logbook */
-var bookOpen = false;
+var bookOpen = false, returnFocus = null;
 function openBook() {
   var c = CARDS[CARD];
   if (!c.art || bookOpen) return;
@@ -1002,6 +1017,7 @@ function openBook() {
     '<div class="bk"><span>' + c.f[3].t + ' &middot; ' + c.f[2].t + '</span>' +
     '<button type="button" id="bkc">Return the strip &#8593;</button></div>';
   bookOpen = true;
+  returnFocus = document.activeElement;
   document.documentElement.classList.add('reading');
   bookEl.classList.add('on');
   document.getElementById('bkc').addEventListener('click', closeBook);
@@ -1013,12 +1029,21 @@ function closeBook() {
   bookOpen = false;
   document.documentElement.classList.remove('reading');
   bookEl.classList.remove('on');
+  /* hand focus back where it came from, or to this strip's mark in the bay */
+  var back = (returnFocus && document.contains(returnFocus) && returnFocus !== document.body)
+             ? returnFocus : bayEl.children[CARD];
+  if (back && back.focus) back.focus();
+  returnFocus = null;
 }
 
 /* ------------------------------------------------------------------ input */
 addEventListener('keydown', function (e) {
   if (e.key === 'Escape') { closeBook(); return; }
   if (bookOpen) return;
+  /* a focused bay button activates itself on Enter/Space — without this the
+     global handler would fire too and open the log of the strip being left */
+  var onBay = e.target && e.target.closest && e.target.closest('.bay');
+  if (onBay && (e.key === 'Enter' || e.key === ' ')) return;
   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBook(); return; }
   if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); nav(1); }
   if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft'  || e.key === 'PageUp')   { e.preventDefault(); nav(-1); }
@@ -1044,8 +1069,11 @@ renderer.domElement.addEventListener('click', function () { if (!bookOpen && CAR
 
 /* ---------------------------------------------------------------- the bay */
 CARDS.forEach(function (c, i) {
-  var b = document.createElement('b');
-  b.title = c.art ? c.art.dataset.org + ' — ' + c.art.dataset.period : 'On station';
+  var b = document.createElement('button');
+  var name = c.art ? c.art.dataset.org + ', ' + c.art.dataset.period : 'On station';
+  b.type = 'button';
+  b.title = name;
+  b.setAttribute('aria-label', 'Strip ' + (i + 1) + ' of ' + CARDS.length + ': ' + name);
   b.addEventListener('click', function () { goTo(i); });
   bayEl.appendChild(b);
 });
