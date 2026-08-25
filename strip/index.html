@@ -1,0 +1,1280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sherif Shalaby — Software Architect</title>
+<meta name="description" content="Sherif Shalaby, Software Architect in Sofia, Bulgaria. Twelve years across aviation, energy, government and defence, and recruitment.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0C0E'/%3E%3Crect x='4' y='13' width='24' height='6' fill='%23E4DDCB'/%3E%3Crect x='22' y='13' width='6' height='6' fill='%23C88A2E'/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:'Plex Mono';src:url(../vendor/plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Plex Mono';src:url(../vendor/plex-mono-500-latin.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Grotesk';src:url(../vendor/space-grotesk-latin.woff2) format('woff2');font-weight:400 700;font-display:swap}
+
+*{box-sizing:border-box}
+/* Document mode is the DEFAULT: with JS off this file is a plain, readable CV
+   and nothing below the .js rules ever applies. */
+html,body{margin:0;background:#08090B}
+#cv{max-width:76ch;margin:0 auto;padding:clamp(30px,6vw,86px) clamp(20px,5vw,40px);
+  position:relative;z-index:5;color:#CFC9BA;font-size:15px;line-height:1.66}
+#cv h1{font-family:Grotesk,system-ui,sans-serif;font-weight:700;letter-spacing:-.03em;
+  font-size:clamp(32px,5vw,52px);line-height:1.02;color:#EDE7D8;margin:0 0 12px}
+#cv h2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#C88A2E;
+  margin:44px 0 14px;font-weight:500}
+#cv h3{font-family:Grotesk,system-ui,sans-serif;font-size:19px;color:#EDE7D8;margin:26px 0 4px}
+#cv .sub,#cv .meta{font-size:12px;letter-spacing:.09em;color:#8A8271;margin:0 0 6px}
+#cv ul{margin:10px 0 0;padding-left:18px}#cv li{margin:0 0 8px}
+#cv dt{color:#C88A2E;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:12px}
+#cv dd{margin:3px 0 0}
+#cv a{color:#E4DDCB}
+
+/* ---- with JS, the 3D scene takes over and #cv becomes the accessible source
+   the strips and the logbook are built from. Visually hidden, not removed. ---- */
+html.js,html.js body{height:100%;overflow:hidden}
+html.js #cv{position:fixed;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+body{font-family:'Plex Mono',ui-monospace,Menlo,monospace;color:#C9C3B4}
+canvas{display:none}
+html.js canvas{display:block;position:fixed;inset:0;width:100%;height:100%}
+html:not(.js) .vig,html:not(.js) .grain,html:not(.js) .plate,
+html:not(.js) .cue,html:not(.js) .hud,html:not(.js) .rep,html:not(.js) .bay{display:none}
+
+/* ---- the logbook. Pulling a strip out of the bay opens the page it indexes.
+   Deliberately NOT a modal: the scene dims as depth rather than being covered
+   by a scrim, and the sheet rises from where the strip sits. ---- */
+.book{position:fixed;inset:0;z-index:7;opacity:0;pointer-events:none;
+  transition:opacity .42s ease;display:grid;place-items:center;padding:3.2vh 3vw}
+.book.on{opacity:1;pointer-events:auto}
+html.reading canvas{filter:brightness(.30) saturate(.72)}
+html.reading .plate,html.reading .cue,html.reading .bay{opacity:0 !important}
+canvas,.plate,.cue,.bay{transition:filter .45s ease,opacity .45s ease}
+.sheet{width:min(860px,100%);max-height:94vh;overflow:auto;position:relative;
+  background:linear-gradient(176deg,#F5EDDD 0%,#EDE3CE 46%,#E2D6BC 100%);
+  color:#241F19;padding:clamp(26px,4.2vw,56px) clamp(22px,4vw,58px) clamp(30px,4vw,54px);
+  box-shadow:0 44px 130px rgba(0,0,0,.72),0 1px 0 rgba(255,255,255,.55) inset;
+  transform:translateY(34px) scale(.975);transition:transform .5s cubic-bezier(.2,.75,.2,1);
+  border-left:7px solid #C88A2E}
+.book.on .sheet{transform:none}
+.sheet:focus{outline:none}
+/* Motivated motion (skill §5): the log is read top to bottom, so it arrives top
+   to bottom. Sequence matches the reading order — it is not decoration. */
+@keyframes logIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.book.on .sheet > *{animation:logIn .46s cubic-bezier(.2,.75,.2,1) backwards;
+  animation-delay:calc(var(--i,0) * 48ms)}
+.book.on .sheet li{animation:logIn .46s cubic-bezier(.2,.75,.2,1) backwards;
+  animation-delay:calc((var(--i,0) + 2) * 48ms)}
+@media (prefers-reduced-motion:reduce){
+  .book.on .sheet > *,.book.on .sheet li{animation:none}
+}
+.sheet h3{font-family:Grotesk,system-ui,sans-serif;font-weight:700;letter-spacing:-.02em;
+  font-size:clamp(23px,3.3vw,36px);line-height:1.1;margin:0 0 8px;color:#1B1712}
+.sheet .meta{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:#7C6A44;margin:0 0 26px}
+.sheet ul{margin:0;padding:0;list-style:none}
+.sheet li{position:relative;padding-left:26px;margin:0 0 15px;font-size:clamp(13.5px,1.5vw,15.5px);
+  line-height:1.62;color:#332D24}
+.sheet li::before{content:'';position:absolute;left:2px;top:.62em;width:12px;height:2px;
+  background:#C88A2E}
+.sheet li b{color:#1B1712;font-weight:600}
+.sheet a{color:#8A5E14}
+/* A capability list is breadth, not prose: eleven hairline rows is the spec-sheet
+   default the skill bans outright. Grouped pills scan in one pass. */
+.sheet .grp{margin:0 0 22px}
+.sheet .grp h4{margin:0 0 9px;font-size:10px;letter-spacing:.17em;text-transform:uppercase;
+  color:#8A6A2E;font-weight:600}
+.sheet .pills{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+.sheet .pills span{display:inline-block;padding:5px 10px;font-size:12px;line-height:1.25;
+  color:#2E2820;background:rgba(40,32,20,.055);border:1px solid rgba(40,32,20,.13);
+  border-radius:2px}
+.bk{margin-top:30px;padding-top:16px;border-top:1px solid rgba(40,32,20,.22);
+  display:flex;justify-content:space-between;gap:14px;align-items:baseline;
+  font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;color:#7C6A44}
+.bk button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:#8A5E14;
+  background:none;border:0;padding:0;cursor:pointer;border-bottom:1px solid rgba(138,94,20,.4)}
+
+/* ---- the bay: one mark per strip, the worked one filled ---- */
+.bay{position:fixed;right:clamp(16px,2.4vw,30px);top:50%;transform:translateY(-50%);
+  z-index:4;display:flex;flex-direction:column;gap:3px}
+.bay button{position:relative;display:block;width:34px;height:12px;padding:0;border:0;
+  background:none;cursor:pointer;line-height:0}
+/* the mark is drawn on a pseudo-element so the button keeps a 34x12 hit target
+   while the rule itself stays hairline */
+.bay button::before{content:'';display:block;width:22px;height:3px;margin:4.5px 0 4.5px auto;
+  background:#3E4854;transition:background .3s ease,width .3s ease,transform .3s ease;
+  transform-origin:100% 50%;
+  /* the incoming strip passes straight through the bay's column on its way to
+     the holder, so for about a second these sit on lit cream paper. Without a
+     dark halo they read as specks on the page rather than as instrument marks. */
+  box-shadow:0 0 4px 1px rgba(6,8,12,.55)}
+
+/* THE ACTIVE MARK IS DRIVEN BY THE STRIP, NOT BY A CSS TRANSITION.
+   --prog is written once a frame from the strip's real position on the rail, so
+   the mark extends in the same three ratchet steps the paper does, settles when
+   the paper settles, and retracts as the outgoing strip is pulled off. A CSS
+   transition would only have looked similar; this IS the same motion.
+   --hit flashes on each print strike, decayed in the same loop. */
+.bay button[aria-current]::before{
+  width:calc(22px + 13px * var(--prog,0));
+  background:#C88A2E;   /* fallback: anything without color-mix still gets amber */
+  background:color-mix(in oklab,#3E4854,#C88A2E calc(35% + 65% * var(--prog,0)));
+  box-shadow:0 0 4px 1px rgba(6,8,12,.55),
+             0 0 calc(9px * var(--hit,0)) rgba(216,166,87,calc(.85 * var(--hit,0)));
+  filter:brightness(calc(1 + .55 * var(--hit,0)))}
+
+/* the bay fills on arrival, one mark at a time, top down */
+@keyframes markIn{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
+.bay button::before{animation:markIn .42s cubic-bezier(.2,.75,.2,1) backwards;
+  animation-delay:calc(var(--n,0) * 42ms + 250ms)}
+
+.bay button:hover::before{background:#78889B;transform:translateX(-3px)}
+.bay button:focus{outline:none}
+.bay button:focus-visible::before{background:#EDE7D8;width:34px;
+  box-shadow:0 0 0 2px rgba(200,138,46,.55)}
+@media (prefers-reduced-motion:reduce){
+  .bay button::before{animation:none}
+  .bay button[aria-current]::before{width:34px;background:#C88A2E;filter:none}
+}
+/* what the strip holds, on hover and on keyboard focus. The bay is a row of
+   hairlines; without this you have to work the whole thing to find anything. */
+.bay .tip{position:absolute;right:100%;top:50%;margin-right:13px;
+  transform:translate(7px,-50%);transition:opacity .17s ease,transform .17s ease;
+  opacity:0;pointer-events:none;text-align:right;
+  padding:7px 11px 8px;border-radius:2px;border-right:2px solid #C88A2E;
+  background:rgba(9,10,13,.90);box-shadow:0 10px 30px rgba(0,0,0,.55);
+  /* right:100% with no left makes the shrink-to-fit width resolve against
+     almost no available space, so the label wrapped to its minimum content
+     width and read as a narrow column. max-content ignores that. */
+  width:max-content;max-width:min(42vw,300px)}
+.bay .tip b{display:block;font-family:Grotesk,system-ui,sans-serif;font-weight:700;
+  font-size:13px;line-height:1.22;letter-spacing:-.012em;color:#EDE7D8}
+.bay .tip i{display:block;font-style:normal;font-size:9.5px;letter-spacing:.155em;
+  text-transform:uppercase;color:#C88A2E;margin-top:5px;line-height:1.3}
+/* hover only where hovering exists; focus always, so the keyboard gets it too */
+@media (hover:hover){
+  .bay button:hover .tip{opacity:1;transform:translate(0,-50%)}
+  /* the pointer wins inside the bay: otherwise a still-focused mark keeps its
+     label up and two overlap */
+  .bay:hover button:not(:hover) .tip{opacity:0}
+}
+.bay button:focus-visible .tip{opacity:1;transform:translate(0,-50%)}
+
+@media (max-width:620px){
+  .bay{right:8px}
+  .bay button{width:26px}
+  .bay button::before{width:15px}
+  .bay button[aria-current]::before,.bay button:focus-visible::before{width:24px}
+  .bay .tip{margin-right:10px;padding:6px 9px}
+  .bay .tip b{font-size:12px}
+}
+
+/* the lamp's falloff, faked cheaply over the whole frame */
+.vig{position:fixed;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 78% 62% at 47% 44%,transparent 0%,transparent 44%,rgba(4,5,7,.42) 76%,rgba(4,5,7,.88) 100%)}
+.grain{position:fixed;inset:0;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* the only DOM copy in the shot — set in the dark, beneath the light */
+.plate{position:fixed;left:clamp(22px,5vw,74px);bottom:clamp(24px,5vh,64px);z-index:3;
+  opacity:0;transform:translateY(9px);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.plate.on{opacity:1;transform:none}
+.plate .nm{font-family:Grotesk,system-ui,sans-serif;font-weight:700;letter-spacing:-.028em;
+  font-size:clamp(30px,4.4vw,54px);line-height:1;color:#EDE7D8;margin:0 0 10px}
+/* a job title is not a name — it runs long and must not span half the frame */
+.plate.sm{max-width:min(52ch,46vw)}
+.plate.sm .nm{font-size:clamp(20px,2.5vw,31px);line-height:1.14}
+.plate .mt{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7C8694;margin:0}
+.plate .mt b{color:#D8A657;font-weight:500}
+
+.cue{position:fixed;right:clamp(22px,5vw,74px);bottom:clamp(26px,5vh,66px);z-index:3;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;color:#6A7482;
+  opacity:0;transition:opacity .45s ease 0s}
+.cue.on{opacity:1}
+
+.hud{position:fixed;left:clamp(22px,5vw,74px);top:clamp(20px,4vh,44px);z-index:3;
+  font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:#5A6472}
+
+/* The opening is the whole verb of this site and it plays once. Removing this
+   button meant anyone landing after it finished never saw the site move at all. */
+.rep{position:fixed;right:clamp(22px,5vw,74px);top:clamp(20px,4vh,44px);z-index:5;
+  font:500 10.5px/1 'Plex Mono',monospace;letter-spacing:.15em;text-transform:uppercase;
+  color:#7A8493;background:rgba(14,17,22,.72);border:1px solid rgba(150,170,195,.18);
+  padding:8px 12px;border-radius:2px;cursor:pointer}
+.rep:hover,.rep:focus-visible{color:#D8A657;border-color:rgba(216,166,87,.5);outline:none;
+  transform:translateY(-1px)}
+.rep:active{transform:translateY(0)}
+.rep{transition:color .2s ease,border-color .2s ease,transform .2s cubic-bezier(.2,.75,.2,1)}
+
+@media (max-width:620px){
+  /* stack the cue above the plate instead of letting it overprint the location */
+  .cue{right:auto;left:clamp(22px,5vw,74px);bottom:calc(clamp(24px,5vh,64px) + 104px)}
+  .hud{display:none}
+  .rep{right:auto;left:clamp(22px,5vw,74px);top:clamp(14px,2.4vh,28px);padding:7px 10px}
+}
+@media (prefers-reduced-motion:reduce){
+  .plate{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="hud" id="hud"><a href="../" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(150,170,195,.3)">&#8592; Sherif Shalaby</a> · the interactive version</div>
+<button class="rep" id="rep" type="button">Replay ⏎ R</button>
+
+
+<div class="vig"></div>
+<div class="grain"></div>
+
+<div class="plate" id="plate">
+  <p class="nm">Sherif Shalaby</p>
+  <p class="mt">Sofia, Bulgaria · <b>on station</b></p>
+</div>
+<div class="cue" id="cue">Scroll to work the strip</div>
+<nav class="bay" id="bay" aria-label="Strip bay"></nav>
+<div class="book" id="book" role="dialog" aria-modal="true" aria-labelledby="bookttl">
+  <div class="sheet" id="sheet" tabindex="-1"></div>
+</div>
+
+
+<!-- ===================================================================
+     THE CV ITSELF. This is the content, in real markup: with JavaScript
+     off it is the whole site and it reads as a document. With JS on it is
+     the single source both the strips and the logbook are built from, so
+     nothing is written twice. The phone number on the CV is deliberately
+     not here — email and LinkedIn only.
+     =================================================================== -->
+<main id="cv">
+  <header>
+    <h1>Sherif Shalaby</h1>
+    <p class="sub">Software Architect &middot; Sofia, Bulgaria</p>
+    <p class="sub">Java / Spring Boot &middot; AI &amp; RAG Systems &middot; Angular &middot; Distributed Systems</p>
+  </header>
+
+  <section id="profile">
+    <h2>Profile</h2>
+    <p>Software Architect with 12+ years in enterprise software across aviation, energy, government and defence, and recruitment. Progressed from hands-on developer to architect, technical lead and service delivery manager, leading cross-functional teams while staying deeply hands-on. Specialised in Java/Spring Boot backends, hexagonal and event-driven architecture, and full-stack delivery with Angular — and currently owning the architecture of a production retrieval-augmented AI platform on Spring AI and pgvector.</p>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <article class="role" id="r0" data-org="ENTELLIGENCE" data-role="TECH LEAD &amp; ARCHITECTURE OWNER" data-period="2026 – NOW" data-domain="AI / RAG">
+      <h3>AI Staffing Platform</h3>
+      <p class="meta">Entelligence &middot; via Avenga &middot; May 2026 – present</p>
+      <ul>
+      <li>Own the architecture of an AI staffing platform: a retrieval-augmented chat built on Java 25 and Spring AI over PostgreSQL/pgvector, streaming answers through a tool-calling loop, with an Angular front end on AWS ECS provisioned via Terraform.</li>
+      <li>Ran a ~20-ticket technical-debt programme across both stacks — session revocation, signed invitation and reset tokens, third-party sync moved out of the request transaction into a transactional outbox, and an Angular 20 → 21 upgrade.</li>
+      <li>Built the verification the project did not have: a one-button end-to-end harness that boots a throwaway database and both applications for ~50 Playwright tests, plus a model-evaluation suite scoring RAG answers for relevance and factuality.</li>
+      <li>Set the engineering standards the team writes and reviews code against, including the AI-assisted review and planning workflow now shared across the repository; own backlog planning, architecture overviews and code review.</li>
+      </ul>
+    </article>
+    <article class="role" id="r1" data-org="HITACHI ENERGY" data-role="SOFTWARE ARCHITECT" data-period="2025 – 2026" data-domain="ENERGY">
+      <h3>Web Risk Review &amp; ProMIS Modernisation</h3>
+      <p class="meta">Hitachi Energy &middot; via Avenga &middot; July 2025 – April 2026</p>
+      <ul>
+      <li>Driving migration of the legacy ProMIS platform from WildFly/JSF to Java 21 / Spring Boot 3.4 microservices, applying hexagonal architecture and an API-first, OpenAPI-generated contract layer.</li>
+      <li>Containerised the legacy application so it runs side by side with the new services on a shared database — keeping the business fully operational throughout a phased migration.</li>
+      <li>Implemented multi-datasource transaction management, Liquibase schema delivery, Elasticsearch-backed search, and Keycloak/OIDC authentication behind an Nginx routing layer.</li>
+      <li>Raised the quality baseline with JUnit 5, Mockito, REST Assured and WireMock, and led refactoring that cut the technical debt blocking new feature work.</li>
+      </ul>
+    </article>
+    <article class="role" id="r2" data-org="MUBADALA GROUP" data-role="SERVICE DELIVERY MANAGER" data-period="2025" data-domain="DELIVERY">
+      <h3>TAKAFO Delivery Ownership</h3>
+      <p class="meta">Mubadala Group &middot; via Musala Soft &middot; January – June 2025</p>
+      <ul>
+      <li>Ran a six-person delivery team as Service Delivery Manager for TAKAFO, owning Musala Soft’s delivery relationship with Mubadala while continuing in the Software Architect role.</li>
+      <li>Held contractual accountability for the engagement — SLA and uptime commitments, scope and change requests, and client steering and escalation with Mubadala.</li>
+      <li>Delivered every scheduled release on time across the six-month term with no P1 incidents escaping to production.</li>
+      </ul>
+    </article>
+    <article class="role" id="r3" data-org="INDRA AVITECH" data-role="TEAM LEAD" data-period="2023 – 2024" data-domain="AVIATION">
+      <h3>Digital NOTAM Platform for EUROCONTROL</h3>
+      <p class="meta">Indra Avitech &middot; via Musala Soft &middot; August 2023 – December 2024</p>
+      <ul>
+      <li>Led a cross-functional team building a new Conventional and Digital NOTAM processing system for EUROCONTROL, engineered for 100,000 NOTAMs per day with 24/7 availability.</li>
+      <li>Owned story analysis, sprint planning, code review and milestone delivery; set architectural standards and mentored engineers on quality and design.</li>
+      <li>Led integrations with core aviation systems (INO, AFTN, PIB), ensuring reliable data exchange and operational consistency with external air navigation systems.</li>
+      <li>Designed and built a real-time operations dashboard for monitoring incoming NOTAM traffic and live system health.</li>
+      <li>Delivered Quarkus services with Kafka event streaming, PostgreSQL and MongoDB persistence, Keycloak authentication, and OpenShift/Kubernetes deployment.</li>
+      </ul>
+    </article>
+    <article class="role" id="r4" data-org="MUBADALA GROUP" data-role="SENIOR SOFTWARE ENGINEER" data-period="2021 – 2023" data-domain="RECRUITMENT">
+      <h3>TAKAFO Recruitment Platform</h3>
+      <p class="meta">Mubadala Group &middot; via Musala Soft &middot; January 2021 – July 2023</p>
+      <ul>
+      <li>Delivered backend and frontend of the group-wide recruitment platform — JobSeeker portal, Takafo UI, and an admin portal for managing job opportunities and matching algorithms.</li>
+      <li>Designed Elasticsearch queries powering recruitment analytics and statistical insight for HR stakeholders.</li>
+      <li>Mentored junior and mid-level engineers, led code reviews, and drove refactoring that improved maintainability across the codebase.</li>
+      <li>Coordinated releases with DevOps and owned production support, keeping the platform stable for hiring across Mubadala Group companies.</li>
+      </ul>
+    </article>
+    <article class="role" id="r5" data-org="EJADA SYSTEMS" data-role="SENIOR SOFTWARE ENGINEER" data-period="2014 – 2020" data-domain="GOV / DEFENCE">
+      <h3>CONNECT — Enterprise Service Bus</h3>
+      <p class="meta">Ejada Systems Ltd &middot; Cairo, Egypt &middot; February 2014 – July 2020</p>
+      <ul>
+      <li>Built CONNECT, an ESB integrating in-house ERP systems via Apache Camel and RabbitMQ, plus a runtime administration and request/response auditing console in Angular and Spring Boot.</li>
+      <li>Designed and delivered an internal flight reservation platform for Saudi Border Guards: REST APIs for the mobile team, pessimistic and optimistic seat locking across a clustered deployment, Dijkstra-based shortest-path routing, and a “Flight Cure” admin tool to repair broken flights after outages.</li>
+      <li>Implemented an organisation-wide workflow engine on Flowable (BPMN and CMMN), automating multi-level approval processes and improving process visibility.</li>
+      <li>Delivered ERP systems for military intelligence, employee case management and border case tracking using Java EE, SOA, JSF 2.1, JMS, PrimeFaces, Hibernate and Jasper Reports over Oracle 11g and MS SQL.</li>
+      <li>Led technical design and database design, and managed deployments across WebLogic, Tomcat, TomEE and WildFly.</li>
+      </ul>
+    </article>
+    <article class="role" id="r6" data-org="LISTIFY" data-role="PRODUCT OWNER &amp; LEAD DEV" data-period="2018 – 2020" data-domain="INDEPENDENT">
+      <h3>Listify</h3>
+      <p class="meta">Independent project &middot; July 2018 – December 2020</p>
+      <ul>
+      <li>Defined the product vision and led a five-person team as Product Owner for a cross-platform list, task and note application built with Angular, Ionic, Cordova and Cloud Firestore.</li>
+      <li>Ran the full Scrum cycle — backlog management, prioritisation and sprint reviews — while owning the technical design, API layer and UI.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section id="more">
+    <h2>Capability &amp; contact</h2>
+
+    <article class="role" id="r7" data-org="CORE SKILLS" data-role="JAVA / SPRING / ANGULAR / AI" data-period="12+ YRS" data-domain="STACK">
+      <h3>Core skills</h3>
+      <p class="meta">Twelve years of production stack &middot; aviation, energy, government, recruitment</p>
+      <div class="grp"><h4>Languages</h4><p class="pills"><span>Java 8–25</span><span>TypeScript</span><span>JavaScript</span><span>Python</span><span>SQL</span></p></div>
+      <div class="grp"><h4>Backend</h4><p class="pills"><span>Spring Boot 3.x</span><span>Spring AI</span><span>Spring Security / Data / Cloud</span><span>Quarkus</span><span>Jakarta EE</span><span>Hibernate / JPA</span><span>REST &amp; OpenAPI</span><span>GraphQL</span><span>SOAP</span></p></div>
+      <div class="grp"><h4>Architecture</h4><p class="pills"><span>Microservices</span><span>Hexagonal</span><span>DDD</span><span>Event-Driven</span><span>API-First</span><span>ESB / Apache Camel</span><span>BPMN &amp; CMMN</span><span>Flowable</span><span>Camunda</span></p></div>
+      <div class="grp"><h4>Frontend</h4><p class="pills"><span>Angular 5–21</span><span>RxJS</span><span>NgRx</span><span>Angular Material</span><span>SCSS</span><span>Ionic</span><span>Flutter</span></p></div>
+      <div class="grp"><h4>Data</h4><p class="pills"><span>PostgreSQL</span><span>pgvector</span><span>Oracle</span><span>MS SQL Server</span><span>MongoDB</span><span>Elasticsearch</span><span>Liquibase</span><span>Ehcache</span></p></div>
+      <div class="grp"><h4>Messaging</h4><p class="pills"><span>Apache Kafka</span><span>RabbitMQ</span><span>ActiveMQ / JMS</span></p></div>
+      <div class="grp"><h4>Cloud &amp; DevOps</h4><p class="pills"><span>Docker</span><span>Kubernetes</span><span>OpenShift</span><span>Azure</span><span>AWS ECS</span><span>Terraform</span><span>Jenkins</span><span>GitLab CI/CD</span><span>SonarQube</span><span>Nginx</span><span>Maven</span><span>Git</span></p></div>
+      <div class="grp"><h4>Security</h4><p class="pills"><span>Keycloak</span><span>OAuth2 / OIDC</span><span>SAML</span><span>LDAP</span></p></div>
+      <div class="grp"><h4>Testing</h4><p class="pills"><span>JUnit 5</span><span>Mockito</span><span>REST Assured</span><span>WireMock</span><span>Playwright</span><span>TDD</span><span>Jasmine / Karma</span><span>Postman</span></p></div>
+      <div class="grp"><h4>AI engineering</h4><p class="pills"><span>RAG</span><span>Vector search &amp; embeddings</span><span>Tool-calling agents</span><span>Streaming responses</span><span>Model evaluation harnesses</span></p></div>
+      <div class="grp"><h4>Leadership</h4><p class="pills"><span>Team leadership</span><span>Service delivery management</span><span>Mentoring</span><span>Code review</span><span>Technical design</span><span>Scrum / Kanban</span><span>Stakeholder management</span></p></div>
+    </article>
+
+    <article class="role" id="r8" data-org="ON STATION" data-role="SOFIA, BULGARIA" data-period="OPEN" data-domain="HANDOVER">
+      <h3>Handover</h3>
+      <p class="meta">The watch is yours &middot; Sofia, Bulgaria</p>
+      <ul>
+        <li><b>Email</b> — <a href="mailto:sherif.mo.shalaby@gmail.com">sherif.mo.shalaby@gmail.com</a></li>
+        <li><b>LinkedIn</b> — <a href="https://linkedin.com/in/sherif-mo-shalaby" rel="me">linkedin.com/in/sherif-mo-shalaby</a></li>
+        <li><b>Education</b> — BSc, Computer Engineering, Faculty of Engineering, Cairo University, Egypt (2008–2013)</li>
+        <li><b>Languages</b> — Arabic (native) &middot; English (professional working) &middot; French (limited working)</li>
+        <li><b>Certifications</b> — SystemsExpert, algoexpert.io (2023) &middot; Intro to DevOps, Udacity (2022) &middot; Building a Search Engine, Udacity (2021) &middot; Divide and Conquer, Sorting and Searching, and Randomized Algorithms, Coursera (2021) &middot; Angular — The Complete Guide, Udemy (2020)</li>
+      </ul>
+    </article>
+  </section>
+</main>
+
+<script>document.documentElement.className='js';</script>
+<script src="../vendor/three.min.js"></script>
+<script>
+/* ============================================================================
+   HANDOVER — opening prototype
+   One controller's flight progress strip under a desk lamp. The strip feeds in
+   on a ratchet, an impact head strikes the fields onto it, and the last box is
+   left open with the head still sitting at it — the career is not closed out.
+
+   This is the first five seconds only. No scroll, no sections, no CV. The point
+   is to answer one question before anything else gets built: does this feel
+   like something, or is it another handsome empty room?
+   ========================================================================== */
+
+THREE.ColorManagement.legacyMode = false;
+
+var REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------------------------------------------------------------- renderer */
+var canvas = document.createElement('canvas');
+document.body.insertBefore(canvas, document.querySelector('.vig'));
+
+var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 1.85));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;   /* built in — no hand-rolled composite */
+renderer.toneMappingExposure = 0.92;
+renderer.outputEncoding = THREE.sRGBEncoding;
+
+var scene = new THREE.Scene();
+scene.background = new THREE.Color(0x08090B);
+scene.fog = new THREE.Fog(0x08090B, 16, 34);
+
+var camera = new THREE.PerspectiveCamera(33, innerWidth / innerHeight, 0.1, 120);
+
+/* ------------------------------------------------------------------ canvas
+   textures. Everything printed on the strip is drawn here — the same trick the
+   previous build used to paint runway markings, pointed at paper instead. */
+
+function noiseCanvas(w, h, base, amp, grain) {
+  var c = document.createElement('canvas'); c.width = w; c.height = h;
+  var x = c.getContext('2d'), img = x.createImageData(w, h), d = img.data, i, n;
+  for (i = 0; i < w * h; i++) {
+    n = base + (Math.random() - 0.5) * amp;
+    /* a coarser blotch on top of the per-pixel grain, so it is not TV static */
+    if ((i % w) % grain === 0 || Math.floor(i / w) % grain === 0) n -= amp * 0.18;
+    d[i * 4] = n; d[i * 4 + 1] = n * 0.985; d[i * 4 + 2] = n * 0.95; d[i * 4 + 3] = 255;
+  }
+  x.putImageData(img, 0, 0);
+  return c;
+}
+
+function tex(c, rx, ry) {
+  var t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  if (rx) t.repeat.set(rx, ry);
+  t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  return t;
+}
+
+/* ---------------------------------------------------------------- the desk */
+var deskCol = tex(noiseCanvas(256, 256, 30, 16, 7), 5, 5);
+deskCol.encoding = THREE.sRGBEncoding;
+var deskBump = tex(noiseCanvas(256, 256, 128, 90, 5), 5, 5);
+
+var desk = new THREE.Mesh(
+  new THREE.PlaneGeometry(70, 46),
+  new THREE.MeshStandardMaterial({
+    color: 0x15171A, map: deskCol, bumpMap: deskBump, bumpScale: 0.012,
+    roughness: 0.94, metalness: 0.02
+  })
+);
+desk.rotation.x = -Math.PI / 2;
+desk.receiveShadow = true;
+scene.add(desk);
+
+/* --------------------------------------------------------------- the strip
+   Real flight progress strips are about 200 x 25 mm — 8:1. The face is drawn
+   at 2048 x 256 and used as colour AND bump, so the impact head dents the
+   paper it prints on. */
+
+var SW = 8.0, SH = 1.0;                       /* strip, in scene units */
+var FC = document.createElement('canvas');    /* face canvas */
+FC.width = 2048; FC.height = 256;
+var fx = FC.getContext('2d');
+
+/* the paper itself, drawn once and kept as the base layer */
+var PAPER = document.createElement('canvas');
+PAPER.width = 2048; PAPER.height = 256;
+(function () {
+  var p = PAPER.getContext('2d'), i, g;
+  p.fillStyle = '#E4DDCB'; p.fillRect(0, 0, 2048, 256);
+  /* fibre */
+  for (i = 0; i < 5200; i++) {
+    p.fillStyle = 'rgba(' + (150 + Math.random() * 60 | 0) + ',' +
+      (140 + Math.random() * 55 | 0) + ',' + (120 + Math.random() * 50 | 0) + ',' +
+      (0.03 + Math.random() * 0.05).toFixed(3) + ')';
+    p.fillRect(Math.random() * 2048, Math.random() * 256, 1 + Math.random() * 3, 1);
+  }
+  /* a warm gradient across the sheet — the lamp is off to one side */
+  g = p.createLinearGradient(0, 0, 2048, 256);
+  g.addColorStop(0, 'rgba(255,236,200,.10)');
+  g.addColorStop(0.55, 'rgba(255,240,214,.03)');
+  g.addColorStop(1, 'rgba(90,80,64,.09)');
+  p.fillStyle = g; p.fillRect(0, 0, 2048, 256);
+})();
+
+/* the field grid — real strips are ruled into boxes and the boxes carry meaning */
+var DIV = [552, 1266, 1524, 1782];   /* vertical rules */
+
+/* Fields. `t` is the struck text; `lab` is the pre-printed box label (the form
+   is printed before anyone fills it in, so labels are always there). */
+/* ================================================================== CARDS
+   One strip per card. Card 0 is the name card and is the only one that gets
+   signed off; the rest are the jobs, read straight out of #cv so the strip
+   and the page can never drift apart.
+
+   The two form layouts are different pre-printed stock, which is why the
+   field geometry travels with the card rather than being global. */
+var DIV_NAME = [552, 1266, 1524, 1782];
+var DIV_ROLE = [620, 1400, 1720];
+
+var CARDS = [{
+  sign: true, div: DIV_NAME, art: null,
+  f: [{ x: 40,   lab: 'NAME',    t: 'SHALABY',            size: 92 },
+      { x: 592,  lab: 'ROLE',    t: 'SOFTWARE ARCHITECT', size: 58 },
+      { x: 1306, lab: 'SECTOR',  t: 'SOF',                size: 62 },
+      { x: 1564, lab: 'ON STN',  t: '2026',               size: 62 },
+      { x: 1822, lab: 'CLEARED', t: '',                   size: 62 }]
+}];
+
+[].forEach.call(document.querySelectorAll('#cv .role'), function (a) {
+  CARDS.push({
+    sign: false, div: DIV_ROLE, art: a,
+    f: [{ x: 40,   lab: 'ORG',    t: a.dataset.org,    size: 48 },
+        { x: 660,  lab: 'ROLE',   t: a.dataset.role,   size: 38 },
+        { x: 1440, lab: 'DOMAIN', t: a.dataset.domain, size: 32 },
+        { x: 1760, lab: 'PERIOD', t: a.dataset.period, size: 38 }]
+  });
+});
+
+var CARD = 0, FIELDS = CARDS[0].f, DIV = CARDS[0].div, JIT = [], SIGN = true;
+var STAMP_T = 3.52, PLATE_T = 3.74, CUE_T = 4.06, HEAD_GO = 3.02;
+
+function jitter(fields) {
+  return fields.map(function (f) {
+    return f.t.split('').map(function () {
+      return { dy: (Math.random() - 0.5) * 2.2, dx: (Math.random() - 0.5) * 1.4,
+               a: 0.80 + Math.random() * 0.20 };
+    });
+  });
+}
+
+/* Strikes are derived from the copy, not hand-timed per card: a short field
+   lands in one blow, a long one in three. */
+function burstsFor(fields) {
+  var out = [], t = 1.58;
+  fields.forEach(function (f, i) {
+    if (!f.t) return;
+    var n = f.t.length, chunks = n <= 4 ? 1 : (n <= 11 ? 2 : 3), k;
+    for (k = 1; k <= chunks; k++) { out.push([t, i, Math.round(n * k / chunks)]); t += 0.135; }
+    t += 0.17;
+  });
+  return out;
+}
+
+var struck = [];                  /* how many chars of each field have landed */
+var headX = 40, headOn = 0;       /* the print head's position and glow */
+var stamp = 0;                    /* the CLEARED sign-off, 0..1 */
+
+/* right-hand rule of a field's box. The pre-printed dividers define the box,
+   not FIELDS[].w — that is a nominal hint and does not match the rules. */
+function fieldRight(fi) { return (fi < DIV.length ? DIV[fi] : 2040) - 12; }
+
+function drawFace() {
+  fx.clearRect(0, 0, 2048, 256);
+  fx.drawImage(PAPER, 0, 0);
+
+  /* pre-printed form: rules and labels, in a faded process blue */
+  fx.strokeStyle = 'rgba(58,74,96,.34)'; fx.lineWidth = 3;
+  DIV.forEach(function (x) {
+    fx.beginPath(); fx.moveTo(x, 14); fx.lineTo(x, 242); fx.stroke();
+  });
+  fx.strokeRect(8, 8, 2032, 240);
+
+  fx.font = '500 26px "Plex Mono", monospace';
+  fx.fillStyle = 'rgba(58,74,96,.52)';
+  FIELDS.forEach(function (f) {
+    fx.fillText(f.lab, f.x, 52);
+  });
+
+  /* struck characters — impact printing: uppercase, jittered, uneven ink.
+     Each field is clipped to its own box: measureText only advances the
+     cursor, so without this a long title strikes straight across the
+     divider into the next field. Overflow is cut at the rule, as it would
+     be on a real pre-printed form. */
+  FIELDS.forEach(function (f, fi) {
+    if (!f.t) return;
+    fx.save();
+    fx.beginPath();
+    fx.rect(f.x - 8, 60, fieldRight(fi) - f.x + 2, 182);
+    fx.clip();
+    fx.font = '500 ' + f.size + 'px "Plex Mono", monospace';
+    var cx = f.x, i, ch, j;
+    for (i = 0; i < struck[fi]; i++) {
+      ch = f.t[i]; j = JIT[fi][i];
+      fx.fillStyle = 'rgba(26,24,22,' + j.a.toFixed(2) + ')';
+      fx.fillText(ch, cx + j.dx, 186 + j.dy);
+      cx += fx.measureText(ch).width;
+    }
+    fx.restore();
+  });
+
+  /* D6: the sign-off. The whole sequence teaches a left-to-right ritual and
+     used to stop one cell short. The stamp is the premise of the site. */
+  if (stamp > 0.01 && SIGN) {
+    var f4 = FIELDS[4], sx = f4.x + 100, sy = 150;
+    fx.save();
+    fx.translate(sx, sy);
+    fx.rotate(-0.055);
+    fx.globalAlpha = Math.min(1, stamp);
+    /* struck slightly oversize then settling is what an ink stamp does */
+    var sc = 1 + 0.10 * Math.pow(1 - Math.min(1, stamp), 2);
+    fx.scale(sc, sc);
+    fx.strokeStyle = 'rgba(122,26,20,.92)'; fx.lineWidth = 6;
+    fx.strokeRect(-104, -44, 208, 88);
+    fx.font = '600 44px "Plex Mono", monospace';
+    fx.fillStyle = 'rgba(122,26,20,.94)';
+    fx.textAlign = 'center'; fx.textBaseline = 'middle';
+    fx.fillText('CLEARED', 0, 4);
+    fx.textAlign = 'left'; fx.textBaseline = 'alphabetic';
+    fx.restore();
+  }
+
+  faceTex.needsUpdate = true;
+  bumpTex.needsUpdate = true;
+}
+
+window.__fx = fx;
+var faceTex = new THREE.CanvasTexture(FC);
+
+faceTex.encoding = THREE.sRGBEncoding;
+faceTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+window.__faceTex = faceTex;
+var bumpTex = new THREE.CanvasTexture(FC);
+bumpTex.anisotropy = faceTex.anisotropy;
+
+/* paper never lies flat — bow the plane very slightly across its length */
+var stripGeo = new THREE.PlaneGeometry(SW, SH, 48, 6);
+(function () {
+  var pos = stripGeo.attributes.position, i, x, y;
+  for (i = 0; i < pos.count; i++) {
+    x = pos.getX(i); y = pos.getY(i);
+    pos.setZ(i, Math.cos(x / SW * Math.PI * 1.15) * 0.030 + Math.cos(y * 2.4) * 0.012);
+  }
+  stripGeo.computeVertexNormals();
+})();
+
+var strip = new THREE.Mesh(stripGeo, new THREE.MeshStandardMaterial({
+  map: faceTex, bumpMap: bumpTex, bumpScale: -0.010,
+  roughness: 0.93, metalness: 0.0, side: THREE.FrontSide
+}));
+strip.rotation.x = -Math.PI / 2;
+strip.position.y = 0.075;
+strip.castShadow = true; strip.receiveShadow = true;
+
+/* the holder — coloured plastic, the one saturated object in frame.
+   Amber is not decoration: on a real board the holder colour encodes the kind
+   of traffic. Here it encodes the kind of work. */
+var holder = new THREE.Group();
+(function () {
+  var mat = new THREE.MeshStandardMaterial({
+    color: 0xB4762A, roughness: 0.28, metalness: 0.06
+  });
+  var t = 0.085, o = 0.20;                                  /* rail thickness / overhang */
+  var long = new THREE.BoxGeometry(SW + o * 2, 0.10, t);
+  var end  = new THREE.BoxGeometry(t, 0.10, SH + o * 2 - t * 2);
+  [[0, (SH + o * 2 - t) / 2], [0, -(SH + o * 2 - t) / 2]].forEach(function (p) {
+    var m = new THREE.Mesh(long, mat); m.position.set(p[0], 0.05, p[1]);
+    m.castShadow = true; m.receiveShadow = true; holder.add(m);
+  });
+  [[(SW + o * 2 - t) / 2, 0], [-(SW + o * 2 - t) / 2, 0]].forEach(function (p) {
+    var m = new THREE.Mesh(end, mat); m.position.set(p[0], 0.05, p[1]);
+    m.castShadow = true; m.receiveShadow = true; holder.add(m);
+  });
+  /* base tray the paper actually sits on */
+  var tray = new THREE.Mesh(
+    new THREE.BoxGeometry(SW + o * 2, 0.045, SH + o * 2),
+    new THREE.MeshStandardMaterial({ color: 0x7A4E1B, roughness: 0.42, metalness: 0.05 })
+  );
+  tray.position.y = 0.022; tray.receiveShadow = true; tray.castShadow = true;
+  holder.add(tray);
+})();
+var board = new THREE.Group();
+board.add(holder);
+board.add(strip);
+scene.add(board);
+
+/* the slot the strip feeds out of, off to the right */
+var slot = new THREE.Mesh(
+  new THREE.BoxGeometry(2.2, 1.5, 3.0),
+  new THREE.MeshStandardMaterial({ color: 0x0D0E10, roughness: 0.8, metalness: 0.15 })
+);
+slot.position.set(8.4, 0.75, 0);
+slot.castShadow = true; slot.receiveShadow = true;
+board.add(slot);
+/* ponytail: hidden in portrait. It only reads as a machine from the landscape
+   framing; on a phone the camera travels past it and it becomes a dark slab
+   with no explanation. Show it again if portrait ever gets a wider shot. */
+
+/* D4: the head is a real object standing above the paper. It used to be a
+   fillRect painted INTO the face texture — coplanar with the sheet, so it
+   could not occlude, could not cast a shadow and could not descend. It read
+   as a text cursor. Now it descends on each strike and the contact shadow
+   does the work of selling the impact. */
+var head = new THREE.Group();
+(function () {
+  var body = new THREE.Mesh(
+    new THREE.BoxGeometry(0.20, 0.26, 0.40),
+    /* machined steel, not a silhouette: near-black on lit paper read as a hole
+       punched in the sheet. It has to catch the lamp to read as an object. */
+    new THREE.MeshStandardMaterial({ color: 0x8A8F98, roughness: 0.26, metalness: 0.88 })
+  );
+  body.position.y = 0.17; body.castShadow = true;
+  head.add(body);
+  /* the hot underside — the only emissive surface in the scene */
+  var hot = new THREE.Mesh(
+    new THREE.BoxGeometry(0.15, 0.04, 0.32),
+    new THREE.MeshStandardMaterial({
+      color: 0xD8963C, emissive: 0xD8963C, emissiveIntensity: 1.1, roughness: 0.5
+    })
+  );
+  hot.position.y = 0.026;
+  head.add(hot);
+})();
+var HEAD_UP = 0.58, HEAD_DOWN = 0.15;
+head.position.set(-4, HEAD_UP, 0.23);
+head.visible = false;
+board.add(head);
+/* canvas x (0..2048) -> the strip's own x in world units */
+function headWorldX(cx) { return strip.position.x + (cx + 22) / 2048 * SW - SW / 2; }
+
+/* ---------------------------------------------------------------- the lamp */
+var lampGroup = new THREE.Group();
+lampGroup.position.set(-3.1, 4.6, 2.6);
+scene.add(lampGroup);
+
+var shade = new THREE.Mesh(
+  new THREE.ConeGeometry(1.5, 1.5, 40, 1, true),
+  new THREE.MeshStandardMaterial({ color: 0x1C1E22, roughness: 0.45, metalness: 0.6,
+    side: THREE.DoubleSide })
+);
+shade.position.y = 0.4;
+shade.castShadow = false;
+/* ponytail: the fixture is modelled but not shown. Looking almost straight down
+   at a desk, a shade floating with no arm read as a black smudge over the pool
+   rather than as a lamp. Turn it on again if the camera ever drops to a low
+   angle where a shade and an arm would actually read. */
+shade.visible = false;
+lampGroup.add(shade);
+
+/* the bulb, so the shade's inside is hot */
+var bulb = new THREE.Mesh(
+  new THREE.SphereGeometry(0.16, 16, 12),
+  new THREE.MeshBasicMaterial({ color: 0xFFE0B0 })
+);
+bulb.visible = false;
+lampGroup.add(bulb);
+
+var spot = new THREE.SpotLight(0xFFD3A0, 0, 26, 0.40, 0.78, 1.7);
+spot.position.copy(lampGroup.position);
+spot.target.position.set(0.5, 0, -0.1);
+spot.castShadow = true;
+spot.shadow.mapSize.set(2048, 2048);
+spot.shadow.camera.near = 1; spot.shadow.camera.far = 24;
+spot.shadow.bias = -0.0009;
+spot.shadow.radius = 2.2;
+scene.add(spot); scene.add(spot.target);
+
+/* a very small cool fill so the far edges are not pure void */
+/* A cool fill light was tried here and removed. Swept 0 -> 2.2: the dark desk
+   moved from B-R -6.1 to only -4.3, because everything outside the pool is
+   near-black by design and ACES crushes it further. Making it read would have
+   meant lifting the shadows, which is the one thing about this scene that
+   already works. The temperature separation lives in the interface layer
+   instead (see the chrome colours): the object is warm tungsten, the
+   instrument furniture around it is cold. */
+scene.add(new THREE.HemisphereLight(0x24313F, 0x05060A, 0.16));
+/* a low warm bounce off the desk, which real paper under a lamp always gets */
+var bounce = new THREE.PointLight(0xFFB870, 0.09, 10, 2);
+bounce.position.set(1.2, 0.5, 2.6);
+scene.add(bounce);
+
+/* ------------------------------------------------------------- the framing */
+var PORTRAIT = false;
+/* PORTRAIT COMPOSITION
+   The earlier version reasoned about the strip crossing a 390px WIDTH, decided
+   an 8:1 object could not do it legibly, and had the camera watch one station
+   at a time and travel between them. That was the wrong axis. A 390x844 screen
+   has a 928px DIAGONAL — within a pixel or two of the 934px the strip gets in
+   landscape — so the whole object fits at the same size, and nothing has to be
+   cut off or travelled to.
+
+   The strip stays along world X; the CAMERA rolls instead, which puts the strip
+   on the screen diagonal without rotating the board into depth. Distance is
+   then solved rather than guessed, so it holds at any phone size. */
+var _c = new THREE.Vector3();
+
+function fitStrip(target) {
+  var dir = _fitDir, d = 11, k, bx, over;
+  for (k = 0; k < 22; k++) {
+    camera.position.copy(_c).addScaledVector(dir, d);
+    camera.lookAt(_c);
+    camera.updateProjectionMatrix();
+    camera.updateMatrixWorld();
+    bx = screenBox(0, 2048);
+    over = Math.max(Math.abs(bx.x0), Math.abs(bx.x1), Math.abs(bx.y0), Math.abs(bx.y1));
+    if (!isFinite(over) || over <= 0) break;
+    if (Math.abs(over - target) < 0.005) break;
+    d *= over / target;                       /* apparent size goes as 1/d */
+  }
+  return d;
+}
+var _fitDir = new THREE.Vector3();
+var camBase = new THREE.Vector3(), lookBase = new THREE.Vector3();
+
+/* ------------------------------------------------------- the room is alive
+   A 3D scene that stops dead reads as a still image, and this one had nothing
+   moving after t=4.6s. Two very small continuous signals fix that without
+   turning into an infinite-loop toy: the lamp breathes like a real filament on
+   mains, and the camera drifts a few hundredths of a unit. Both are motivated —
+   they say "this is a room, not a picture" — and both are off under
+   prefers-reduced-motion. */
+var hovering = false, hoverAmt = 0, bayProg = -1, bayHit = -1;
+var ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
+
+function pointerOverStrip(e) {
+  ptr.x = (e.clientX / innerWidth) * 2 - 1;
+  ptr.y = -(e.clientY / innerHeight) * 2 + 1;
+  ray.setFromCamera(ptr, camera);
+  return ray.intersectObject(strip, false).length > 0;
+}
+
+function frame() {
+  PORTRAIT = innerWidth / innerHeight < 1.0;
+  /* Portrait cannot hold an 8:1 object across the short axis at a readable size,
+     so it does not try. The board swings into depth: the NAME box sits near and
+     large, the rest of the strip recedes toward the feed slot. The phone becomes
+     a lamp held over one end of a document rather than a shrunk-down desk. */
+  board.rotation.y = 0;
+  camera.fov = PORTRAIT ? 32 : 36;
+  camera.aspect = innerWidth / innerHeight;
+  slot.visible = !PORTRAIT;
+  if (PORTRAIT) {
+    /* roll the camera so the strip lies along the screen diagonal, then solve
+       the distance that makes it fill that diagonal with a margin */
+    /* Roll so the strip runs top-left to bottom-right: the first field (ORG)
+       lands at the top and the form reads downward, the way the eye already
+       scans. Rolled the other way the strip read bottom-to-top like a book
+       spine, and its lower end sat exactly where the title plate does. */
+    var ang = Math.atan2(innerHeight, innerWidth) * 0.94;
+    camera.up.set(-Math.sin(ang), Math.cos(ang), 0);
+    _c.set(0, 0.05, 0); board.localToWorld(_c);
+    /* looking down steeply keeps foreshortening off the 1-unit width, which is
+       what carries the type */
+    _fitDir.set(-0.06, 0.90, 0.43).normalize();
+    fitStrip(0.90);
+  } else {
+    camera.up.set(0, 1, 0);
+    camera.position.set(-0.9, 8.6, 8.6);
+    camera.lookAt(0.05, 0.05, -0.10);
+  }
+  camera.updateProjectionMatrix();
+  camera.updateMatrixWorld();
+  camBase.copy(camera.position);
+  if (PORTRAIT) lookBase.copy(_c); else lookBase.set(0.05, 0.05, -0.10);
+
+  if (PORTRAIT) {
+    /* the whole strip is in frame now, so the pool has to cover the whole strip */
+    lampGroup.position.set(-1.2, 6.4, 3.0);
+    spot.target.position.set(0.2, 0, -0.05);
+    spot.angle = 0.74;
+  } else {
+    /* The pool has to REACH the sign-off. Aimed at -0.9 with a 0.56 cone it
+       stopped around canvas x~1950 of 2048, so the CLEARED stamp — the payoff
+       of the whole sequence — was landing outside the light and reading as a
+       cut-off edge. Verified with a ruler painted across the face: the tick at
+       2040 never made it to screen. */
+    lampGroup.position.set(-1.4, 6.0, 3.2);
+    spot.target.position.set(0.55, 0, -0.05);
+    spot.angle = 0.70;
+  }
+  spot.position.copy(lampGroup.position);
+  spot.target.updateMatrixWorld();
+}
+
+/* Declared before the first frame(). fitStrip measures the strip at its home
+   position, so an undefined STRIP_HOME made screenBox return NaN, which tripped
+   the solver's isFinite guard on iteration zero and left the camera parked at its
+   arbitrary starting distance — on every phone, identically. */
+var STRIP_HOME = 0, STRIP_START = 9.6;
+
+frame();
+
+/* xa/xb are positions along the strip in canvas pixels (0..2048) */
+function screenBox(xa, xb) {
+  var v = new THREE.Vector3(), x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9, i, lx;
+  board.updateMatrixWorld(true);
+  for (i = 0; i < 4; i++) {
+    lx = ((i & 1 ? xb : xa) / 2048 - 0.5) * SW + STRIP_HOME;
+    v.set(lx, strip.position.y, (i & 2 ? 0.5 : -0.5) * SH);
+    board.localToWorld(v).project(camera);
+    x0 = Math.min(x0, v.x); x1 = Math.max(x1, v.x);
+    y0 = Math.min(y0, v.y); y1 = Math.max(y1, v.y);
+  }
+  return { x0: x0, x1: x1, y0: y0, y1: y1 };
+}
+window.__framing = function () {
+  /* Landscape must hold the whole strip. Portrait only has to hold the NAME box
+     (canvas 0-552) fully and legibly; the rest is allowed to run off toward the
+     slot, which is the point of the portrait composition. */
+  /* One contract for both orientations again: the whole strip is in frame.
+     Portrait earns that by using the diagonal instead of the width. */
+  return { portrait: PORTRAIT, full: screenBox(0, 2048),
+           name: screenBox(0, 552), role: screenBox(552, 1266),
+           watched: screenBox(0, 2048) };
+};
+
+/* ================================================================ TIMELINE
+   Discrete cues, not one long ramp. The whole point of a ratchet is that it
+   ARRIVES — three hard stops, each one audible if this had sound. */
+
+var t0 = performance.now() / 1000, T = 0;
+var plate = document.getElementById('plate'), cue = document.getElementById('cue');
+var bayEl = document.getElementById('bay'), bookEl = document.getElementById('book'),
+    sheetEl = document.getElementById('sheet'), repEl = document.getElementById('rep');
+var lit = false, cued = false;
+
+/* three ratchet steps: [start time, end time, from x, to x].
+   Equal bites of 3.2 units each — a pawl takes the same bite every time; the
+   old steps were 4.8 / 3.3 / 3.1 with the first almost entirely off-frame, so
+   the visible motion accelerated instead of repeating. Move 90ms, dwell 240ms:
+   a fast snap and a long rest, not a 50/50 duty cycle at 3Hz. */
+var STEPS = [
+  [0.55, 0.64, STRIP_START, 6.4],
+  [0.88, 0.97, 6.4, 3.2],
+  [1.21, 1.30, 3.2, STRIP_HOME]
+];
+/* card 0 comes up out of black; every card after it arrives into a lit room */
+var firstRun = true;
+/* bursts: [time, field index, chars] — the head does not type, it strikes */
+var BURSTS = [];
+var burstAt = 0, headParked = 40, impT = -9;
+
+/* ---------------------------------------------------------- load a card */
+function loadCard(i) {
+  CARD = i;
+  var c = CARDS[i];
+  FIELDS = c.f; DIV = c.div; SIGN = c.sign;
+  JIT = jitter(FIELDS);
+  BURSTS = burstsFor(FIELDS);
+  var last = BURSTS.length ? BURSTS[BURSTS.length - 1][0] : 1.6;
+  HEAD_GO = last + 0.16;
+  STAMP_T = SIGN ? last + 0.62 : last + 0.30;
+  PLATE_T = STAMP_T + 0.24;
+  CUE_T   = STAMP_T + 0.56;
+  plate.classList.toggle('sm', !SIGN);
+  plate.innerHTML = SIGN
+    ? '<p class="nm">Sherif Shalaby</p><p class="mt">Sofia, Bulgaria &middot; <b>on station</b></p>'
+    : '<p class="nm">' + c.art.querySelector('h3').innerHTML + '</p>' +
+      '<p class="mt">' + c.art.querySelector('.meta').innerHTML + '</p>';
+  cue.textContent = SIGN ? 'Scroll to work the strip'
+                         : 'Enter or tap the strip to read the log';
+  [].forEach.call(bayEl.children, function (b, n) {
+    if (n === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+  });
+}
+
+/* ------------------------------------------------- the fit is a contract
+   43 characters was the whole reason this direction nearly died, so the
+   budget is asserted at boot against real measured advances rather than
+   re-checked by hand per card. The clip guard would otherwise make an
+   overflow a SILENT truncation. */
+function assertFits() {
+  var bad = [];
+  CARDS.forEach(function (c, ci) {
+    c.f.forEach(function (f, fi) {
+      if (!f.t) return;
+      fx.font = '500 ' + f.size + 'px "Plex Mono", monospace';
+      var w = fx.measureText(f.t).width;
+      var box = (fi < c.div.length ? c.div[fi] : 2040) - 12 - f.x;
+      if (w > box) bad.push('card ' + ci + ' ' + f.lab + ' "' + f.t + '" ' +
+                            Math.round(w) + 'px in ' + Math.round(box) + 'px box');
+    });
+  });
+  if (bad.length) throw new Error('STRIP OVERFLOW\n  ' + bad.join('\n  '));
+  return CARDS.length;
+}
+
+var forced = false;
+function reset(force) {
+  if (force) forced = true;
+  t0 = performance.now() / 1000;
+  struck = FIELDS.map(function () { return 0; });
+  burstAt = 0; lit = false; cued = false;
+  stamp = 0; impT = -9; headParked = 40; headX = 40;
+  head.visible = false; head.position.y = HEAD_UP;
+  plate.classList.remove('on'); cue.classList.remove('on');
+  strip.position.x = STRIP_START; strip.position.y = 0.075; holder.position.x = 0;
+  if (REDUCED && !force) skipToEnd();
+  drawFace();
+}
+
+function skipToEnd() {
+  struck = FIELDS.map(function (f) { return f.t.length; });
+  burstAt = BURSTS.length;
+  firstRun = false;
+  strip.position.x = STRIP_HOME; strip.position.y = 0.075;
+  spot.intensity = 10.1;
+  stamp = SIGN ? 1 : 0; headOn = 0;
+  headX = SIGN ? FIELDS[4].x + 76 : fieldRight(FIELDS.length - 1) - 40;
+  head.visible = false;
+  plate.classList.add('on'); cue.classList.add('on');
+  lit = cued = true;
+  drawFace();
+}
+
+/* easeOutQuart: a pawl releases and the strip is thrown — it does not spool up.
+   easeInOutCubic spent 25% of each step covering 6% of its travel, which is a
+   servo, not a ratchet. */
+function ease(u) { return 1 - Math.pow(1 - u, 4); }
+
+function tick(now) {
+  requestAnimationFrame(tick);
+  T = now / 1000 - t0;
+
+  if (!REDUCED || forced) {
+    /* the lamp comes up first — the room exists before anything happens in it */
+    var ramp = firstRun ? Math.min(1, Math.max(0, (T - 0.10) / 0.55)) : 1;
+    spot.intensity = 10.1 * ramp;
+    bulb.material.color.setScalar(ramp);
+    if (firstRun && T > 0.70) firstRun = false;
+
+    /* the outgoing strip is pulled left, out of the pool, before the next
+       one is fed in — the bay never holds two strips at the station */
+    if (leaving) {
+      var lv = Math.min(1, (T - leaveFrom) / 0.30);
+      strip.position.x = STRIP_HOME - 11.4 * (lv * lv);
+      head.visible = false;
+      if (lv >= 1) {
+        leaving = false;
+        loadCard(pendingIx);
+        reset(!REDUCED);
+      }
+      renderer.render(scene, camera);
+      return;
+    }
+
+    /* ratchet */
+    var i, s, u, x = strip.position.x;
+    for (i = 0; i < STEPS.length; i++) {
+      s = STEPS[i];
+      if (T >= s[0]) {
+        u = Math.min(1, (T - s[0]) / (s[1] - s[0]));
+        x = s[2] + (s[3] - s[2]) * ease(u);
+        /* D1: the settle begins AT arrival and decays afterwards. The old term
+           was sin((u-0.82)/0.18*PI)*0.055, which is sin(PI)=0 at u=1 — the
+           overshoot cancelled itself at the exact instant of arrival, so every
+           step dead-stopped on its number and nothing in the shot ever settled.
+           0.13 units is ~15px on screen; the old 0.055 was 6px over two frames. */
+        var dt = T - s[1];
+        if (dt >= 0 && dt < 0.5) {
+          x += (s[3] > s[2] ? 1 : -1) * 0.13 * Math.sin(dt * 33) * Math.exp(-dt * 10.5);
+        }
+      }
+    }
+    strip.position.x = x;
+
+    /* D4: one decaying impulse per strike. The lamp dips because the head
+       eats the light on its way down, and the paper is driven into the tray —
+       the contact shadow is what the eye actually reads as impact. */
+    var imp = T > impT ? Math.exp(-(T - impT) / 0.09) : 0;
+    spot.intensity *= (1 - 0.12 * imp);
+    strip.position.y = 0.075 - 0.05 * imp;
+
+    /* the filament never sits perfectly still */
+    spot.intensity *= 1 + 0.020 * Math.sin(T * 0.85) + 0.011 * Math.sin(T * 2.37 + 1.1);
+
+    /* hover: the strip lifts toward the light and the pool comes up with it.
+       Feedback — the whole site turns on clicking this thing, and until now it
+       gave no sign it could be clicked. */
+    hoverAmt += ((hovering ? 1 : 0) - hoverAmt) * 0.13;
+    if (hoverAmt > 0.002) {
+      strip.position.y += 0.055 * hoverAmt;
+      spot.intensity *= 1 + 0.13 * hoverAmt;
+    }
+
+    /* the bay mark rides the strip. 0 when the paper is off at the slot, 1 when
+       it is home and square in the holder. */
+    var prog = 1 - Math.min(1, Math.abs(strip.position.x) / STRIP_START);
+    if (Math.abs(prog - bayProg) > 0.002) {
+      bayProg = prog;
+      bayEl.style.setProperty('--prog', prog.toFixed(3));
+    }
+    var hit = T > impT ? Math.exp(-(T - impT) / 0.16) : 0;
+    if (Math.abs(hit - bayHit) > 0.004) {
+      bayHit = hit;
+      bayEl.style.setProperty('--hit', hit.toFixed(3));
+    }
+
+    /* and the camera is held by a person, not bolted to the desk */
+    camera.position.set(camBase.x + Math.sin(T * 0.37) * 0.055,
+                        camBase.y + Math.sin(T * 0.29 + 1.3) * 0.035,
+                        camBase.z + Math.sin(T * 0.23 + 2.1) * 0.040);
+    camera.lookAt(lookBase);
+    /* the holder is nudged by the strip landing in it */
+    holder.position.x = Math.sin(Math.max(0, T - 1.34) * 26) * 0.012 *
+                        Math.exp(-Math.max(0, T - 1.34) * 7);
+
+    /* strikes */
+    while (burstAt < BURSTS.length && T >= BURSTS[burstAt][0]) {
+      var b = BURSTS[burstAt];
+      struck[b[1]] = b[2];
+      headX = headParked = Math.min(
+        fieldRight(b[1]) - 30,
+        FIELDS[b[1]].x + b[2] * FIELDS[b[1]].size * 0.60
+      );
+      impT = T;
+      burstAt++;
+      drawFace();
+    }
+
+    /* the wider pool lights the head all the way up, so it has to be cut,
+       not just raised — it used to hang in the black above the strip */
+    head.visible = T > 1.44 && T < STAMP_T + 0.55;
+
+    /* the head crosses to the empty box, strikes it, and lifts away.
+       D5: this is what used to be 2 seconds of freeze frame. */
+    if (SIGN) {
+      if (T > HEAD_GO && T < STAMP_T) {
+        headX = headParked + (FIELDS[4].x + 76 - headParked) *
+                ease(Math.min(1, (T - HEAD_GO) / (STAMP_T - HEAD_GO)));
+      }
+      if (T >= STAMP_T) {
+        if (stamp === 0) impT = T;
+        var ns = Math.min(1, (T - STAMP_T) / 0.20);
+        if (ns !== stamp) { stamp = ns; drawFace(); }
+        headX = FIELDS[4].x + 76;
+      }
+    }
+
+    head.position.x = headWorldX(headX);
+    head.position.y = (T >= STAMP_T + 0.26)
+      ? HEAD_UP + 0.9 * Math.min(1, (T - STAMP_T - 0.26) / 0.5)   /* lifts out of shot */
+      : HEAD_UP - (HEAD_UP - HEAD_DOWN) * imp;
+
+    if (!lit && T > PLATE_T) { plate.classList.add('on'); lit = true; }
+    if (!cued && T > CUE_T) { cue.classList.add('on'); cued = true; }
+  }
+
+  renderer.render(scene, camera);
+}
+
+addEventListener('resize', function () {
+  renderer.setSize(innerWidth, innerHeight);
+  frame();
+});
+/* ============================================================ WORKING THE BAY
+   A strip bay ratchets. So does this: there is no free scroll — one gesture
+   moves one strip, the outgoing one is pulled left out of the pool and the
+   next is fed in from the slot and struck. The opening is not a title
+   sequence, it is the site's only verb, run once per card. */
+var leaving = false, leaveFrom = 0, pendingIx = -1, lastNav = 0;
+
+function goTo(i) {
+  if (bookOpen || leaving || i === CARD || i < 0 || i >= CARDS.length) return;
+  pendingIx = i; leaving = true; leaveFrom = T;
+  lit = cued = false;
+  plate.classList.remove('on'); cue.classList.remove('on');
+}
+
+function nav(d) {
+  var now = performance.now();
+  if (now - lastNav < 260) return;          /* one gesture, one strip */
+  lastNav = now;
+  /* the bay wraps. A real bay is worked round and round, and dead-ending on the
+     last strip left the only exit as scrolling back up through nine of them.
+     Wrapped here rather than in goTo(), because goTo() also takes an absolute
+     index from the bay marks, where an out-of-range index is a bug, not a wrap. */
+  goTo((CARD + d + CARDS.length) % CARDS.length);
+}
+
+/* ------------------------------------------------------------- the logbook */
+var bookOpen = false, returnFocus = null;
+function openBook() {
+  var c = CARDS[CARD];
+  if (!c.art || bookOpen) return;
+  /* whatever the card's body is — a list, or grouped pills */
+  var body = '';
+  [].forEach.call(c.art.children, function (el) {
+    if (el.tagName !== 'H3' && !el.classList.contains('meta')) body += el.outerHTML;
+  });
+  sheetEl.innerHTML =
+    '<h3 id="bookttl">' + c.art.querySelector('h3').innerHTML + '</h3>' +
+    '<p class="meta">' + c.art.querySelector('.meta').innerHTML + '</p>' + body +
+    '<div class="bk"><span>' + c.f[3].t + ' &middot; ' + c.f[2].t + '</span>' +
+    '<button type="button" id="bkc">Return the strip &#8593;</button></div>';
+  /* index every row so the cascade follows the reading order */
+  [].forEach.call(sheetEl.children, function (el, n) { el.style.setProperty('--i', n); });
+  [].forEach.call(sheetEl.querySelectorAll('li'), function (el, n) { el.style.setProperty('--i', n); });
+  bookOpen = true;
+  returnFocus = document.activeElement;
+  document.documentElement.classList.add('reading');
+  bookEl.classList.add('on');
+  document.getElementById('bkc').addEventListener('click', closeBook);
+  repEl.style.opacity = '0'; repEl.style.pointerEvents = 'none';
+  sheetEl.scrollTop = 0;
+  sheetEl.focus();
+}
+function closeBook() {
+  if (!bookOpen) return;
+  bookOpen = false;
+  document.documentElement.classList.remove('reading');
+  bookEl.classList.remove('on');
+  repEl.style.opacity = ''; repEl.style.pointerEvents = '';
+  /* hand focus back where it came from, or to this strip's mark in the bay */
+  var back = (returnFocus && document.contains(returnFocus) && returnFocus !== document.body)
+             ? returnFocus : bayEl.children[CARD];
+  if (back && back.focus) back.focus();
+  returnFocus = null;
+}
+
+/* ------------------------------------------------------------------ input */
+addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') { closeBook(); return; }
+  if (bookOpen) return;
+  /* a focused bay button activates itself on Enter/Space — without this the
+     global handler would fire too and open the log of the strip being left */
+  var onBay = e.target && e.target.closest && e.target.closest('.bay');
+  if (onBay && (e.key === 'Enter' || e.key === ' ')) return;
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBook(); return; }
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); nav(1); }
+  if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft'  || e.key === 'PageUp')   { e.preventDefault(); nav(-1); }
+  if (e.key === 'r' || e.key === 'R') reset(true);
+});
+repEl.addEventListener('click', function () { reset(true); repEl.blur(); });
+addEventListener('wheel', function (e) {
+  if (bookOpen) return;
+  if (Math.abs(e.deltaY) < 8) return;
+  nav(e.deltaY > 0 ? 1 : -1);
+}, { passive: true });
+
+var touchY = null;
+addEventListener('touchstart', function (e) { if (!bookOpen) touchY = e.touches[0].clientY; }, { passive: true });
+addEventListener('touchend', function (e) {
+  if (bookOpen || touchY === null) return;
+  var dy = touchY - e.changedTouches[0].clientY;
+  if (Math.abs(dy) > 42) nav(dy > 0 ? 1 : -1);
+  touchY = null;
+});
+bookEl.addEventListener('click', function (e) { if (e.target === bookEl) closeBook(); });
+renderer.domElement.addEventListener('pointermove', function (e) {
+  var over = !bookOpen && !leaving && !!CARDS[CARD].art && pointerOverStrip(e);
+  if (over !== hovering) {
+    hovering = over;
+    renderer.domElement.style.cursor = over ? 'pointer' : '';
+  }
+});
+renderer.domElement.addEventListener('pointerleave', function () {
+  hovering = false; renderer.domElement.style.cursor = '';
+});
+renderer.domElement.addEventListener('click', function (e) {
+  /* opening on a click anywhere was too loose — it fired on the empty desk */
+  if (!bookOpen && CARDS[CARD].art && pointerOverStrip(e)) openBook();
+});
+
+
+/* ---------------------------------------------------------------- the bay */
+CARDS.forEach(function (c, i) {
+  var b = document.createElement('button');
+  var what = c.art ? c.art.querySelector('h3').textContent : 'On station';
+  /* the second line normally names the client, but on the cards where the
+     title already IS the client ("Listify / LISTIFY") it names the domain
+     instead, so the label never just repeats itself */
+  var who;
+  if (!c.art) {
+    who = 'Sherif Shalaby \u00B7 Sofia';
+  } else {
+    var org = c.art.dataset.org;
+    var echo = what.toUpperCase().indexOf(org) === 0 || org.indexOf(what.toUpperCase()) === 0;
+    who = (echo ? c.art.dataset.domain : org) + ' \u00B7 ' + c.art.dataset.period;
+  }
+  b.type = 'button';
+  /* no title attribute: the native tooltip is slow, unstyleable, and would sit
+     on top of the real one */
+  b.setAttribute('aria-label', 'Strip ' + (i + 1) + ' of ' + CARDS.length + ': ' +
+                 what + ', ' + who);
+  var tip = document.createElement('span');
+  tip.className = 'tip';
+  tip.setAttribute('aria-hidden', 'true');   /* aria-label already says it */
+  tip.innerHTML = '<b></b><i></i>';
+  tip.querySelector('b').textContent = what;
+  tip.querySelector('i').textContent = who;
+  b.appendChild(tip);
+  b.style.setProperty('--n', i);
+  b.addEventListener('click', function () { goTo(i); });
+  bayEl.appendChild(b);
+});
+
+console.log('strip fit: ' + assertFits() + ' cards, all fields inside their boxes');
+loadCard(0);
+reset();
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>

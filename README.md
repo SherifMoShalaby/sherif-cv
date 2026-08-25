@@ -1,60 +1,61 @@
-# Handover
+# sherif-cv
 
-A personal CV site for **Sherif Shalaby**, Software Architect (Sofia, Bulgaria),
-built as a set of air-traffic-control flight progress strips.
+Personal site for **Sherif Shalaby** — Software Architect & Staff Engineer, Sofia, Bulgaria.
 
-Each strip is an index card — organisation, role, period, domain — struck into
-paper by a print head under a desk lamp. Opening a strip opens its logbook page,
-which carries the full text for that role. The last strip hands over the watch.
+Live: <https://sherifmoshalaby.github.io/sherif-cv/>
 
-Live: `index.html` — open it directly, no build step.
+    index.html      the portfolio — hero, case studies, timeline, expertise, open source
+    strip/          the interactive version: an ATC flight-strip bay in Three.js
+    cv.pdf          generated from index.html, not maintained separately
+    og.png          social card, generated
+    vendor/         three.min.js (r149) and three woff2 faces
 
-## How it works
+## Structure
 
-Ten cards: the name card, seven roles, core skills, and the handover. One
-gesture moves one strip: the outgoing card is pulled out of the light and the
-next is fed in from the slot and struck. Scroll, arrow keys, or the bay marks
-down the right edge. `Enter` or a click opens the log; `Escape` returns it.
+The front page is the professional story: who, what, the four case studies, the
+timeline, the domains, how I work, and what I build outside work. The flight-strip
+concept the site started as lives on at `strip/` and is linked from the hero — the
+interaction is secondary to the content, deliberately.
 
-## Constraints this is built under
+## Constraints
 
-- **One self-contained static file.** No build step, no package manager, no
-  bundler. Three.js r149 is vendored in `vendor/`.
-- **Nothing remote.** No CDN, no analytics, no web fonts from a third party, no
-  photographs and no purchased models. Every surface in the scene is drawn in
-  code or generated procedurally.
-- **The CV is the content, in real markup.** `#cv` holds the whole document. With
-  JavaScript off it *is* the site and reads as a plain CV. With JavaScript on it
-  is visually hidden and becomes the single source both the strips and the
-  logbook pages are built from, so the text can never be written twice or drift.
-- **Works under a subpath.** Every path is relative, so it serves correctly from
-  a GitHub Pages project URL.
-- **`prefers-reduced-motion` is honoured.** The sequence skips to its finished
-  state rather than animating.
-- **The phone number on the CV is deliberately not in this repo.** Email and
-  LinkedIn only.
+- **No build step, no package manager, no bundler.** Two static HTML files.
+- **Nothing remote at runtime.** No CDN, no analytics, no web fonts from a third
+  party, no stock photography. Every surface is drawn in code or generated.
+- **Works with JavaScript off.** The portfolio's three scripts are a nav hairline,
+  a section reveal and a scroll-spy. With JS off nothing is hidden and every link
+  works. `strip/` degrades to its own semantic CV document.
+- **Relative paths only**, so it serves correctly from a GitHub Pages project URL.
+- **`prefers-reduced-motion` is honoured** in both pages.
+- **The phone number on the CV is deliberately absent.** Email and LinkedIn only.
+  It is checked for in the verification pass and in the generated PDF.
 
-## The fit contract
+## cv.pdf is generated, not written
 
-A strip is a fixed pre-printed form, so text that does not fit is a real failure,
-not a styling preference. `drawFace()` clips each field to its box, and
-`assertFits()` runs at boot: it measures every field string on every card against
-its box and throws loudly on overflow rather than truncating in silence. It logs
-`strip fit: 10 cards, all fields inside their boxes` when it passes.
+`cv.pdf` is printed from `index.html` under its `@media print` rules, so the CV and
+the site cannot drift. The generator opens every `<details>` first — CSS cannot force
+that reliably. The print rules drop what belongs to the site rather than the paper:
+the strip, the chrome, the narrative sections and the "why this is interesting"
+asides.
 
-Abbreviations on the strips are real names or contiguous parts of real names.
-No coined codes.
+Regenerate by serving the directory and printing it to A4 with `printBackground`,
+14mm margins, after setting `open` on every `<details>`.
 
-## Verifying a change
+## Content rule
 
-The scene is measured, not eyeballed. `window.__framing()` projects the strip
-through the camera and reports whether the watched station is inside the frame,
-in normalised device coordinates. Geometry being in frame is not the same as
-being visible — an object can pass the framing test while sitting entirely
-outside the lamp pool, which happened twice during the build. Check luminance
-separately, on the specific box that matters.
+Everything factual comes from the CV or from public repository metadata. Where a
+detail was missing it was left out rather than invented — including project
+descriptions for repositories that carry none.
 
-## Layout
+## The strip page
 
-    index.html    the site
-    vendor/       three.min.js (r149) and four woff2 faces
+`strip/` renders an air-traffic-control strip bay procedurally: ten cards, one per
+role, struck into paper by a print head under a desk lamp. Text fit is an executable
+contract — `drawFace()` clips each field to its box and `assertFits()` throws at boot
+if any field string overflows, rather than truncating in silence. `window.__framing()`
+projects the strip through the camera so composition is measured, not eyeballed.
+
+Note for anyone editing it: geometry being *in frame* is not the same as being
+*visible*. An object can pass the framing assertion while sitting entirely outside
+the lamp pool — that happened twice during the build. Check luminance separately, on
+the specific box that matters.

@@ -3,1278 +3,1099 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sherif Shalaby — Software Architect</title>
-<meta name="description" content="Sherif Shalaby, Software Architect in Sofia, Bulgaria. Twelve years across aviation, energy, government and defence, and recruitment.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0C0E'/%3E%3Crect x='4' y='13' width='24' height='6' fill='%23E4DDCB'/%3E%3Crect x='22' y='13' width='6' height='6' fill='%23C88A2E'/%3E%3C/svg%3E">
+<title>Sherif Shalaby — Software Architect &amp; Staff Engineer | Java, AI &amp; Distributed Systems</title>
+<meta name="description" content="Software Architect and Staff Engineer based in Sofia, Bulgaria with 12+ years of experience building enterprise software, distributed systems, cloud platforms and production AI/RAG applications.">
+<link rel="canonical" href="https://sherifmoshalaby.github.io/sherif-cv/">
+<meta name="author" content="Sherif Shalaby">
+<meta name="theme-color" content="#0B0D11">
+
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Sherif Shalaby">
+<meta property="og:title" content="Sherif Shalaby — Software Architect &amp; Staff Engineer">
+<meta property="og:description" content="12+ years building enterprise software — distributed systems, cloud platforms and production AI/RAG applications. Java, Spring Boot, Kubernetes.">
+<meta property="og:url" content="https://sherifmoshalaby.github.io/sherif-cv/">
+<meta property="og:image" content="https://sherifmoshalaby.github.io/sherif-cv/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sherif Shalaby — Software Architect and Staff Engineer, Sofia, Bulgaria">
+<meta property="profile:first_name" content="Sherif">
+<meta property="profile:last_name" content="Shalaby">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sherif Shalaby — Software Architect &amp; Staff Engineer">
+<meta name="twitter:description" content="12+ years building enterprise software — distributed systems, cloud platforms and production AI/RAG applications.">
+<meta name="twitter:image" content="https://sherifmoshalaby.github.io/sherif-cv/og.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0D11'/%3E%3Crect x='4' y='13' width='24' height='6' fill='%23E7EAF0'/%3E%3Crect x='22' y='13' width='6' height='6' fill='%23E0A040'/%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Sherif Shalaby",
+  "jobTitle": "Software Architect & Staff Engineer",
+  "url": "https://sherifmoshalaby.github.io/sherif-cv/",
+  "email": "mailto:sherif.mo.shalaby@gmail.com",
+  "address": { "@type": "PostalAddress", "addressLocality": "Sofia", "addressCountry": "BG" },
+  "sameAs": [
+    "https://linkedin.com/in/sherif-mo-shalaby",
+    "https://github.com/SherifMoShalaby"
+  ],
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Cairo University, Faculty of Engineering" },
+  "knowsAbout": [
+    "Software Architecture", "Distributed Systems", "Retrieval-Augmented Generation",
+    "Java", "Spring Boot", "Kubernetes", "Apache Kafka", "Angular", "Technical Leadership"
+  ]
+}
+</script>
+
 <style>
+@font-face{font-family:'Plex Sans';src:url(vendor/plex-sans-var-latin.woff2) format('woff2');font-weight:400 600;font-display:swap}
 @font-face{font-family:'Plex Mono';src:url(vendor/plex-mono-400-latin.woff2) format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:'Plex Mono';src:url(vendor/plex-mono-500-latin.woff2) format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:'Grotesk';src:url(vendor/space-grotesk-latin.woff2) format('woff2');font-weight:400 700;font-display:swap}
 
+:root{
+  --bg:#0B0D11; --surface:#111520; --raised:#161B26;
+  --line:rgba(154,174,204,.13); --line-2:rgba(154,174,204,.22);
+  --ink:#E7EAF0; --mut:#98A2B3; --dim:#6B7484;
+  --acc:#E0A040; --acc-dim:rgba(224,160,64,.16);
+  --sans:'Plex Sans',ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  --disp:'Grotesk','Plex Sans',ui-sans-serif,system-ui,sans-serif;
+  --mono:'Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --pad:clamp(20px,5vw,64px); --max:1220px;
+  --z-nav:20; --z-skip:30;
+}
 *{box-sizing:border-box}
-/* Document mode is the DEFAULT: with JS off this file is a plain, readable CV
-   and nothing below the .js rules ever applies. */
-html,body{margin:0;background:#08090B}
-#cv{max-width:76ch;margin:0 auto;padding:clamp(30px,6vw,86px) clamp(20px,5vw,40px);
-  position:relative;z-index:5;color:#CFC9BA;font-size:15px;line-height:1.66}
-#cv h1{font-family:Grotesk,system-ui,sans-serif;font-weight:700;letter-spacing:-.03em;
-  font-size:clamp(32px,5vw,52px);line-height:1.02;color:#EDE7D8;margin:0 0 12px}
-#cv h2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#C88A2E;
-  margin:44px 0 14px;font-weight:500}
-#cv h3{font-family:Grotesk,system-ui,sans-serif;font-size:19px;color:#EDE7D8;margin:26px 0 4px}
-#cv .sub,#cv .meta{font-size:12px;letter-spacing:.09em;color:#8A8271;margin:0 0 6px}
-#cv ul{margin:10px 0 0;padding-left:18px}#cv li{margin:0 0 8px}
-#cv dt{color:#C88A2E;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:12px}
-#cv dd{margin:3px 0 0}
-#cv a{color:#E4DDCB}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.6;
+  font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+::selection{background:var(--acc);color:#14100A}
 
-/* ---- with JS, the 3D scene takes over and #cv becomes the accessible source
-   the strips and the logbook are built from. Visually hidden, not removed. ---- */
-html.js,html.js body{height:100%;overflow:hidden}
-html.js #cv{position:fixed;width:1px;height:1px;padding:0;margin:-1px;
-  overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
-body{font-family:'Plex Mono',ui-monospace,Menlo,monospace;color:#C9C3B4}
-canvas{display:none}
-html.js canvas{display:block;position:fixed;inset:0;width:100%;height:100%}
-html:not(.js) .vig,html:not(.js) .grain,html:not(.js) .plate,
-html:not(.js) .cue,html:not(.js) .hud,html:not(.js) .rep,html:not(.js) .bay{display:none}
-
-/* ---- the logbook. Pulling a strip out of the bay opens the page it indexes.
-   Deliberately NOT a modal: the scene dims as depth rather than being covered
-   by a scrim, and the sheet rises from where the strip sits. ---- */
-.book{position:fixed;inset:0;z-index:7;opacity:0;pointer-events:none;
-  transition:opacity .42s ease;display:grid;place-items:center;padding:3.2vh 3vw}
-.book.on{opacity:1;pointer-events:auto}
-html.reading canvas{filter:brightness(.30) saturate(.72)}
-html.reading .plate,html.reading .cue,html.reading .bay{opacity:0 !important}
-canvas,.plate,.cue,.bay{transition:filter .45s ease,opacity .45s ease}
-.sheet{width:min(860px,100%);max-height:94vh;overflow:auto;position:relative;
-  background:linear-gradient(176deg,#F5EDDD 0%,#EDE3CE 46%,#E2D6BC 100%);
-  color:#241F19;padding:clamp(26px,4.2vw,56px) clamp(22px,4vw,58px) clamp(30px,4vw,54px);
-  box-shadow:0 44px 130px rgba(0,0,0,.72),0 1px 0 rgba(255,255,255,.55) inset;
-  transform:translateY(34px) scale(.975);transition:transform .5s cubic-bezier(.2,.75,.2,1);
-  border-left:7px solid #C88A2E}
-.book.on .sheet{transform:none}
-.sheet:focus{outline:none}
-/* Motivated motion (skill §5): the log is read top to bottom, so it arrives top
-   to bottom. Sequence matches the reading order — it is not decoration. */
-@keyframes logIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-.book.on .sheet > *{animation:logIn .46s cubic-bezier(.2,.75,.2,1) backwards;
-  animation-delay:calc(var(--i,0) * 48ms)}
-.book.on .sheet li{animation:logIn .46s cubic-bezier(.2,.75,.2,1) backwards;
-  animation-delay:calc((var(--i,0) + 2) * 48ms)}
-@media (prefers-reduced-motion:reduce){
-  .book.on .sheet > *,.book.on .sheet li{animation:none}
-}
-.sheet h3{font-family:Grotesk,system-ui,sans-serif;font-weight:700;letter-spacing:-.02em;
-  font-size:clamp(23px,3.3vw,36px);line-height:1.1;margin:0 0 8px;color:#1B1712}
-.sheet .meta{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;
-  color:#7C6A44;margin:0 0 26px}
-.sheet ul{margin:0;padding:0;list-style:none}
-.sheet li{position:relative;padding-left:26px;margin:0 0 15px;font-size:clamp(13.5px,1.5vw,15.5px);
-  line-height:1.62;color:#332D24}
-.sheet li::before{content:'';position:absolute;left:2px;top:.62em;width:12px;height:2px;
-  background:#C88A2E}
-.sheet li b{color:#1B1712;font-weight:600}
-.sheet a{color:#8A5E14}
-/* A capability list is breadth, not prose: eleven hairline rows is the spec-sheet
-   default the skill bans outright. Grouped pills scan in one pass. */
-.sheet .grp{margin:0 0 22px}
-.sheet .grp h4{margin:0 0 9px;font-size:10px;letter-spacing:.17em;text-transform:uppercase;
-  color:#8A6A2E;font-weight:600}
-.sheet .pills{display:flex;flex-wrap:wrap;gap:6px;margin:0}
-.sheet .pills span{display:inline-block;padding:5px 10px;font-size:12px;line-height:1.25;
-  color:#2E2820;background:rgba(40,32,20,.055);border:1px solid rgba(40,32,20,.13);
-  border-radius:2px}
-.bk{margin-top:30px;padding-top:16px;border-top:1px solid rgba(40,32,20,.22);
-  display:flex;justify-content:space-between;gap:14px;align-items:baseline;
-  font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;color:#7C6A44}
-.bk button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:#8A5E14;
-  background:none;border:0;padding:0;cursor:pointer;border-bottom:1px solid rgba(138,94,20,.4)}
-
-/* ---- the bay: one mark per strip, the worked one filled ---- */
-.bay{position:fixed;right:clamp(16px,2.4vw,30px);top:50%;transform:translateY(-50%);
-  z-index:4;display:flex;flex-direction:column;gap:3px}
-.bay button{position:relative;display:block;width:34px;height:12px;padding:0;border:0;
-  background:none;cursor:pointer;line-height:0}
-/* the mark is drawn on a pseudo-element so the button keeps a 34x12 hit target
-   while the rule itself stays hairline */
-.bay button::before{content:'';display:block;width:22px;height:3px;margin:4.5px 0 4.5px auto;
-  background:#3E4854;transition:background .3s ease,width .3s ease,transform .3s ease;
-  transform-origin:100% 50%;
-  /* the incoming strip passes straight through the bay's column on its way to
-     the holder, so for about a second these sit on lit cream paper. Without a
-     dark halo they read as specks on the page rather than as instrument marks. */
-  box-shadow:0 0 4px 1px rgba(6,8,12,.55)}
-
-/* THE ACTIVE MARK IS DRIVEN BY THE STRIP, NOT BY A CSS TRANSITION.
-   --prog is written once a frame from the strip's real position on the rail, so
-   the mark extends in the same three ratchet steps the paper does, settles when
-   the paper settles, and retracts as the outgoing strip is pulled off. A CSS
-   transition would only have looked similar; this IS the same motion.
-   --hit flashes on each print strike, decayed in the same loop. */
-.bay button[aria-current]::before{
-  width:calc(22px + 13px * var(--prog,0));
-  background:#C88A2E;   /* fallback: anything without color-mix still gets amber */
-  background:color-mix(in oklab,#3E4854,#C88A2E calc(35% + 65% * var(--prog,0)));
-  box-shadow:0 0 4px 1px rgba(6,8,12,.55),
-             0 0 calc(9px * var(--hit,0)) rgba(216,166,87,calc(.85 * var(--hit,0)));
-  filter:brightness(calc(1 + .55 * var(--hit,0)))}
-
-/* the bay fills on arrival, one mark at a time, top down */
-@keyframes markIn{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
-.bay button::before{animation:markIn .42s cubic-bezier(.2,.75,.2,1) backwards;
-  animation-delay:calc(var(--n,0) * 42ms + 250ms)}
-
-.bay button:hover::before{background:#78889B;transform:translateX(-3px)}
-.bay button:focus{outline:none}
-.bay button:focus-visible::before{background:#EDE7D8;width:34px;
-  box-shadow:0 0 0 2px rgba(200,138,46,.55)}
-@media (prefers-reduced-motion:reduce){
-  .bay button::before{animation:none}
-  .bay button[aria-current]::before{width:34px;background:#C88A2E;filter:none}
-}
-/* what the strip holds, on hover and on keyboard focus. The bay is a row of
-   hairlines; without this you have to work the whole thing to find anything. */
-.bay .tip{position:absolute;right:100%;top:50%;margin-right:13px;
-  transform:translate(7px,-50%);transition:opacity .17s ease,transform .17s ease;
-  opacity:0;pointer-events:none;text-align:right;
-  padding:7px 11px 8px;border-radius:2px;border-right:2px solid #C88A2E;
-  background:rgba(9,10,13,.90);box-shadow:0 10px 30px rgba(0,0,0,.55);
-  /* right:100% with no left makes the shrink-to-fit width resolve against
-     almost no available space, so the label wrapped to its minimum content
-     width and read as a narrow column. max-content ignores that. */
-  width:max-content;max-width:min(42vw,300px)}
-.bay .tip b{display:block;font-family:Grotesk,system-ui,sans-serif;font-weight:700;
-  font-size:13px;line-height:1.22;letter-spacing:-.012em;color:#EDE7D8}
-.bay .tip i{display:block;font-style:normal;font-size:9.5px;letter-spacing:.155em;
-  text-transform:uppercase;color:#C88A2E;margin-top:5px;line-height:1.3}
-/* hover only where hovering exists; focus always, so the keyboard gets it too */
-@media (hover:hover){
-  .bay button:hover .tip{opacity:1;transform:translate(0,-50%)}
-  /* the pointer wins inside the bay: otherwise a still-focused mark keeps its
-     label up and two overlap */
-  .bay:hover button:not(:hover) .tip{opacity:0}
-}
-.bay button:focus-visible .tip{opacity:1;transform:translate(0,-50%)}
-
-@media (max-width:620px){
-  .bay{right:8px}
-  .bay button{width:26px}
-  .bay button::before{width:15px}
-  .bay button[aria-current]::before,.bay button:focus-visible::before{width:24px}
-  .bay .tip{margin-right:10px;padding:6px 9px}
-  .bay .tip b{font-size:12px}
-}
-
-/* the lamp's falloff, faked cheaply over the whole frame */
-.vig{position:fixed;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 78% 62% at 47% 44%,transparent 0%,transparent 44%,rgba(4,5,7,.42) 76%,rgba(4,5,7,.88) 100%)}
-.grain{position:fixed;inset:0;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+/* a fixed grain + a very faint structural grid: the site is about systems */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.035;
+  mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    linear-gradient(to right,var(--line) 1px,transparent 1px) 0 0/clamp(80px,9vw,132px) 100%,
+    radial-gradient(ellipse 70% 50% at 50% -10%,rgba(224,160,64,.055),transparent 70%);
+  opacity:.5;
+  -webkit-mask-image:linear-gradient(to bottom,#000,transparent 62%);
+  mask-image:linear-gradient(to bottom,#000,transparent 62%)}
 
-/* the only DOM copy in the shot — set in the dark, beneath the light */
-.plate{position:fixed;left:clamp(22px,5vw,74px);bottom:clamp(24px,5vh,64px);z-index:3;
-  opacity:0;transform:translateY(9px);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.7,.2,1)}
-.plate.on{opacity:1;transform:none}
-.plate .nm{font-family:Grotesk,system-ui,sans-serif;font-weight:700;letter-spacing:-.028em;
-  font-size:clamp(30px,4.4vw,54px);line-height:1;color:#EDE7D8;margin:0 0 10px}
-/* a job title is not a name — it runs long and must not span half the frame */
-.plate.sm{max-width:min(52ch,46vw)}
-.plate.sm .nm{font-size:clamp(20px,2.5vw,31px);line-height:1.14}
-.plate .mt{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7C8694;margin:0}
-.plate .mt b{color:#D8A657;font-weight:500}
+a{color:inherit}
+img,svg{max-width:100%}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:700;letter-spacing:-.026em;line-height:1.06;margin:0;
+  text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:2px}
 
-.cue{position:fixed;right:clamp(22px,5vw,74px);bottom:clamp(26px,5vh,66px);z-index:3;
-  font-size:11px;letter-spacing:.19em;text-transform:uppercase;color:#6A7482;
-  opacity:0;transition:opacity .45s ease 0s}
-.cue.on{opacity:1}
+.skip{position:absolute;left:-9999px;top:0;z-index:var(--z-skip);
+  background:var(--acc);color:#14100A;padding:12px 18px;font:500 13px/1 var(--mono)}
+.skip:focus{left:12px;top:12px}
 
-.hud{position:fixed;left:clamp(22px,5vw,74px);top:clamp(20px,4vh,44px);z-index:3;
-  font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:#5A6472}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad);position:relative;z-index:2}
 
-/* The opening is the whole verb of this site and it plays once. Removing this
-   button meant anyone landing after it finished never saw the site move at all. */
-.rep{position:fixed;right:clamp(22px,5vw,74px);top:clamp(20px,4vh,44px);z-index:5;
-  font:500 10.5px/1 'Plex Mono',monospace;letter-spacing:.15em;text-transform:uppercase;
-  color:#7A8493;background:rgba(14,17,22,.72);border:1px solid rgba(150,170,195,.18);
-  padding:8px 12px;border-radius:2px;cursor:pointer}
-.rep:hover,.rep:focus-visible{color:#D8A657;border-color:rgba(216,166,87,.5);outline:none;
-  transform:translateY(-1px)}
-.rep:active{transform:translateY(0)}
-.rep{transition:color .2s ease,border-color .2s ease,transform .2s cubic-bezier(.2,.75,.2,1)}
+/* small monospace metadata labels — the technical register throughout */
+.lbl{font:500 10.5px/1 var(--mono);letter-spacing:.19em;text-transform:uppercase;color:var(--dim)}
+.lbl-acc{color:var(--acc)}
 
-@media (max-width:620px){
-  /* stack the cue above the plate instead of letting it overprint the location */
-  .cue{right:auto;left:clamp(22px,5vw,74px);bottom:calc(clamp(24px,5vh,64px) + 104px)}
-  .hud{display:none}
-  .rep{right:auto;left:clamp(22px,5vw,74px);top:clamp(14px,2.4vh,28px);padding:7px 10px}
+/* ─────────────────────────────────────────────── nav */
+.nav{position:sticky;top:0;z-index:var(--z-nav);
+  background:rgba(11,13,17,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;transition:border-color .3s ease}
+.nav.stuck{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:22px;min-height:62px}
+.mark{font:700 15px/1 var(--disp);letter-spacing:-.02em;text-decoration:none;white-space:nowrap}
+.mark i{font-style:normal;color:var(--acc)}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0 auto 0 14px;padding:0}
+.nav ul a{font:400 13.5px/1 var(--sans);color:var(--mut);text-decoration:none;
+  padding:6px 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.nav ul a:hover{color:var(--ink);border-bottom-color:var(--acc)}
+.nav ul a[aria-current]{color:var(--ink);border-bottom-color:var(--acc)}
+@media (max-width:900px){.nav ul{display:none}.nav .wrap{gap:12px}.mark{margin-right:auto}}
+
+.btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;white-space:nowrap;
+  font:500 13.5px/1 var(--sans);padding:11px 17px;border-radius:3px;
+  border:1px solid var(--line-2);color:var(--ink);background:transparent;
+  transition:background .2s,border-color .2s,transform .15s,color .2s}
+.btn:hover{border-color:var(--acc);background:var(--acc-dim)}
+.btn:active{transform:translateY(1px)}
+.btn-p{background:var(--acc);border-color:var(--acc);color:#14100A;font-weight:600}
+.btn-p:hover{background:#EEB259;border-color:#EEB259}
+.btn svg{width:14px;height:14px;flex:none}
+
+/* ─────────────────────────────────────────────── hero */
+.hero{padding:clamp(56px,10vh,110px) 0 clamp(48px,8vh,86px);position:relative}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);
+  gap:clamp(30px,5vw,68px);align-items:center}
+@media (max-width:1000px){.hero-grid{grid-template-columns:1fr;gap:38px}}
+.hero h1{font-size:clamp(40px,7.2vw,80px);margin:16px 0 0}
+.hero .role{font-family:var(--disp);font-weight:500;letter-spacing:-.018em;
+  font-size:clamp(19px,2.6vw,29px);color:var(--acc);margin:12px 0 0;line-height:1.16}
+.hero .lede{color:var(--mut);font-size:clamp(15.5px,1.55vw,17.5px);max-width:58ch;margin:22px 0 0}
+.stack{display:flex;flex-wrap:wrap;align-items:center;gap:5px 13px;margin:26px 0 0;
+  font:400 12px/1.7 var(--mono);color:var(--dim)}
+/* separators are their own flex items, so a wrapped line never begins or ends
+   with a stranded bullet */
+.stack span{white-space:nowrap}
+.stack i{font-style:normal;color:var(--line-2);user-select:none}
+.cta{display:flex;flex-wrap:wrap;gap:11px;margin:32px 0 0}
+.meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;margin:26px 0 0}
+.meta-row a{font:400 13.5px/1 var(--sans);color:var(--mut);text-decoration:none;
+  border-bottom:1px solid var(--line-2);padding-bottom:3px;transition:color .2s,border-color .2s}
+.meta-row a:hover{color:var(--ink);border-bottom-color:var(--acc)}
+.meta-row .loc{font:400 11.5px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
+
+/* the flight strip, as real markup — the site's one piece of inherited personality */
+.strip{background:linear-gradient(176deg,#F4EEE1,#E7DDC6);border-radius:2px;
+  border:1px solid rgba(0,0,0,.35);padding:5px;
+  box-shadow:0 26px 60px -22px rgba(0,0,0,.85),0 0 0 1px rgba(224,160,64,.16);
+  transform:rotate(-1.05deg);transition:transform .5s cubic-bezier(.2,.75,.2,1)}
+.strip:hover{transform:rotate(-.35deg) translateY(-3px)}
+@media (prefers-reduced-motion:reduce){.strip,.strip:hover{transition:none;transform:none}}
+.strip-in{border:1px solid rgba(58,74,96,.34);display:grid;
+  grid-template-columns:1.62fr 1.1fr .72fr .72fr}
+.strip-in div{padding:11px 12px 13px;border-left:1px solid rgba(58,74,96,.3);min-width:0}
+.strip-in div:first-child{border-left:0}
+.strip-in b{display:block;font:500 8.5px/1 var(--mono);letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(58,74,96,.72);margin-bottom:9px;white-space:nowrap}
+/* a printed strip never hyphenates a field: it either fits the box or the box
+   is wrong. ARCHITECT was breaking as ARCHITEC / T. */
+.strip-in em{display:block;font:500 clamp(12px,1.32vw,16px)/1.15 var(--mono);font-style:normal;
+  color:#221E18;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;hyphens:none}
+@media (max-width:560px){
+  .strip-in{grid-template-columns:1.5fr 1fr}
+  .strip-in div:nth-child(-n+2){border-bottom:1px solid rgba(58,74,96,.3)}
+  .strip-in div:nth-child(odd){border-left:0}
+  .strip-in em{font-size:15px}
 }
-@media (prefers-reduced-motion:reduce){
-  .plate{transition:none}
+.strip-note{display:flex;justify-content:space-between;gap:12px;margin:12px 2px 0;
+  font:400 10px/1.5 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
+.strip-note a{color:var(--acc);text-decoration:none;border-bottom:1px solid rgba(224,160,64,.4)}
+.strip-note a:hover{color:#F0C078}
+
+.now{margin:30px 0 0;border-top:1px solid var(--line);display:grid;gap:0}
+.now div{display:grid;grid-template-columns:78px minmax(0,1fr);gap:16px;
+  padding:13px 2px;border-bottom:1px solid var(--line)}
+.now dt{font:500 10px/1.6 var(--mono);letter-spacing:.19em;text-transform:uppercase;
+  color:var(--dim)}
+.now dd{margin:0;font-size:13.8px;color:var(--mut);line-height:1.55}
+@media (max-width:1000px){.now{max-width:560px}}
+@media (max-width:420px){.now div{grid-template-columns:1fr;gap:4px}}
+
+/* ─────────────────────────────────────────────── section furniture */
+section{position:relative;z-index:2}
+.sec{padding:clamp(56px,9vh,104px) 0;border-top:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);
+  gap:clamp(18px,4vw,54px);align-items:end;margin-bottom:clamp(30px,4.5vw,52px)}
+@media (max-width:760px){.sec-head{grid-template-columns:1fr;gap:14px;align-items:start}}
+.sec-head h2{font-size:clamp(26px,3.9vw,44px)}
+.sec-head .sub{color:var(--mut);font-size:15.5px;max-width:56ch}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--acc)}
+
+/* ─────────────────────────────────────────────── progression band */
+.arc{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media (max-width:840px){.arc{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:440px){.arc{grid-template-columns:1fr}}
+.arc div{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 18px 22px;position:relative}
+.arc div::before{content:attr(data-n);position:absolute;top:14px;right:14px;
+  font:500 10px/1 var(--mono);color:var(--line-2)}
+.arc b{display:block;font-family:var(--disp);font-weight:700;font-size:16px;letter-spacing:-.02em;
+  margin:0 0 7px}
+.arc span{font-size:13.5px;color:var(--mut);line-height:1.5}
+.arc div:last-child b{color:var(--acc)}
+.arc-lede{margin:0 0 26px;font-size:clamp(17px,2.3vw,23px);font-family:var(--disp);font-weight:500;
+  letter-spacing:-.018em;line-height:1.32;max-width:30ch}
+.arc-lede em{font-style:normal;color:var(--acc)}
+
+/* ─────────────────────────────────────────────── case studies */
+.cases{display:flex;flex-direction:column;gap:clamp(18px,2.6vw,26px)}
+.case{border:1px solid var(--line);border-radius:4px;background:var(--surface);
+  overflow:hidden;transition:border-color .3s ease}
+.case:hover{border-color:var(--line-2)}
+.case-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:16px 28px;
+  align-items:start;padding:clamp(22px,3vw,32px) clamp(20px,3vw,32px) 0}
+@media (max-width:720px){.case-top{grid-template-columns:1fr}}
+.case h3{font-size:clamp(21px,2.7vw,30px)}
+.case .client{margin:9px 0 0;font:500 11px/1 var(--mono);letter-spacing:.17em;
+  text-transform:uppercase;color:var(--acc)}
+.case .when{font:400 11px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;
+  color:var(--dim);white-space:nowrap;padding-top:6px}
+.case-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,2.6vw,30px);
+  padding:clamp(20px,2.8vw,28px) clamp(20px,3vw,32px) clamp(22px,3vw,30px)}
+@media (max-width:720px){.case-body{grid-template-columns:1fr;gap:20px}}
+.case-body section{min-width:0}
+.case-body h4{font:500 10.5px/1 var(--mono);letter-spacing:.19em;text-transform:uppercase;
+  color:var(--dim);margin:0 0 10px}
+.case-body p{font-size:14.8px;color:var(--mut);line-height:1.62}
+.case-body ul{margin:0;padding:0;list-style:none}
+.case-body li{position:relative;padding-left:17px;margin:0 0 8px;font-size:14.8px;color:var(--mut);
+  line-height:1.58}
+.case-body li::before{content:'';position:absolute;left:0;top:.62em;width:8px;height:1px;
+  background:var(--acc)}
+.case-body li:last-child{margin-bottom:0}
+.case-body strong{color:var(--ink);font-weight:500}
+/* the scale line gets its own visual weight — it is the headline fact */
+.figure{display:flex;flex-wrap:wrap;gap:10px 28px;padding:15px 18px;margin:0 0 14px;
+  border:1px solid var(--line);border-left:2px solid var(--acc);border-radius:2px;
+  background:rgba(224,160,64,.045)}
+.figure div{min-width:0}
+.figure b{display:block;font-family:var(--disp);font-weight:700;font-size:clamp(19px,2.5vw,25px);
+  letter-spacing:-.03em;line-height:1.05}
+.figure span{display:block;font:400 10.5px/1.4 var(--mono);letter-spacing:.15em;
+  text-transform:uppercase;color:var(--dim);margin-top:5px}
+.tech{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0 0;padding:0;list-style:none}
+.tech li{padding:0;margin:0;font:400 11.5px/1 var(--mono);color:var(--mut);
+  border:1px solid var(--line);border-radius:2px;padding:6px 8px;background:var(--raised)}
+.tech li::before{display:none}
+
+/* ─────────────────────────────────────────────── experience */
+.xp{border-top:1px solid var(--line)}
+.xp-item{border-bottom:1px solid var(--line);padding:clamp(20px,2.8vw,28px) 0}
+.xp-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:8px 24px;
+  align-items:baseline}
+@media (max-width:640px){.xp-head{grid-template-columns:1fr}}
+.xp h3{font-size:clamp(18px,2.2vw,23px)}
+.xp .org{font:500 11px/1 var(--mono);letter-spacing:.17em;text-transform:uppercase;
+  color:var(--acc);margin:0 0 9px}
+.xp .when{font:400 11.5px/1 var(--mono);letter-spacing:.12em;color:var(--dim);white-space:nowrap}
+.xp .one{margin:10px 0 0;color:var(--mut);font-size:15px;max-width:70ch}
+.xp details{margin:14px 0 0}
+.xp summary{display:inline-flex;align-items:center;gap:8px;cursor:pointer;list-style:none;
+  font:500 11.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
+  padding:7px 0;transition:color .2s}
+.xp summary::-webkit-details-marker{display:none}
+.xp summary:hover{color:var(--acc)}
+.xp summary::after{content:'+';font-size:15px;line-height:0;color:var(--acc)}
+.xp details[open] summary::after{content:'–'}
+.xp details ul{margin:8px 0 0;padding:0;list-style:none;max-width:78ch}
+.xp details li{position:relative;padding-left:17px;margin:0 0 9px;font-size:14.8px;
+  color:var(--mut);line-height:1.6}
+.xp details li::before{content:'';position:absolute;left:0;top:.62em;width:8px;height:1px;
+  background:var(--line-2)}
+.xp .roles{display:flex;flex-wrap:wrap;gap:6px 14px;margin:12px 0 0;
+  font:400 12px/1.7 var(--mono);color:var(--dim)}
+.xp .roles b{color:var(--mut);font-weight:400}
+
+/* ─────────────────────────────────────────────── expertise */
+.dom{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:10px}
+.dom > div{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:22px 20px 24px}
+.dom h3{font-size:16px;margin:0 0 4px}
+.dom .lbl{margin-bottom:13px;display:block}
+.dom ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:5px}
+.dom li{font:400 12px/1 var(--mono);color:var(--mut);border:1px solid var(--line);
+  border-radius:2px;padding:6px 8px;background:var(--raised);transition:border-color .2s,color .2s}
+.dom li:hover{border-color:var(--acc);color:var(--ink)}
+.full{margin:22px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+.full summary{cursor:pointer;list-style:none;padding:15px 20px;
+  font:500 11.5px/1 var(--mono);letter-spacing:.15em;text-transform:uppercase;color:var(--mut);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;transition:color .2s}
+.full summary::-webkit-details-marker{display:none}
+.full summary:hover{color:var(--acc)}
+.full summary::after{content:'+';color:var(--acc);font-size:16px;line-height:0}
+.full[open] summary::after{content:'–'}
+.full-in{padding:2px 20px 22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:18px 26px}
+.full-in div h4{font:500 10px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--acc);margin:0 0 8px}
+.full-in div p{font-size:13.5px;color:var(--mut);line-height:1.65}
+
+/* ─────────────────────────────────────────────── how i work */
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:10px}
+.how > div{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:26px 22px 28px;position:relative}
+.how h3{font-size:17px;margin:0 0 10px}
+.how p{font-size:14.5px;color:var(--mut);line-height:1.62}
+.how .n{font:500 10px/1 var(--mono);color:var(--acc);letter-spacing:.2em;display:block;
+  margin-bottom:14px}
+
+/* ─────────────────────────────────────────────── open source */
+.oss{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:clamp(14px,2vw,20px)}
+.oss article{border:1px solid var(--line);border-radius:4px;background:var(--surface);
+  padding:24px 22px 22px;display:flex;flex-direction:column;
+  transition:border-color .25s,transform .25s}
+.oss article:hover{border-color:var(--line-2);transform:translateY(-2px)}
+@media (prefers-reduced-motion:reduce){.oss article:hover{transform:none}}
+.oss h3{font-size:19px;margin:0}
+.oss h3 a{text-decoration:none;background-image:linear-gradient(var(--acc),var(--acc));
+  background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;
+  transition:background-size .3s ease}
+.oss h3 a:hover{background-size:100% 1px}
+.oss .kind{margin:0 0 9px}
+.oss .desc{margin:9px 0 0;font-size:14.6px;color:var(--mut);line-height:1.6}
+.oss .why{margin:12px 0 0;font-size:14px;color:var(--dim);line-height:1.58;
+  padding-left:13px;border-left:1px solid var(--line-2)}
+.oss .foot{margin-top:auto;padding-top:16px;display:flex;align-items:center;
+  justify-content:space-between;gap:12px}
+.oss .foot a{font:500 11.5px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;
+  color:var(--acc);text-decoration:none}
+.oss .foot a:hover{color:#F0C078}
+
+/* ─────────────────────────────────────────────── contact */
+.contact{border-top:1px solid var(--line);padding:clamp(60px,10vh,120px) 0 clamp(46px,7vh,80px)}
+.contact h2{font-size:clamp(32px,6vw,68px);max-width:16ch}
+.contact .avail{margin:26px 0 0;font:400 13px/1.9 var(--mono);color:var(--mut);
+  letter-spacing:.1em}
+.contact .avail b{color:var(--acc);font-weight:500;display:block;margin-bottom:6px;
+  font-size:10.5px;letter-spacing:.2em;text-transform:uppercase}
+.contact .cta{margin-top:36px}
+
+footer{border-top:1px solid var(--line);padding:26px 0 34px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;
+  justify-content:space-between;font:400 11.5px/1.7 var(--mono);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dim)}
+footer a{color:var(--mut);text-decoration:none;border-bottom:1px solid transparent}
+footer a:hover{color:var(--acc);border-bottom-color:var(--acc)}
+
+/* ─────────────────────────────────────────────── print
+   cv.pdf is generated from this page, so the CV and the site can never drift.
+   The generator opens every <details> first; CSS cannot force that reliably. */
+@media print{
+  :root{--ink:#111;--mut:#333;--dim:#666;--acc:#8A5E14;--line:#ccc;--line-2:#aaa;
+        --surface:#fff;--raised:#fff;--bg:#fff}
+  html,body{background:#fff !important;color:#111 !important;font-size:9pt;line-height:1.42}
+  body::before,body::after{display:none !important}
+  /* the CV is not the portfolio. The narrative sections, the strip, the chrome and
+     the "why this is interesting" asides are the site's job, not the paper's. */
+  .nav,.skip,.cta,.strip,.strip-note,.oss .foot,.oss .why,footer,
+  #arc,#how,.sec-head .sub,.eyebrow,.tech,.full{display:none !important}
+  .rv{opacity:1 !important;transform:none !important}
+  .sec,.contact{padding:9pt 0 0 !important;border-top:1px solid #ddd !important}
+  .hero{padding:0 0 6pt !important}
+  .wrap{max-width:none;padding-inline:0}
+  .hero-grid,.sec-head{display:block !important}
+  .case-body{display:grid !important;grid-template-columns:1fr 1fr !important;
+    gap:0 16pt !important;padding:0 !important}
+  .case-top{padding:0 !important}
+  .case{background:#fff !important;border:0 !important;border-top:1px solid #eee !important;
+    border-radius:0 !important;padding:7pt 0 0 !important;margin:0 0 7pt !important;
+    break-inside:avoid;page-break-inside:avoid}
+  .cases{gap:0 !important}
+  .dom{display:grid !important;grid-template-columns:repeat(3,1fr) !important;gap:5pt !important}
+  .dom > div{background:#fff !important;border-color:#ddd !important;padding:6pt 8pt !important}
+  .dom li{background:#fff !important;border-color:#ddd !important;padding:2pt 4pt !important;
+    font-size:8pt !important}
+  .xp-item{break-inside:avoid;page-break-inside:avoid;padding:7pt 0 !important}
+  .oss{display:grid !important;grid-template-columns:1fr 1fr !important;gap:0 16pt !important}
+  .oss article{background:#fff !important;border:0 !important;padding:5pt 0 !important;
+    break-inside:avoid;page-break-inside:avoid}
+  .figure{background:#fff !important;border-color:#ccc !important;
+    border-left-color:#8A5E14 !important;padding:5pt 8pt !important;margin-bottom:6pt !important}
+  .figure b{font-size:13pt !important}
+  .xp summary,.full summary{color:#666 !important;padding:2pt 0 !important}
+  .xp summary::after,.full summary::after{display:none}
+  .xp details{margin:4pt 0 0 !important}
+  .case-body p,.case-body li,.xp details li,.xp .one,.oss .desc{font-size:8.6pt !important;
+    line-height:1.42 !important}
+  .case-body h4{margin:0 0 3pt !important}
+  h1{font-size:22pt !important;margin:2pt 0 0 !important}
+  h2{font-size:12.5pt !important;margin:0 0 5pt !important}
+  h3{font-size:10.5pt !important}
+  .contact h2{font-size:14pt !important;max-width:none}
+  .contact .avail{margin:5pt 0 0 !important;font-size:8.5pt !important}
+  .hero .role{font-size:11.5pt !important;margin:3pt 0 0 !important}
+  .hero .lede{font-size:9.5pt !important;max-width:none;margin:6pt 0 0 !important}
+  .stack{margin:5pt 0 0 !important;font-size:8pt !important}
+  .now{margin:6pt 0 0 !important}
+  .now div{padding:3pt 0 !important}
+  .meta-row{margin:6pt 0 0 !important}
+  a{text-decoration:none}
+  .meta-row a::after{content:' — ' attr(href);font:400 7.5pt var(--mono);color:#666}
+  .print-only{display:block !important}
 }
+.print-only{display:none}.print-only{display:none}
+
+/* entrance: one gentle staggered reveal per section, never a per-element circus */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.75,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
 
-<div class="hud" id="hud">Sherif Shalaby · Software Architect</div>
-<button class="rep" id="rep" type="button">Replay ⏎ R</button>
+<a class="skip" href="#main">Skip to content</a>
 
+<nav class="nav" id="nav" aria-label="Primary">
+  <div class="wrap">
+    <a class="mark" href="#top">Sherif Shalaby<i>.</i></a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#how">How I work</a></li>
+      <li><a href="#open-source">Open source</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn" href="cv.pdf" download aria-label="Download CV as PDF">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 1v9m0 0L4.5 6.5M8 10l3.5-3.5M2 13h12"/></svg>
+      CV
+    </a>
+  </div>
+</nav>
 
-<div class="vig"></div>
-<div class="grain"></div>
+<main id="main">
 
-<div class="plate" id="plate">
-  <p class="nm">Sherif Shalaby</p>
-  <p class="mt">Sofia, Bulgaria · <b>on station</b></p>
-</div>
-<div class="cue" id="cue">Scroll to work the strip</div>
-<nav class="bay" id="bay" aria-label="Strip bay"></nav>
-<div class="book" id="book" role="dialog" aria-modal="true" aria-labelledby="bookttl">
-  <div class="sheet" id="sheet" tabindex="-1"></div>
-</div>
+<p class="print-only" style="font:400 9pt 'Plex Mono',monospace;color:#666;margin:0 0 10pt">Curriculum vitae &middot; generated from sherifmoshalaby.github.io/sherif-cv &middot; sherif.mo.shalaby@gmail.com &middot; linkedin.com/in/sherif-mo-shalaby</p>
 
+<!-- ══════════════════════════════════════════════ hero -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="lbl lbl-acc">Sofia, Bulgaria &middot; 12+ years</p>
+      <h1>Sherif Shalaby</h1>
+      <p class="role">Software Architect &amp; Staff Engineer</p>
+      <p class="lede">I design and build production-grade distributed systems, enterprise platforms
+        and AI applications &mdash; from architecture and technical strategy through implementation
+        and delivery.</p>
+      <p class="stack" aria-label="Core technologies">
+        <span>Java</span><i aria-hidden="true">&middot;</i><span>Spring Boot</span><i aria-hidden="true">&middot;</i><span>AI / RAG</span><i aria-hidden="true">&middot;</i><span>Distributed Systems</span><i aria-hidden="true">&middot;</i><span>Cloud</span><i aria-hidden="true">&middot;</i><span>Kubernetes</span>
+      </p>
+      <div class="cta">
+        <a class="btn btn-p" href="#work">View selected work</a>
+        <a class="btn" href="cv.pdf" download>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 1v9m0 0L4.5 6.5M8 10l3.5-3.5M2 13h12"/></svg>
+          Download CV
+        </a>
+      </div>
+      <div class="meta-row">
+        <a href="https://github.com/SherifMoShalaby" rel="me noopener">GitHub</a>
+        <a href="https://linkedin.com/in/sherif-mo-shalaby" rel="me noopener">LinkedIn</a>
+        <a href="mailto:sherif.mo.shalaby@gmail.com">Email</a>
+      </div>
+    </div>
 
-<!-- ===================================================================
-     THE CV ITSELF. This is the content, in real markup: with JavaScript
-     off it is the whole site and it reads as a document. With JS on it is
-     the single source both the strips and the logbook are built from, so
-     nothing is written twice. The phone number on the CV is deliberately
-     not here — email and LinkedIn only.
-     =================================================================== -->
-<main id="cv">
-  <header>
-    <h1>Sherif Shalaby</h1>
-    <p class="sub">Software Architect &middot; Sofia, Bulgaria</p>
-    <p class="sub">Java / Spring Boot &middot; AI &amp; RAG Systems &middot; Angular &middot; Distributed Systems</p>
-  </header>
+    <div>
+      <!-- The flight progress strip from the previous version of this site, kept as
+           real markup at zero weight. It is the one piece of inherited personality. -->
+      <div class="strip">
+        <div class="strip-in">
+          <div><b>Name</b><em>SHALABY</em></div>
+          <div><b>Role</b><em>ARCHITECT</em></div>
+          <div><b>Sector</b><em>SOF</em></div>
+          <div><b>On stn</b><em>2026</em></div>
+        </div>
+      </div>
+      <p class="strip-note">
+        <span>Fig. 01 &mdash; flight progress strip</span>
+        <a href="strip/">Interactive version &rarr;</a>
+      </p>
 
-  <section id="profile">
-    <h2>Profile</h2>
-    <p>Software Architect with 12+ years in enterprise software across aviation, energy, government and defence, and recruitment. Progressed from hands-on developer to architect, technical lead and service delivery manager, leading cross-functional teams while staying deeply hands-on. Specialised in Java/Spring Boot backends, hexagonal and event-driven architecture, and full-stack delivery with Angular — and currently owning the architecture of a production retrieval-augmented AI platform on Spring AI and pgvector.</p>
-  </section>
+      <dl class="now">
+        <div><dt>Now</dt><dd>Software Architect at Avenga &mdash; architecture owner on a production AI platform</dd></div>
+        <div><dt>Domains</dt><dd>Aviation &middot; Energy &middot; Government &amp; defence &middot; Recruitment</dd></div>
+        <div><dt>Open to</dt><dd>Staff &middot; Principal &middot; Architect &middot; Engineering Lead</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
 
-  <section id="experience">
-    <h2>Experience</h2>
-    <article class="role" id="r0" data-org="ENTELLIGENCE" data-role="TECH LEAD &amp; ARCHITECTURE OWNER" data-period="2026 – NOW" data-domain="AI / RAG">
-      <h3>AI Staffing Platform</h3>
-      <p class="meta">Entelligence &middot; via Avenga &middot; May 2026 – present</p>
-      <ul>
-      <li>Own the architecture of an AI staffing platform: a retrieval-augmented chat built on Java 25 and Spring AI over PostgreSQL/pgvector, streaming answers through a tool-calling loop, with an Angular front end on AWS ECS provisioned via Terraform.</li>
-      <li>Ran a ~20-ticket technical-debt programme across both stacks — session revocation, signed invitation and reset tokens, third-party sync moved out of the request transaction into a transactional outbox, and an Angular 20 → 21 upgrade.</li>
-      <li>Built the verification the project did not have: a one-button end-to-end harness that boots a throwaway database and both applications for ~50 Playwright tests, plus a model-evaluation suite scoring RAG answers for relevance and factuality.</li>
-      <li>Set the engineering standards the team writes and reviews code against, including the AI-assisted review and planning workflow now shared across the repository; own backlog planning, architecture overviews and code review.</li>
-      </ul>
-    </article>
-    <article class="role" id="r1" data-org="HITACHI ENERGY" data-role="SOFTWARE ARCHITECT" data-period="2025 – 2026" data-domain="ENERGY">
-      <h3>Web Risk Review &amp; ProMIS Modernisation</h3>
-      <p class="meta">Hitachi Energy &middot; via Avenga &middot; July 2025 – April 2026</p>
-      <ul>
-      <li>Driving migration of the legacy ProMIS platform from WildFly/JSF to Java 21 / Spring Boot 3.4 microservices, applying hexagonal architecture and an API-first, OpenAPI-generated contract layer.</li>
-      <li>Containerised the legacy application so it runs side by side with the new services on a shared database — keeping the business fully operational throughout a phased migration.</li>
-      <li>Implemented multi-datasource transaction management, Liquibase schema delivery, Elasticsearch-backed search, and Keycloak/OIDC authentication behind an Nginx routing layer.</li>
-      <li>Raised the quality baseline with JUnit 5, Mockito, REST Assured and WireMock, and led refactoring that cut the technical debt blocking new feature work.</li>
-      </ul>
-    </article>
-    <article class="role" id="r2" data-org="MUBADALA GROUP" data-role="SERVICE DELIVERY MANAGER" data-period="2025" data-domain="DELIVERY">
-      <h3>TAKAFO Delivery Ownership</h3>
-      <p class="meta">Mubadala Group &middot; via Musala Soft &middot; January – June 2025</p>
-      <ul>
-      <li>Ran a six-person delivery team as Service Delivery Manager for TAKAFO, owning Musala Soft’s delivery relationship with Mubadala while continuing in the Software Architect role.</li>
-      <li>Held contractual accountability for the engagement — SLA and uptime commitments, scope and change requests, and client steering and escalation with Mubadala.</li>
-      <li>Delivered every scheduled release on time across the six-month term with no P1 incidents escaping to production.</li>
-      </ul>
-    </article>
-    <article class="role" id="r3" data-org="INDRA AVITECH" data-role="TEAM LEAD" data-period="2023 – 2024" data-domain="AVIATION">
-      <h3>Digital NOTAM Platform for EUROCONTROL</h3>
-      <p class="meta">Indra Avitech &middot; via Musala Soft &middot; August 2023 – December 2024</p>
-      <ul>
-      <li>Led a cross-functional team building a new Conventional and Digital NOTAM processing system for EUROCONTROL, engineered for 100,000 NOTAMs per day with 24/7 availability.</li>
-      <li>Owned story analysis, sprint planning, code review and milestone delivery; set architectural standards and mentored engineers on quality and design.</li>
-      <li>Led integrations with core aviation systems (INO, AFTN, PIB), ensuring reliable data exchange and operational consistency with external air navigation systems.</li>
-      <li>Designed and built a real-time operations dashboard for monitoring incoming NOTAM traffic and live system health.</li>
-      <li>Delivered Quarkus services with Kafka event streaming, PostgreSQL and MongoDB persistence, Keycloak authentication, and OpenShift/Kubernetes deployment.</li>
-      </ul>
-    </article>
-    <article class="role" id="r4" data-org="MUBADALA GROUP" data-role="SENIOR SOFTWARE ENGINEER" data-period="2021 – 2023" data-domain="RECRUITMENT">
-      <h3>TAKAFO Recruitment Platform</h3>
-      <p class="meta">Mubadala Group &middot; via Musala Soft &middot; January 2021 – July 2023</p>
-      <ul>
-      <li>Delivered backend and frontend of the group-wide recruitment platform — JobSeeker portal, Takafo UI, and an admin portal for managing job opportunities and matching algorithms.</li>
-      <li>Designed Elasticsearch queries powering recruitment analytics and statistical insight for HR stakeholders.</li>
-      <li>Mentored junior and mid-level engineers, led code reviews, and drove refactoring that improved maintainability across the codebase.</li>
-      <li>Coordinated releases with DevOps and owned production support, keeping the platform stable for hiring across Mubadala Group companies.</li>
-      </ul>
-    </article>
-    <article class="role" id="r5" data-org="EJADA SYSTEMS" data-role="SENIOR SOFTWARE ENGINEER" data-period="2014 – 2020" data-domain="GOV / DEFENCE">
-      <h3>CONNECT — Enterprise Service Bus</h3>
-      <p class="meta">Ejada Systems Ltd &middot; Cairo, Egypt &middot; February 2014 – July 2020</p>
-      <ul>
-      <li>Built CONNECT, an ESB integrating in-house ERP systems via Apache Camel and RabbitMQ, plus a runtime administration and request/response auditing console in Angular and Spring Boot.</li>
-      <li>Designed and delivered an internal flight reservation platform for Saudi Border Guards: REST APIs for the mobile team, pessimistic and optimistic seat locking across a clustered deployment, Dijkstra-based shortest-path routing, and a “Flight Cure” admin tool to repair broken flights after outages.</li>
-      <li>Implemented an organisation-wide workflow engine on Flowable (BPMN and CMMN), automating multi-level approval processes and improving process visibility.</li>
-      <li>Delivered ERP systems for military intelligence, employee case management and border case tracking using Java EE, SOA, JSF 2.1, JMS, PrimeFaces, Hibernate and Jasper Reports over Oracle 11g and MS SQL.</li>
-      <li>Led technical design and database design, and managed deployments across WebLogic, Tomcat, TomEE and WildFly.</li>
-      </ul>
-    </article>
-    <article class="role" id="r6" data-org="LISTIFY" data-role="PRODUCT OWNER &amp; LEAD DEV" data-period="2018 – 2020" data-domain="INDEPENDENT">
-      <h3>Listify</h3>
-      <p class="meta">Independent project &middot; July 2018 – December 2020</p>
-      <ul>
-      <li>Defined the product vision and led a five-person team as Product Owner for a cross-platform list, task and note application built with Angular, Ionic, Cordova and Cloud Firestore.</li>
-      <li>Ran the full Scrum cycle — backlog management, prioritisation and sprint reviews — while owning the technical design, API layer and UI.</li>
-      </ul>
-    </article>
-  </section>
+<!-- ══════════════════════════════════════════════ progression -->
+<section class="sec rv" id="arc" aria-labelledby="arc-h">
+  <div class="wrap">
+    <p class="arc-lede" id="arc-h">12+ years building enterprise software &mdash; from hands-on
+      engineering to <em>architecture, technical leadership and delivery ownership</em>.</p>
+    <div class="arc">
+      <div data-n="01"><b>Engineering</b><span>Java, Spring, Angular and integration work on enterprise platforms.</span></div>
+      <div data-n="02"><b>Architecture</b><span>System boundaries, hexagonal and event-driven design, API-first contracts.</span></div>
+      <div data-n="03"><b>Leadership</b><span>Cross-functional teams, standards, design review and mentoring.</span></div>
+      <div data-n="04"><b>Delivery</b><span>Service delivery ownership, SLA accountability and client steering.</span></div>
+      <div data-n="05"><b>AI</b><span>Production RAG architecture on Spring AI and pgvector, with evaluation.</span></div>
+    </div>
+  </div>
+</section>
 
-  <section id="more">
-    <h2>Capability &amp; contact</h2>
+<!-- ══════════════════════════════════════════════ selected work -->
+<section class="sec rv" id="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow lbl">Selected work</p>
+        <h2 id="work-h">Case studies</h2>
+      </div>
+      <p class="sub">Four systems that show the range: a production AI platform, aviation
+        infrastructure at scale, a legacy modernisation, and long-run enterprise delivery.</p>
+    </div>
 
-    <article class="role" id="r7" data-org="CORE SKILLS" data-role="JAVA / SPRING / ANGULAR / AI" data-period="12+ YRS" data-domain="STACK">
-      <h3>Core skills</h3>
-      <p class="meta">Twelve years of production stack &middot; aviation, energy, government, recruitment</p>
-      <div class="grp"><h4>Languages</h4><p class="pills"><span>Java 8–25</span><span>TypeScript</span><span>JavaScript</span><span>Python</span><span>SQL</span></p></div>
-      <div class="grp"><h4>Backend</h4><p class="pills"><span>Spring Boot 3.x</span><span>Spring AI</span><span>Spring Security / Data / Cloud</span><span>Quarkus</span><span>Jakarta EE</span><span>Hibernate / JPA</span><span>REST &amp; OpenAPI</span><span>GraphQL</span><span>SOAP</span></p></div>
-      <div class="grp"><h4>Architecture</h4><p class="pills"><span>Microservices</span><span>Hexagonal</span><span>DDD</span><span>Event-Driven</span><span>API-First</span><span>ESB / Apache Camel</span><span>BPMN &amp; CMMN</span><span>Flowable</span><span>Camunda</span></p></div>
-      <div class="grp"><h4>Frontend</h4><p class="pills"><span>Angular 5–21</span><span>RxJS</span><span>NgRx</span><span>Angular Material</span><span>SCSS</span><span>Ionic</span><span>Flutter</span></p></div>
-      <div class="grp"><h4>Data</h4><p class="pills"><span>PostgreSQL</span><span>pgvector</span><span>Oracle</span><span>MS SQL Server</span><span>MongoDB</span><span>Elasticsearch</span><span>Liquibase</span><span>Ehcache</span></p></div>
-      <div class="grp"><h4>Messaging</h4><p class="pills"><span>Apache Kafka</span><span>RabbitMQ</span><span>ActiveMQ / JMS</span></p></div>
-      <div class="grp"><h4>Cloud &amp; DevOps</h4><p class="pills"><span>Docker</span><span>Kubernetes</span><span>OpenShift</span><span>Azure</span><span>AWS ECS</span><span>Terraform</span><span>Jenkins</span><span>GitLab CI/CD</span><span>SonarQube</span><span>Nginx</span><span>Maven</span><span>Git</span></p></div>
-      <div class="grp"><h4>Security</h4><p class="pills"><span>Keycloak</span><span>OAuth2 / OIDC</span><span>SAML</span><span>LDAP</span></p></div>
-      <div class="grp"><h4>Testing</h4><p class="pills"><span>JUnit 5</span><span>Mockito</span><span>REST Assured</span><span>WireMock</span><span>Playwright</span><span>TDD</span><span>Jasmine / Karma</span><span>Postman</span></p></div>
-      <div class="grp"><h4>AI engineering</h4><p class="pills"><span>RAG</span><span>Vector search &amp; embeddings</span><span>Tool-calling agents</span><span>Streaming responses</span><span>Model evaluation harnesses</span></p></div>
-      <div class="grp"><h4>Leadership</h4><p class="pills"><span>Team leadership</span><span>Service delivery management</span><span>Mentoring</span><span>Code review</span><span>Technical design</span><span>Scrum / Kanban</span><span>Stakeholder management</span></p></div>
-    </article>
+    <div class="cases">
 
-    <article class="role" id="r8" data-org="ON STATION" data-role="SOFIA, BULGARIA" data-period="OPEN" data-domain="HANDOVER">
-      <h3>Handover</h3>
-      <p class="meta">The watch is yours &middot; Sofia, Bulgaria</p>
-      <ul>
-        <li><b>Email</b> — <a href="mailto:sherif.mo.shalaby@gmail.com">sherif.mo.shalaby@gmail.com</a></li>
-        <li><b>LinkedIn</b> — <a href="https://linkedin.com/in/sherif-mo-shalaby" rel="me">linkedin.com/in/sherif-mo-shalaby</a></li>
-        <li><b>Education</b> — BSc, Computer Engineering, Faculty of Engineering, Cairo University, Egypt (2008–2013)</li>
-        <li><b>Languages</b> — Arabic (native) &middot; English (professional working) &middot; French (limited working)</li>
-        <li><b>Certifications</b> — SystemsExpert, algoexpert.io (2023) &middot; Intro to DevOps, Udacity (2022) &middot; Building a Search Engine, Udacity (2021) &middot; Divide and Conquer, Sorting and Searching, and Randomized Algorithms, Coursera (2021) &middot; Angular — The Complete Guide, Udemy (2020)</li>
-      </ul>
-    </article>
-  </section>
+      <!-- ─────────── 1. AI Staffing Platform -->
+      <article class="case">
+        <div class="case-top">
+          <div>
+            <h3>AI Staffing Platform</h3>
+            <p class="client">Entelligence &middot; Tech Lead &amp; Architecture Owner</p>
+          </div>
+          <p class="when">May 2026 &mdash; present</p>
+        </div>
+        <div class="case-body">
+          <section>
+            <h4>Problem</h4>
+            <p>An AI staffing product needed a retrieval-augmented assistant that answers from the
+              organisation&rsquo;s own corpus rather than from the model&rsquo;s priors &mdash; and it
+              needed to be verifiable, because a plausible-sounding wrong answer is worse than no
+              answer in a hiring context.</p>
+            <h4 style="margin-top:20px">Impact</h4>
+            <ul>
+              <li>A <strong>one-button end-to-end harness</strong> that boots a throwaway database and
+                both applications for roughly <strong>50 Playwright tests</strong> &mdash; verification
+                the project did not previously have.</li>
+              <li>A <strong>model-evaluation suite</strong> scoring RAG answers for relevance and
+                factuality, so answer quality is measured rather than assumed.</li>
+              <li>A <strong>~20-ticket technical-debt programme</strong> delivered across both stacks.</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Architecture</h4>
+            <p>Retrieval-augmented chat on <strong>Java 25</strong> and <strong>Spring AI</strong> over
+              <strong>PostgreSQL/pgvector</strong>, streaming answers through a tool-calling loop, with
+              an Angular front end on <strong>AWS ECS</strong> provisioned via <strong>Terraform</strong>.
+              Third-party sync was moved out of the request transaction into a transactional outbox;
+              session revocation and signed invitation and reset tokens were added.</p>
+            <ul class="tech">
+              <li>Java 25</li><li>Spring AI</li><li>pgvector</li><li>Tool calling</li><li>Streaming</li>
+              <li>Angular 21</li><li>AWS ECS</li><li>Terraform</li><li>Playwright</li>
+            </ul>
+            <h4 style="margin-top:20px">My role</h4>
+            <p>Own the architecture end to end. Set the engineering standards the team writes and
+              reviews code against, including the AI-assisted review and planning workflow now shared
+              across the repository. Own backlog planning, architecture overviews and code review.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- ─────────── 2. EUROCONTROL Digital NOTAM -->
+      <article class="case">
+        <div class="case-top">
+          <div>
+            <h3>Digital NOTAM Platform for EUROCONTROL</h3>
+            <p class="client">Indra Avitech &middot; Team Lead</p>
+          </div>
+          <p class="when">Aug 2023 &mdash; Dec 2024</p>
+        </div>
+        <div class="case-body">
+          <section>
+            <h4>Problem</h4>
+            <p>EUROCONTROL needed a new Conventional and Digital NOTAM processing system &mdash; the
+              notices that tell every pilot in European airspace what has changed. The system had to
+              keep ingesting and distributing at full rate without interruption, and stay consistent
+              with the air navigation systems around it.</p>
+            <div class="figure" style="margin-top:16px">
+              <div><b>100,000</b><span>NOTAMs per day, engineered for</span></div>
+              <div><b>24/7</b><span>availability target</span></div>
+            </div>
+            <h4>My role</h4>
+            <p>Led the cross-functional team. Owned story analysis, sprint planning, code review and
+              milestone delivery; set architectural standards and mentored engineers on quality and
+              design.</p>
+          </section>
+          <section>
+            <h4>Architecture</h4>
+            <p><strong>Quarkus</strong> services with <strong>Kafka</strong> event streaming,
+              <strong>PostgreSQL</strong> and <strong>MongoDB</strong> persistence,
+              <strong>Keycloak</strong> authentication, deployed on
+              <strong>OpenShift/Kubernetes</strong>. Integrated with the core aviation systems
+              &mdash; INO, AFTN and PIB &mdash; for reliable exchange and operational consistency with
+              external air navigation systems.</p>
+            <ul class="tech">
+              <li>Quarkus</li><li>Apache Kafka</li><li>PostgreSQL</li><li>MongoDB</li><li>Keycloak</li>
+              <li>OpenShift</li><li>Kubernetes</li><li>AFTN / INO / PIB</li>
+            </ul>
+            <h4 style="margin-top:20px">Also delivered</h4>
+            <ul>
+              <li>A <strong>real-time operations dashboard</strong> for monitoring incoming NOTAM
+                traffic and live system health.</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+
+      <!-- ─────────── 3. ProMIS modernisation -->
+      <article class="case">
+        <div class="case-top">
+          <div>
+            <h3>ProMIS Modernisation</h3>
+            <p class="client">Hitachi Energy &middot; Software Architect</p>
+          </div>
+          <p class="when">Jul 2025 &mdash; Apr 2026</p>
+        </div>
+        <div class="case-body">
+          <section>
+            <h4>Problem</h4>
+            <p>A legacy enterprise platform on WildFly and JSF still ran the business, so it could not
+              be switched off, rewritten in place, or paused for a migration. The work had to move it
+              to a modern distributed architecture while the business kept operating on it.</p>
+            <h4 style="margin-top:20px">Impact</h4>
+            <ul>
+              <li>The business stayed <strong>fully operational throughout a phased migration</strong>
+                &mdash; the legacy application was containerised to run side by side with the new
+                services on a shared database.</li>
+              <li>Refactoring <strong>cut the technical debt blocking new feature work</strong>.</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Architecture</h4>
+            <p>Migration from <strong>WildFly/JSF</strong> to <strong>Java 21 / Spring Boot 3.4</strong>
+              microservices, applying <strong>hexagonal architecture</strong> and an API-first,
+              OpenAPI-generated contract layer. Multi-datasource transaction management, Liquibase
+              schema delivery, Elasticsearch-backed search, and Keycloak/OIDC authentication behind an
+              Nginx routing layer.</p>
+            <ul class="tech">
+              <li>Java 21</li><li>Spring Boot 3.4</li><li>Hexagonal</li><li>OpenAPI</li>
+              <li>Liquibase</li><li>Elasticsearch</li><li>Keycloak / OIDC</li><li>Nginx</li>
+            </ul>
+            <h4 style="margin-top:20px">My role</h4>
+            <p>Drove the migration and its architecture decisions, and raised the quality baseline with
+              JUnit 5, Mockito, REST Assured and WireMock.</p>
+          </section>
+        </div>
+      </article>
+
+      <!-- ─────────── 4. TAKAFO -->
+      <article class="case">
+        <div class="case-top">
+          <div>
+            <h3>TAKAFO Recruitment Platform</h3>
+            <p class="client">Mubadala Group &middot; Engineer, then Service Delivery Manager</p>
+          </div>
+          <p class="when">2021 &mdash; 2023, and 2025</p>
+        </div>
+        <div class="case-body">
+          <section>
+            <h4>Problem</h4>
+            <p>A group-wide recruitment platform serving hiring across Mubadala Group companies, with
+              a job-seeker portal, an internal UI and an admin portal for managing opportunities and
+              matching. Later, the engagement itself needed an owner accountable to the client.</p>
+            <h4 style="margin-top:20px">Impact</h4>
+            <ul>
+              <li><strong>Every scheduled release delivered on time</strong> across the six-month
+                delivery-ownership term, with <strong>no P1 incidents escaping to production</strong>.</li>
+              <li>Kept the platform stable for hiring across Mubadala Group companies.</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Architecture</h4>
+            <p>Backend and frontend of the platform &mdash; JobSeeker portal, Takafo UI and an admin
+              portal for job opportunities and matching algorithms &mdash; with
+              <strong>Elasticsearch</strong> queries powering recruitment analytics and statistical
+              insight for HR stakeholders.</p>
+            <ul class="tech">
+              <li>Java</li><li>Spring Boot</li><li>Angular</li><li>Elasticsearch</li>
+            </ul>
+            <h4 style="margin-top:20px">My role</h4>
+            <p>Built the platform as an engineer, mentored junior and mid-level engineers, led code
+              reviews and drove refactoring. Later ran a six-person delivery team as Service Delivery
+              Manager, holding contractual accountability &mdash; SLA and uptime commitments, scope and
+              change requests, and client steering and escalation &mdash; while continuing in the
+              Software Architect role.</p>
+          </section>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ experience -->
+<section class="sec rv" id="experience" aria-labelledby="xp-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow lbl">Experience</p>
+        <h2 id="xp-h">Professional timeline</h2>
+      </div>
+      <p class="sub">Twelve years across aviation, energy, government and defence, and recruitment
+        &mdash; progressing from engineer to architect, technical lead and delivery manager.</p>
+    </div>
+
+    <div class="xp">
+      <article class="xp-item">
+        <div class="xp-head">
+          <div>
+            <p class="org">Avenga &mdash; formerly Musala Soft</p>
+            <h3>Software Architect</h3>
+          </div>
+          <p class="when">Jan 2021 &mdash; present &middot; Sofia &amp; Cairo</p>
+        </div>
+        <p class="one">Architecture ownership across four client engagements &mdash; aviation, energy,
+          recruitment and AI &mdash; while remaining hands-on in the code.</p>
+        <div class="roles">
+          <b>Software Architect</b> 2025&ndash;
+          <b>Service Delivery Manager, TAKAFO</b> 2025 (concurrent)
+          <b>Associate Software Architect</b> 2024
+          <b>Senior Software Engineer</b> 2021&ndash;23
+        </div>
+        <details>
+          <summary>Technical detail</summary>
+          <ul>
+            <li>Own the architecture of a production retrieval-augmented AI platform on Spring AI and
+              pgvector, including its evaluation harness and engineering standards.</li>
+            <li>Drove the ProMIS migration from WildFly/JSF to Java 21 and Spring Boot 3.4
+              microservices under hexagonal architecture and API-first contracts.</li>
+            <li>Led the cross-functional team building EUROCONTROL&rsquo;s Conventional and Digital
+              NOTAM processing system on Quarkus, Kafka and OpenShift.</li>
+            <li>Held contractual delivery accountability for TAKAFO as Service Delivery Manager &mdash;
+              SLA and uptime commitments, scope and change requests, client steering and escalation.</li>
+            <li>Musala Soft merged into Avenga in 2025; the architect track maps to Staff Software
+              Engineer under Avenga&rsquo;s job architecture.</li>
+          </ul>
+        </details>
+      </article>
+
+      <article class="xp-item">
+        <div class="xp-head">
+          <div>
+            <p class="org">Ejada Systems Ltd</p>
+            <h3>Senior Software Engineer</h3>
+          </div>
+          <p class="when">Feb 2014 &mdash; Jul 2020 &middot; Cairo</p>
+        </div>
+        <p class="one">Enterprise integration, workflow and ERP systems for government, defence and
+          border-control clients &mdash; including an organisation-wide ESB.</p>
+        <div class="roles">
+          <b>Senior Software Engineer</b> 2017&ndash;20
+          <b>Associate Software Engineer</b> 2014&ndash;17
+        </div>
+        <details>
+          <summary>Technical detail</summary>
+          <ul>
+            <li>Built <strong>CONNECT</strong>, an ESB integrating in-house ERP systems via Apache
+              Camel and RabbitMQ, plus a runtime administration and request/response auditing console
+              in Angular and Spring Boot.</li>
+            <li>Designed and delivered an internal flight reservation platform for Saudi Border Guards:
+              REST APIs for the mobile team, pessimistic and optimistic seat locking across a clustered
+              deployment, Dijkstra-based shortest-path routing, and a &ldquo;Flight Cure&rdquo; admin
+              tool to repair broken flights after outages.</li>
+            <li>Implemented an organisation-wide workflow engine on Flowable (BPMN and CMMN),
+              automating multi-level approval processes.</li>
+            <li>Delivered ERP systems for military intelligence, employee case management and border
+              case tracking using Java EE, SOA, JSF 2.1, JMS, PrimeFaces, Hibernate and Jasper Reports
+              over Oracle 11g and MS SQL.</li>
+            <li>Led technical design and database design, and managed deployments across WebLogic,
+              Tomcat, TomEE and WildFly.</li>
+          </ul>
+        </details>
+      </article>
+
+      <article class="xp-item">
+        <div class="xp-head">
+          <div>
+            <p class="org">Independent</p>
+            <h3>Listify &mdash; Product Owner &amp; Lead Developer</h3>
+          </div>
+          <p class="when">Jul 2018 &mdash; Dec 2020</p>
+        </div>
+        <p class="one">Defined the product vision and led a five-person team building a cross-platform
+          list, task and note application.</p>
+        <details>
+          <summary>Technical detail</summary>
+          <ul>
+            <li>Built with Angular, Ionic, Cordova and Cloud Firestore.</li>
+            <li>Ran the full Scrum cycle &mdash; backlog management, prioritisation and sprint reviews
+              &mdash; while owning the technical design, API layer and UI.</li>
+          </ul>
+        </details>
+      </article>
+
+      <article class="xp-item">
+        <div class="xp-head">
+          <div>
+            <p class="org">Cairo University</p>
+            <h3>BSc, Computer Engineering</h3>
+          </div>
+          <p class="when">2008 &mdash; 2013</p>
+        </div>
+        <p class="one">Faculty of Engineering, Cairo University, Egypt.</p>
+        <details>
+          <summary>Certifications &amp; languages</summary>
+          <ul>
+            <li>SystemsExpert, algoexpert.io (2023) &middot; Intro to DevOps, Udacity (2022) &middot;
+              Building a Search Engine, Udacity (2021) &middot; Divide and Conquer, Sorting and
+              Searching, and Randomized Algorithms, Coursera (2021) &middot; Angular &mdash; The
+              Complete Guide, Udemy (2020).</li>
+            <li>Arabic &mdash; native &middot; English &mdash; professional working &middot; French
+              &mdash; limited working.</li>
+          </ul>
+        </details>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ expertise -->
+<section class="sec rv" id="expertise" aria-labelledby="ex-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow lbl">Engineering expertise</p>
+        <h2 id="ex-h">Domains</h2>
+      </div>
+      <p class="sub">Grouped by what they are for, not by how many there are. The full inventory is
+        below if you want it.</p>
+    </div>
+
+    <div class="dom">
+      <div>
+        <span class="lbl lbl-acc">01</span>
+        <h3>Architecture</h3>
+        <ul><li>Distributed Systems</li><li>Microservices</li><li>Event-Driven Architecture</li>
+          <li>DDD</li><li>Hexagonal Architecture</li><li>System Integration</li></ul>
+      </div>
+      <div>
+        <span class="lbl lbl-acc">02</span>
+        <h3>Backend</h3>
+        <ul><li>Java</li><li>Spring Boot</li><li>Spring AI</li><li>Quarkus</li><li>REST</li>
+          <li>Kafka</li></ul>
+      </div>
+      <div>
+        <span class="lbl lbl-acc">03</span>
+        <h3>AI</h3>
+        <ul><li>RAG</li><li>LLM Applications</li><li>Tool Calling</li><li>Vector Search</li>
+          <li>AI Evaluation</li><li>Production AI Architecture</li></ul>
+      </div>
+      <div>
+        <span class="lbl lbl-acc">04</span>
+        <h3>Frontend</h3>
+        <ul><li>Angular</li><li>TypeScript</li><li>RxJS</li></ul>
+      </div>
+      <div>
+        <span class="lbl lbl-acc">05</span>
+        <h3>Data</h3>
+        <ul><li>PostgreSQL</li><li>pgvector</li><li>MongoDB</li><li>Elasticsearch</li></ul>
+      </div>
+      <div>
+        <span class="lbl lbl-acc">06</span>
+        <h3>Cloud &amp; Platform</h3>
+        <ul><li>AWS</li><li>Kubernetes</li><li>OpenShift</li><li>Docker</li><li>Terraform</li></ul>
+      </div>
+      <div>
+        <span class="lbl lbl-acc">07</span>
+        <h3>Security</h3>
+        <ul><li>Keycloak</li><li>OAuth2</li><li>OIDC</li><li>SAML</li></ul>
+      </div>
+      <div>
+        <span class="lbl lbl-acc">08</span>
+        <h3>Testing</h3>
+        <ul><li>JUnit 5</li><li>Mockito</li><li>REST Assured</li><li>WireMock</li>
+          <li>Playwright</li><li>TDD</li></ul>
+      </div>
+    </div>
+
+    <details class="full">
+      <summary>Full technology inventory</summary>
+      <div class="full-in">
+        <div><h4>Languages</h4><p>Java (8&ndash;25), TypeScript, JavaScript, Python, SQL</p></div>
+        <div><h4>Backend</h4><p>Spring Boot 3.x, Spring AI, Spring Security / Data / Cloud, Quarkus,
+          Jakarta EE, Hibernate / JPA, REST &amp; OpenAPI, GraphQL, SOAP</p></div>
+        <div><h4>Architecture</h4><p>Microservices, Hexagonal Architecture, DDD, Event-Driven Design,
+          API-First, System Integration / ESB (Apache Camel), BPMN &amp; CMMN (Flowable, Camunda)</p></div>
+        <div><h4>Frontend</h4><p>Angular (5&ndash;21), RxJS, NgRx, Angular Material, SCSS, Ionic,
+          Flutter</p></div>
+        <div><h4>Data</h4><p>PostgreSQL &amp; pgvector, Oracle, MS SQL Server, MongoDB, Elasticsearch,
+          Liquibase, Spring Data, Ehcache</p></div>
+        <div><h4>Messaging</h4><p>Apache Kafka, RabbitMQ, ActiveMQ / JMS</p></div>
+        <div><h4>Cloud &amp; DevOps</h4><p>Docker, Kubernetes, OpenShift, Azure, AWS (ECS), Terraform,
+          Jenkins, GitLab CI/CD, SonarQube, Nginx, Maven, Git</p></div>
+        <div><h4>Security</h4><p>Keycloak, OAuth2 / OIDC, SAML, LDAP</p></div>
+        <div><h4>Testing</h4><p>JUnit 5, Mockito, REST Assured, WireMock, Playwright, TDD,
+          Jasmine / Karma, Postman</p></div>
+        <div><h4>AI engineering</h4><p>Retrieval-Augmented Generation (RAG), vector search &amp;
+          embeddings, tool-calling agents, streaming responses, model evaluation harnesses</p></div>
+        <div><h4>Leadership</h4><p>Team leadership, service delivery management, mentoring, code
+          review, technical design, Scrum / Kanban, stakeholder management</p></div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ how i work -->
+<section class="sec rv" id="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow lbl">Ways of working</p>
+        <h2 id="how-h">How I work</h2>
+      </div>
+      <p class="sub">Strategic and hands-on are not a trade-off. Defining the architecture and
+        writing the code that proves it are the same job.</p>
+    </div>
+    <div class="how">
+      <div><span class="n">01</span><h3>Architecture</h3>
+        <p>Own technical direction from system boundaries through implementation &mdash; and stay
+          accountable for the decisions once they meet production.</p></div>
+      <div><span class="n">02</span><h3>Engineering</h3>
+        <p>Remain hands-on with code, testing, infrastructure and technical decisions. Build the
+          verification the project is missing.</p></div>
+      <div><span class="n">03</span><h3>Leadership</h3>
+        <p>Lead engineers, establish standards, review designs and mentor developers so the quality
+          bar survives me leaving the room.</p></div>
+      <div><span class="n">04</span><h3>Delivery</h3>
+        <p>Translate architecture into milestones, releases and customer outcomes &mdash; including
+          contractual accountability when that is what the engagement needs.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ open source -->
+<section class="sec rv" id="open-source" aria-labelledby="oss-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow lbl">Open source &amp; personal</p>
+        <h2 id="oss-h">Things I build outside work</h2>
+      </div>
+      <p class="sub">Shipped and public &mdash; a published npm tool, a browser-native CAD
+        experiment, a product I owned end to end, and this site.</p>
+    </div>
+    <div class="oss">
+
+      <article>
+        <p class="kind lbl lbl-acc">npm &middot; Apache-2.0</p>
+        <h3><a href="https://github.com/SherifMoShalaby/keeldocs" rel="noopener">keeldocs</a></h3>
+        <p class="desc">Test coverage for your documentation. It ties each documented claim to the
+          code it describes and reports which claims stopped being true, with the evidence for each.</p>
+        <p class="why">Interesting because it is deterministic: it calls no model and no network, and
+          every finding ships with a receipt. Zero runtime dependencies.</p>
+        <ul class="tech"><li>JavaScript</li><li>Node &ge;20</li><li>CI</li><li>Static analysis</li></ul>
+        <div class="foot">
+          <a href="https://www.npmjs.com/package/keeldocs" rel="noopener">npm &rarr;</a>
+          <a href="https://github.com/SherifMoShalaby/keeldocs" rel="noopener">GitHub &rarr;</a>
+        </div>
+      </article>
+
+      <article>
+        <p class="kind lbl lbl-acc">MIT &middot; live demo</p>
+        <h3><a href="https://github.com/SherifMoShalaby/VibeMesh-AI" rel="noopener">VibeMesh&#8209;AI</a></h3>
+        <p class="desc">Describe a part in plain language and get a parametric, print-ready 3D model
+          &mdash; rendered entirely in the browser.</p>
+        <p class="why">Interesting because the whole CAD pipeline runs client-side: OpenSCAD compiled
+          to WebAssembly, with Three.js doing the rendering. An LLM front end onto a deterministic
+          geometry kernel.</p>
+        <ul class="tech"><li>React 19</li><li>TypeScript</li><li>Vite</li><li>Three.js</li>
+          <li>OpenSCAD / WASM</li></ul>
+        <div class="foot">
+          <a href="https://sherifmoshalaby.github.io/VibeMesh-AI/" rel="noopener">Live demo &rarr;</a>
+          <a href="https://github.com/SherifMoShalaby/VibeMesh-AI" rel="noopener">GitHub &rarr;</a>
+        </div>
+      </article>
+
+      <article>
+        <p class="kind lbl lbl-acc">Product &middot; 2018&ndash;2020</p>
+        <h3>Listify</h3>
+        <p class="desc">A cross-platform list, task and note application. I defined the product vision
+          and led a five-person team as Product Owner.</p>
+        <p class="why">Interesting because it is the one project where I owned the product and the
+          architecture at once &mdash; backlog and sprint reviews on one side, API layer and UI on
+          the other.</p>
+        <ul class="tech"><li>Angular</li><li>Ionic</li><li>Cordova</li><li>Cloud Firestore</li></ul>
+        <div class="foot"><span class="lbl">Not public</span></div>
+      </article>
+
+      <article>
+        <p class="kind lbl lbl-acc">This site</p>
+        <h3><a href="https://github.com/SherifMoShalaby/sherif-cv" rel="noopener">sherif-cv</a></h3>
+        <p class="desc">This portfolio, and the interactive flight-strip version behind it &mdash; an
+          air-traffic-control strip bay rendered procedurally in Three.js.</p>
+        <p class="why">Interesting because of the constraints: one static file, no build step, no
+          remote assets, every surface drawn in code, readable with JavaScript off, and text fit
+          asserted at boot rather than eyeballed.</p>
+        <ul class="tech"><li>Three.js</li><li>Vanilla CSS</li><li>No build step</li></ul>
+        <div class="foot">
+          <a href="strip/">Interactive version &rarr;</a>
+          <a href="https://github.com/SherifMoShalaby/sherif-cv" rel="noopener">GitHub &rarr;</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ contact -->
+<section class="contact rv" id="contact" aria-labelledby="ct-h">
+  <div class="wrap">
+    <p class="eyebrow lbl">Contact</p>
+    <h2 id="ct-h">Let&rsquo;s build something difficult.</h2>
+    <p class="avail">
+      <b>Available for</b>
+      Staff Engineer &middot; Principal Engineer &middot; Software Architect &middot; Engineering Lead
+    </p>
+    <div class="cta">
+      <a class="btn btn-p" href="mailto:sherif.mo.shalaby@gmail.com">Email me</a>
+      <a class="btn" href="https://linkedin.com/in/sherif-mo-shalaby" rel="me noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/SherifMoShalaby" rel="me noopener">GitHub</a>
+      <a class="btn" href="cv.pdf" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 1v9m0 0L4.5 6.5M8 10l3.5-3.5M2 13h12"/></svg>
+        Download CV
+      </a>
+    </div>
+  </div>
+</section>
+
 </main>
 
-<script>document.documentElement.className='js';</script>
-<script src="vendor/three.min.js"></script>
+<footer>
+  <div class="wrap">
+    <span>Sherif Shalaby &middot; Sofia, Bulgaria</span>
+    <span><a href="strip/">Interactive version</a> &middot;
+      <a href="https://github.com/SherifMoShalaby/sherif-cv" rel="noopener">Source</a></span>
+  </div>
+</footer>
+
 <script>
-/* ============================================================================
-   HANDOVER — opening prototype
-   One controller's flight progress strip under a desk lamp. The strip feeds in
-   on a ratchet, an impact head strikes the fields onto it, and the last box is
-   left open with the head still sitting at it — the career is not closed out.
-
-   This is the first five seconds only. No scroll, no sections, no CV. The point
-   is to answer one question before anything else gets built: does this feel
-   like something, or is it another handsome empty room?
-   ========================================================================== */
-
-THREE.ColorManagement.legacyMode = false;
-
-var REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* ---------------------------------------------------------------- renderer */
-var canvas = document.createElement('canvas');
-document.body.insertBefore(canvas, document.querySelector('.vig'));
-
-var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 1.85));
-renderer.setSize(innerWidth, innerHeight);
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;   /* built in — no hand-rolled composite */
-renderer.toneMappingExposure = 0.92;
-renderer.outputEncoding = THREE.sRGBEncoding;
-
-var scene = new THREE.Scene();
-scene.background = new THREE.Color(0x08090B);
-scene.fog = new THREE.Fog(0x08090B, 16, 34);
-
-var camera = new THREE.PerspectiveCamera(33, innerWidth / innerHeight, 0.1, 120);
-
-/* ------------------------------------------------------------------ canvas
-   textures. Everything printed on the strip is drawn here — the same trick the
-   previous build used to paint runway markings, pointed at paper instead. */
-
-function noiseCanvas(w, h, base, amp, grain) {
-  var c = document.createElement('canvas'); c.width = w; c.height = h;
-  var x = c.getContext('2d'), img = x.createImageData(w, h), d = img.data, i, n;
-  for (i = 0; i < w * h; i++) {
-    n = base + (Math.random() - 0.5) * amp;
-    /* a coarser blotch on top of the per-pixel grain, so it is not TV static */
-    if ((i % w) % grain === 0 || Math.floor(i / w) % grain === 0) n -= amp * 0.18;
-    d[i * 4] = n; d[i * 4 + 1] = n * 0.985; d[i * 4 + 2] = n * 0.95; d[i * 4 + 3] = 255;
-  }
-  x.putImageData(img, 0, 0);
-  return c;
-}
-
-function tex(c, rx, ry) {
-  var t = new THREE.CanvasTexture(c);
-  t.wrapS = t.wrapT = THREE.RepeatWrapping;
-  if (rx) t.repeat.set(rx, ry);
-  t.anisotropy = renderer.capabilities.getMaxAnisotropy();
-  return t;
-}
-
-/* ---------------------------------------------------------------- the desk */
-var deskCol = tex(noiseCanvas(256, 256, 30, 16, 7), 5, 5);
-deskCol.encoding = THREE.sRGBEncoding;
-var deskBump = tex(noiseCanvas(256, 256, 128, 90, 5), 5, 5);
-
-var desk = new THREE.Mesh(
-  new THREE.PlaneGeometry(70, 46),
-  new THREE.MeshStandardMaterial({
-    color: 0x15171A, map: deskCol, bumpMap: deskBump, bumpScale: 0.012,
-    roughness: 0.94, metalness: 0.02
-  })
-);
-desk.rotation.x = -Math.PI / 2;
-desk.receiveShadow = true;
-scene.add(desk);
-
-/* --------------------------------------------------------------- the strip
-   Real flight progress strips are about 200 x 25 mm — 8:1. The face is drawn
-   at 2048 x 256 and used as colour AND bump, so the impact head dents the
-   paper it prints on. */
-
-var SW = 8.0, SH = 1.0;                       /* strip, in scene units */
-var FC = document.createElement('canvas');    /* face canvas */
-FC.width = 2048; FC.height = 256;
-var fx = FC.getContext('2d');
-
-/* the paper itself, drawn once and kept as the base layer */
-var PAPER = document.createElement('canvas');
-PAPER.width = 2048; PAPER.height = 256;
+/* Three small behaviours. Nothing here is load-bearing: with JS off the page is
+   complete, every section is visible and every link works. */
 (function () {
-  var p = PAPER.getContext('2d'), i, g;
-  p.fillStyle = '#E4DDCB'; p.fillRect(0, 0, 2048, 256);
-  /* fibre */
-  for (i = 0; i < 5200; i++) {
-    p.fillStyle = 'rgba(' + (150 + Math.random() * 60 | 0) + ',' +
-      (140 + Math.random() * 55 | 0) + ',' + (120 + Math.random() * 50 | 0) + ',' +
-      (0.03 + Math.random() * 0.05).toFixed(3) + ')';
-    p.fillRect(Math.random() * 2048, Math.random() * 256, 1 + Math.random() * 3, 1);
-  }
-  /* a warm gradient across the sheet — the lamp is off to one side */
-  g = p.createLinearGradient(0, 0, 2048, 256);
-  g.addColorStop(0, 'rgba(255,236,200,.10)');
-  g.addColorStop(0.55, 'rgba(255,240,214,.03)');
-  g.addColorStop(1, 'rgba(90,80,64,.09)');
-  p.fillStyle = g; p.fillRect(0, 0, 2048, 256);
-})();
+  'use strict';
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* the field grid — real strips are ruled into boxes and the boxes carry meaning */
-var DIV = [552, 1266, 1524, 1782];   /* vertical rules */
-
-/* Fields. `t` is the struck text; `lab` is the pre-printed box label (the form
-   is printed before anyone fills it in, so labels are always there). */
-/* ================================================================== CARDS
-   One strip per card. Card 0 is the name card and is the only one that gets
-   signed off; the rest are the jobs, read straight out of #cv so the strip
-   and the page can never drift apart.
-
-   The two form layouts are different pre-printed stock, which is why the
-   field geometry travels with the card rather than being global. */
-var DIV_NAME = [552, 1266, 1524, 1782];
-var DIV_ROLE = [620, 1400, 1720];
-
-var CARDS = [{
-  sign: true, div: DIV_NAME, art: null,
-  f: [{ x: 40,   lab: 'NAME',    t: 'SHALABY',            size: 92 },
-      { x: 592,  lab: 'ROLE',    t: 'SOFTWARE ARCHITECT', size: 58 },
-      { x: 1306, lab: 'SECTOR',  t: 'SOF',                size: 62 },
-      { x: 1564, lab: 'ON STN',  t: '2026',               size: 62 },
-      { x: 1822, lab: 'CLEARED', t: '',                   size: 62 }]
-}];
-
-[].forEach.call(document.querySelectorAll('#cv .role'), function (a) {
-  CARDS.push({
-    sign: false, div: DIV_ROLE, art: a,
-    f: [{ x: 40,   lab: 'ORG',    t: a.dataset.org,    size: 48 },
-        { x: 660,  lab: 'ROLE',   t: a.dataset.role,   size: 38 },
-        { x: 1440, lab: 'DOMAIN', t: a.dataset.domain, size: 32 },
-        { x: 1760, lab: 'PERIOD', t: a.dataset.period, size: 38 }]
-  });
-});
-
-var CARD = 0, FIELDS = CARDS[0].f, DIV = CARDS[0].div, JIT = [], SIGN = true;
-var STAMP_T = 3.52, PLATE_T = 3.74, CUE_T = 4.06, HEAD_GO = 3.02;
-
-function jitter(fields) {
-  return fields.map(function (f) {
-    return f.t.split('').map(function () {
-      return { dy: (Math.random() - 0.5) * 2.2, dx: (Math.random() - 0.5) * 1.4,
-               a: 0.80 + Math.random() * 0.20 };
-    });
-  });
-}
-
-/* Strikes are derived from the copy, not hand-timed per card: a short field
-   lands in one blow, a long one in three. */
-function burstsFor(fields) {
-  var out = [], t = 1.58;
-  fields.forEach(function (f, i) {
-    if (!f.t) return;
-    var n = f.t.length, chunks = n <= 4 ? 1 : (n <= 11 ? 2 : 3), k;
-    for (k = 1; k <= chunks; k++) { out.push([t, i, Math.round(n * k / chunks)]); t += 0.135; }
-    t += 0.17;
-  });
-  return out;
-}
-
-var struck = [];                  /* how many chars of each field have landed */
-var headX = 40, headOn = 0;       /* the print head's position and glow */
-var stamp = 0;                    /* the CLEARED sign-off, 0..1 */
-
-/* right-hand rule of a field's box. The pre-printed dividers define the box,
-   not FIELDS[].w — that is a nominal hint and does not match the rules. */
-function fieldRight(fi) { return (fi < DIV.length ? DIV[fi] : 2040) - 12; }
-
-function drawFace() {
-  fx.clearRect(0, 0, 2048, 256);
-  fx.drawImage(PAPER, 0, 0);
-
-  /* pre-printed form: rules and labels, in a faded process blue */
-  fx.strokeStyle = 'rgba(58,74,96,.34)'; fx.lineWidth = 3;
-  DIV.forEach(function (x) {
-    fx.beginPath(); fx.moveTo(x, 14); fx.lineTo(x, 242); fx.stroke();
-  });
-  fx.strokeRect(8, 8, 2032, 240);
-
-  fx.font = '500 26px "Plex Mono", monospace';
-  fx.fillStyle = 'rgba(58,74,96,.52)';
-  FIELDS.forEach(function (f) {
-    fx.fillText(f.lab, f.x, 52);
-  });
-
-  /* struck characters — impact printing: uppercase, jittered, uneven ink.
-     Each field is clipped to its own box: measureText only advances the
-     cursor, so without this a long title strikes straight across the
-     divider into the next field. Overflow is cut at the rule, as it would
-     be on a real pre-printed form. */
-  FIELDS.forEach(function (f, fi) {
-    if (!f.t) return;
-    fx.save();
-    fx.beginPath();
-    fx.rect(f.x - 8, 60, fieldRight(fi) - f.x + 2, 182);
-    fx.clip();
-    fx.font = '500 ' + f.size + 'px "Plex Mono", monospace';
-    var cx = f.x, i, ch, j;
-    for (i = 0; i < struck[fi]; i++) {
-      ch = f.t[i]; j = JIT[fi][i];
-      fx.fillStyle = 'rgba(26,24,22,' + j.a.toFixed(2) + ')';
-      fx.fillText(ch, cx + j.dx, 186 + j.dy);
-      cx += fx.measureText(ch).width;
-    }
-    fx.restore();
-  });
-
-  /* D6: the sign-off. The whole sequence teaches a left-to-right ritual and
-     used to stop one cell short. The stamp is the premise of the site. */
-  if (stamp > 0.01 && SIGN) {
-    var f4 = FIELDS[4], sx = f4.x + 100, sy = 150;
-    fx.save();
-    fx.translate(sx, sy);
-    fx.rotate(-0.055);
-    fx.globalAlpha = Math.min(1, stamp);
-    /* struck slightly oversize then settling is what an ink stamp does */
-    var sc = 1 + 0.10 * Math.pow(1 - Math.min(1, stamp), 2);
-    fx.scale(sc, sc);
-    fx.strokeStyle = 'rgba(122,26,20,.92)'; fx.lineWidth = 6;
-    fx.strokeRect(-104, -44, 208, 88);
-    fx.font = '600 44px "Plex Mono", monospace';
-    fx.fillStyle = 'rgba(122,26,20,.94)';
-    fx.textAlign = 'center'; fx.textBaseline = 'middle';
-    fx.fillText('CLEARED', 0, 4);
-    fx.textAlign = 'left'; fx.textBaseline = 'alphabetic';
-    fx.restore();
+  /* 1. hairline under the nav only once you have left the top */
+  var nav = document.getElementById('nav');
+  var top = document.getElementById('top');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      nav.classList.toggle('stuck', !es[0].isIntersecting);
+    }, { rootMargin: '-62px 0px 0px 0px' }).observe(top);
   }
 
-  faceTex.needsUpdate = true;
-  bumpTex.needsUpdate = true;
-}
-
-window.__fx = fx;
-var faceTex = new THREE.CanvasTexture(FC);
-
-faceTex.encoding = THREE.sRGBEncoding;
-faceTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-window.__faceTex = faceTex;
-var bumpTex = new THREE.CanvasTexture(FC);
-bumpTex.anisotropy = faceTex.anisotropy;
-
-/* paper never lies flat — bow the plane very slightly across its length */
-var stripGeo = new THREE.PlaneGeometry(SW, SH, 48, 6);
-(function () {
-  var pos = stripGeo.attributes.position, i, x, y;
-  for (i = 0; i < pos.count; i++) {
-    x = pos.getX(i); y = pos.getY(i);
-    pos.setZ(i, Math.cos(x / SW * Math.PI * 1.15) * 0.030 + Math.cos(y * 2.4) * 0.012);
-  }
-  stripGeo.computeVertexNormals();
-})();
-
-var strip = new THREE.Mesh(stripGeo, new THREE.MeshStandardMaterial({
-  map: faceTex, bumpMap: bumpTex, bumpScale: -0.010,
-  roughness: 0.93, metalness: 0.0, side: THREE.FrontSide
-}));
-strip.rotation.x = -Math.PI / 2;
-strip.position.y = 0.075;
-strip.castShadow = true; strip.receiveShadow = true;
-
-/* the holder — coloured plastic, the one saturated object in frame.
-   Amber is not decoration: on a real board the holder colour encodes the kind
-   of traffic. Here it encodes the kind of work. */
-var holder = new THREE.Group();
-(function () {
-  var mat = new THREE.MeshStandardMaterial({
-    color: 0xB4762A, roughness: 0.28, metalness: 0.06
-  });
-  var t = 0.085, o = 0.20;                                  /* rail thickness / overhang */
-  var long = new THREE.BoxGeometry(SW + o * 2, 0.10, t);
-  var end  = new THREE.BoxGeometry(t, 0.10, SH + o * 2 - t * 2);
-  [[0, (SH + o * 2 - t) / 2], [0, -(SH + o * 2 - t) / 2]].forEach(function (p) {
-    var m = new THREE.Mesh(long, mat); m.position.set(p[0], 0.05, p[1]);
-    m.castShadow = true; m.receiveShadow = true; holder.add(m);
-  });
-  [[(SW + o * 2 - t) / 2, 0], [-(SW + o * 2 - t) / 2, 0]].forEach(function (p) {
-    var m = new THREE.Mesh(end, mat); m.position.set(p[0], 0.05, p[1]);
-    m.castShadow = true; m.receiveShadow = true; holder.add(m);
-  });
-  /* base tray the paper actually sits on */
-  var tray = new THREE.Mesh(
-    new THREE.BoxGeometry(SW + o * 2, 0.045, SH + o * 2),
-    new THREE.MeshStandardMaterial({ color: 0x7A4E1B, roughness: 0.42, metalness: 0.05 })
-  );
-  tray.position.y = 0.022; tray.receiveShadow = true; tray.castShadow = true;
-  holder.add(tray);
-})();
-var board = new THREE.Group();
-board.add(holder);
-board.add(strip);
-scene.add(board);
-
-/* the slot the strip feeds out of, off to the right */
-var slot = new THREE.Mesh(
-  new THREE.BoxGeometry(2.2, 1.5, 3.0),
-  new THREE.MeshStandardMaterial({ color: 0x0D0E10, roughness: 0.8, metalness: 0.15 })
-);
-slot.position.set(8.4, 0.75, 0);
-slot.castShadow = true; slot.receiveShadow = true;
-board.add(slot);
-/* ponytail: hidden in portrait. It only reads as a machine from the landscape
-   framing; on a phone the camera travels past it and it becomes a dark slab
-   with no explanation. Show it again if portrait ever gets a wider shot. */
-
-/* D4: the head is a real object standing above the paper. It used to be a
-   fillRect painted INTO the face texture — coplanar with the sheet, so it
-   could not occlude, could not cast a shadow and could not descend. It read
-   as a text cursor. Now it descends on each strike and the contact shadow
-   does the work of selling the impact. */
-var head = new THREE.Group();
-(function () {
-  var body = new THREE.Mesh(
-    new THREE.BoxGeometry(0.20, 0.26, 0.40),
-    /* machined steel, not a silhouette: near-black on lit paper read as a hole
-       punched in the sheet. It has to catch the lamp to read as an object. */
-    new THREE.MeshStandardMaterial({ color: 0x8A8F98, roughness: 0.26, metalness: 0.88 })
-  );
-  body.position.y = 0.17; body.castShadow = true;
-  head.add(body);
-  /* the hot underside — the only emissive surface in the scene */
-  var hot = new THREE.Mesh(
-    new THREE.BoxGeometry(0.15, 0.04, 0.32),
-    new THREE.MeshStandardMaterial({
-      color: 0xD8963C, emissive: 0xD8963C, emissiveIntensity: 1.1, roughness: 0.5
-    })
-  );
-  hot.position.y = 0.026;
-  head.add(hot);
-})();
-var HEAD_UP = 0.58, HEAD_DOWN = 0.15;
-head.position.set(-4, HEAD_UP, 0.23);
-head.visible = false;
-board.add(head);
-/* canvas x (0..2048) -> the strip's own x in world units */
-function headWorldX(cx) { return strip.position.x + (cx + 22) / 2048 * SW - SW / 2; }
-
-/* ---------------------------------------------------------------- the lamp */
-var lampGroup = new THREE.Group();
-lampGroup.position.set(-3.1, 4.6, 2.6);
-scene.add(lampGroup);
-
-var shade = new THREE.Mesh(
-  new THREE.ConeGeometry(1.5, 1.5, 40, 1, true),
-  new THREE.MeshStandardMaterial({ color: 0x1C1E22, roughness: 0.45, metalness: 0.6,
-    side: THREE.DoubleSide })
-);
-shade.position.y = 0.4;
-shade.castShadow = false;
-/* ponytail: the fixture is modelled but not shown. Looking almost straight down
-   at a desk, a shade floating with no arm read as a black smudge over the pool
-   rather than as a lamp. Turn it on again if the camera ever drops to a low
-   angle where a shade and an arm would actually read. */
-shade.visible = false;
-lampGroup.add(shade);
-
-/* the bulb, so the shade's inside is hot */
-var bulb = new THREE.Mesh(
-  new THREE.SphereGeometry(0.16, 16, 12),
-  new THREE.MeshBasicMaterial({ color: 0xFFE0B0 })
-);
-bulb.visible = false;
-lampGroup.add(bulb);
-
-var spot = new THREE.SpotLight(0xFFD3A0, 0, 26, 0.40, 0.78, 1.7);
-spot.position.copy(lampGroup.position);
-spot.target.position.set(0.5, 0, -0.1);
-spot.castShadow = true;
-spot.shadow.mapSize.set(2048, 2048);
-spot.shadow.camera.near = 1; spot.shadow.camera.far = 24;
-spot.shadow.bias = -0.0009;
-spot.shadow.radius = 2.2;
-scene.add(spot); scene.add(spot.target);
-
-/* a very small cool fill so the far edges are not pure void */
-/* A cool fill light was tried here and removed. Swept 0 -> 2.2: the dark desk
-   moved from B-R -6.1 to only -4.3, because everything outside the pool is
-   near-black by design and ACES crushes it further. Making it read would have
-   meant lifting the shadows, which is the one thing about this scene that
-   already works. The temperature separation lives in the interface layer
-   instead (see the chrome colours): the object is warm tungsten, the
-   instrument furniture around it is cold. */
-scene.add(new THREE.HemisphereLight(0x24313F, 0x05060A, 0.16));
-/* a low warm bounce off the desk, which real paper under a lamp always gets */
-var bounce = new THREE.PointLight(0xFFB870, 0.09, 10, 2);
-bounce.position.set(1.2, 0.5, 2.6);
-scene.add(bounce);
-
-/* ------------------------------------------------------------- the framing */
-var PORTRAIT = false;
-/* PORTRAIT COMPOSITION
-   The earlier version reasoned about the strip crossing a 390px WIDTH, decided
-   an 8:1 object could not do it legibly, and had the camera watch one station
-   at a time and travel between them. That was the wrong axis. A 390x844 screen
-   has a 928px DIAGONAL — within a pixel or two of the 934px the strip gets in
-   landscape — so the whole object fits at the same size, and nothing has to be
-   cut off or travelled to.
-
-   The strip stays along world X; the CAMERA rolls instead, which puts the strip
-   on the screen diagonal without rotating the board into depth. Distance is
-   then solved rather than guessed, so it holds at any phone size. */
-var _c = new THREE.Vector3();
-
-function fitStrip(target) {
-  var dir = _fitDir, d = 11, k, bx, over;
-  for (k = 0; k < 22; k++) {
-    camera.position.copy(_c).addScaledVector(dir, d);
-    camera.lookAt(_c);
-    camera.updateProjectionMatrix();
-    camera.updateMatrixWorld();
-    bx = screenBox(0, 2048);
-    over = Math.max(Math.abs(bx.x0), Math.abs(bx.x1), Math.abs(bx.y0), Math.abs(bx.y1));
-    if (!isFinite(over) || over <= 0) break;
-    if (Math.abs(over - target) < 0.005) break;
-    d *= over / target;                       /* apparent size goes as 1/d */
-  }
-  return d;
-}
-var _fitDir = new THREE.Vector3();
-var camBase = new THREE.Vector3(), lookBase = new THREE.Vector3();
-
-/* ------------------------------------------------------- the room is alive
-   A 3D scene that stops dead reads as a still image, and this one had nothing
-   moving after t=4.6s. Two very small continuous signals fix that without
-   turning into an infinite-loop toy: the lamp breathes like a real filament on
-   mains, and the camera drifts a few hundredths of a unit. Both are motivated —
-   they say "this is a room, not a picture" — and both are off under
-   prefers-reduced-motion. */
-var hovering = false, hoverAmt = 0, bayProg = -1, bayHit = -1;
-var ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
-
-function pointerOverStrip(e) {
-  ptr.x = (e.clientX / innerWidth) * 2 - 1;
-  ptr.y = -(e.clientY / innerHeight) * 2 + 1;
-  ray.setFromCamera(ptr, camera);
-  return ray.intersectObject(strip, false).length > 0;
-}
-
-function frame() {
-  PORTRAIT = innerWidth / innerHeight < 1.0;
-  /* Portrait cannot hold an 8:1 object across the short axis at a readable size,
-     so it does not try. The board swings into depth: the NAME box sits near and
-     large, the rest of the strip recedes toward the feed slot. The phone becomes
-     a lamp held over one end of a document rather than a shrunk-down desk. */
-  board.rotation.y = 0;
-  camera.fov = PORTRAIT ? 32 : 36;
-  camera.aspect = innerWidth / innerHeight;
-  slot.visible = !PORTRAIT;
-  if (PORTRAIT) {
-    /* roll the camera so the strip lies along the screen diagonal, then solve
-       the distance that makes it fill that diagonal with a margin */
-    /* Roll so the strip runs top-left to bottom-right: the first field (ORG)
-       lands at the top and the form reads downward, the way the eye already
-       scans. Rolled the other way the strip read bottom-to-top like a book
-       spine, and its lower end sat exactly where the title plate does. */
-    var ang = Math.atan2(innerHeight, innerWidth) * 0.94;
-    camera.up.set(-Math.sin(ang), Math.cos(ang), 0);
-    _c.set(0, 0.05, 0); board.localToWorld(_c);
-    /* looking down steeply keeps foreshortening off the 1-unit width, which is
-       what carries the type */
-    _fitDir.set(-0.06, 0.90, 0.43).normalize();
-    fitStrip(0.90);
+  /* 2. one gentle reveal per section. Sections are visible by default and only
+        hidden once we know the observer will bring them back. */
+  var rv = [].slice.call(document.querySelectorAll('.rv'));
+  if (!reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    rv.forEach(function (el) { io.observe(el); });
   } else {
-    camera.up.set(0, 1, 0);
-    camera.position.set(-0.9, 8.6, 8.6);
-    camera.lookAt(0.05, 0.05, -0.10);
-  }
-  camera.updateProjectionMatrix();
-  camera.updateMatrixWorld();
-  camBase.copy(camera.position);
-  if (PORTRAIT) lookBase.copy(_c); else lookBase.set(0.05, 0.05, -0.10);
-
-  if (PORTRAIT) {
-    /* the whole strip is in frame now, so the pool has to cover the whole strip */
-    lampGroup.position.set(-1.2, 6.4, 3.0);
-    spot.target.position.set(0.2, 0, -0.05);
-    spot.angle = 0.74;
-  } else {
-    /* The pool has to REACH the sign-off. Aimed at -0.9 with a 0.56 cone it
-       stopped around canvas x~1950 of 2048, so the CLEARED stamp — the payoff
-       of the whole sequence — was landing outside the light and reading as a
-       cut-off edge. Verified with a ruler painted across the face: the tick at
-       2040 never made it to screen. */
-    lampGroup.position.set(-1.4, 6.0, 3.2);
-    spot.target.position.set(0.55, 0, -0.05);
-    spot.angle = 0.70;
-  }
-  spot.position.copy(lampGroup.position);
-  spot.target.updateMatrixWorld();
-}
-
-/* Declared before the first frame(). fitStrip measures the strip at its home
-   position, so an undefined STRIP_HOME made screenBox return NaN, which tripped
-   the solver's isFinite guard on iteration zero and left the camera parked at its
-   arbitrary starting distance — on every phone, identically. */
-var STRIP_HOME = 0, STRIP_START = 9.6;
-
-frame();
-
-/* xa/xb are positions along the strip in canvas pixels (0..2048) */
-function screenBox(xa, xb) {
-  var v = new THREE.Vector3(), x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9, i, lx;
-  board.updateMatrixWorld(true);
-  for (i = 0; i < 4; i++) {
-    lx = ((i & 1 ? xb : xa) / 2048 - 0.5) * SW + STRIP_HOME;
-    v.set(lx, strip.position.y, (i & 2 ? 0.5 : -0.5) * SH);
-    board.localToWorld(v).project(camera);
-    x0 = Math.min(x0, v.x); x1 = Math.max(x1, v.x);
-    y0 = Math.min(y0, v.y); y1 = Math.max(y1, v.y);
-  }
-  return { x0: x0, x1: x1, y0: y0, y1: y1 };
-}
-window.__framing = function () {
-  /* Landscape must hold the whole strip. Portrait only has to hold the NAME box
-     (canvas 0-552) fully and legibly; the rest is allowed to run off toward the
-     slot, which is the point of the portrait composition. */
-  /* One contract for both orientations again: the whole strip is in frame.
-     Portrait earns that by using the diagonal instead of the width. */
-  return { portrait: PORTRAIT, full: screenBox(0, 2048),
-           name: screenBox(0, 552), role: screenBox(552, 1266),
-           watched: screenBox(0, 2048) };
-};
-
-/* ================================================================ TIMELINE
-   Discrete cues, not one long ramp. The whole point of a ratchet is that it
-   ARRIVES — three hard stops, each one audible if this had sound. */
-
-var t0 = performance.now() / 1000, T = 0;
-var plate = document.getElementById('plate'), cue = document.getElementById('cue');
-var bayEl = document.getElementById('bay'), bookEl = document.getElementById('book'),
-    sheetEl = document.getElementById('sheet'), repEl = document.getElementById('rep');
-var lit = false, cued = false;
-
-/* three ratchet steps: [start time, end time, from x, to x].
-   Equal bites of 3.2 units each — a pawl takes the same bite every time; the
-   old steps were 4.8 / 3.3 / 3.1 with the first almost entirely off-frame, so
-   the visible motion accelerated instead of repeating. Move 90ms, dwell 240ms:
-   a fast snap and a long rest, not a 50/50 duty cycle at 3Hz. */
-var STEPS = [
-  [0.55, 0.64, STRIP_START, 6.4],
-  [0.88, 0.97, 6.4, 3.2],
-  [1.21, 1.30, 3.2, STRIP_HOME]
-];
-/* card 0 comes up out of black; every card after it arrives into a lit room */
-var firstRun = true;
-/* bursts: [time, field index, chars] — the head does not type, it strikes */
-var BURSTS = [];
-var burstAt = 0, headParked = 40, impT = -9;
-
-/* ---------------------------------------------------------- load a card */
-function loadCard(i) {
-  CARD = i;
-  var c = CARDS[i];
-  FIELDS = c.f; DIV = c.div; SIGN = c.sign;
-  JIT = jitter(FIELDS);
-  BURSTS = burstsFor(FIELDS);
-  var last = BURSTS.length ? BURSTS[BURSTS.length - 1][0] : 1.6;
-  HEAD_GO = last + 0.16;
-  STAMP_T = SIGN ? last + 0.62 : last + 0.30;
-  PLATE_T = STAMP_T + 0.24;
-  CUE_T   = STAMP_T + 0.56;
-  plate.classList.toggle('sm', !SIGN);
-  plate.innerHTML = SIGN
-    ? '<p class="nm">Sherif Shalaby</p><p class="mt">Sofia, Bulgaria &middot; <b>on station</b></p>'
-    : '<p class="nm">' + c.art.querySelector('h3').innerHTML + '</p>' +
-      '<p class="mt">' + c.art.querySelector('.meta').innerHTML + '</p>';
-  cue.textContent = SIGN ? 'Scroll to work the strip'
-                         : 'Enter or tap the strip to read the log';
-  [].forEach.call(bayEl.children, function (b, n) {
-    if (n === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
-  });
-}
-
-/* ------------------------------------------------- the fit is a contract
-   43 characters was the whole reason this direction nearly died, so the
-   budget is asserted at boot against real measured advances rather than
-   re-checked by hand per card. The clip guard would otherwise make an
-   overflow a SILENT truncation. */
-function assertFits() {
-  var bad = [];
-  CARDS.forEach(function (c, ci) {
-    c.f.forEach(function (f, fi) {
-      if (!f.t) return;
-      fx.font = '500 ' + f.size + 'px "Plex Mono", monospace';
-      var w = fx.measureText(f.t).width;
-      var box = (fi < c.div.length ? c.div[fi] : 2040) - 12 - f.x;
-      if (w > box) bad.push('card ' + ci + ' ' + f.lab + ' "' + f.t + '" ' +
-                            Math.round(w) + 'px in ' + Math.round(box) + 'px box');
-    });
-  });
-  if (bad.length) throw new Error('STRIP OVERFLOW\n  ' + bad.join('\n  '));
-  return CARDS.length;
-}
-
-var forced = false;
-function reset(force) {
-  if (force) forced = true;
-  t0 = performance.now() / 1000;
-  struck = FIELDS.map(function () { return 0; });
-  burstAt = 0; lit = false; cued = false;
-  stamp = 0; impT = -9; headParked = 40; headX = 40;
-  head.visible = false; head.position.y = HEAD_UP;
-  plate.classList.remove('on'); cue.classList.remove('on');
-  strip.position.x = STRIP_START; strip.position.y = 0.075; holder.position.x = 0;
-  if (REDUCED && !force) skipToEnd();
-  drawFace();
-}
-
-function skipToEnd() {
-  struck = FIELDS.map(function (f) { return f.t.length; });
-  burstAt = BURSTS.length;
-  firstRun = false;
-  strip.position.x = STRIP_HOME; strip.position.y = 0.075;
-  spot.intensity = 10.1;
-  stamp = SIGN ? 1 : 0; headOn = 0;
-  headX = SIGN ? FIELDS[4].x + 76 : fieldRight(FIELDS.length - 1) - 40;
-  head.visible = false;
-  plate.classList.add('on'); cue.classList.add('on');
-  lit = cued = true;
-  drawFace();
-}
-
-/* easeOutQuart: a pawl releases and the strip is thrown — it does not spool up.
-   easeInOutCubic spent 25% of each step covering 6% of its travel, which is a
-   servo, not a ratchet. */
-function ease(u) { return 1 - Math.pow(1 - u, 4); }
-
-function tick(now) {
-  requestAnimationFrame(tick);
-  T = now / 1000 - t0;
-
-  if (!REDUCED || forced) {
-    /* the lamp comes up first — the room exists before anything happens in it */
-    var ramp = firstRun ? Math.min(1, Math.max(0, (T - 0.10) / 0.55)) : 1;
-    spot.intensity = 10.1 * ramp;
-    bulb.material.color.setScalar(ramp);
-    if (firstRun && T > 0.70) firstRun = false;
-
-    /* the outgoing strip is pulled left, out of the pool, before the next
-       one is fed in — the bay never holds two strips at the station */
-    if (leaving) {
-      var lv = Math.min(1, (T - leaveFrom) / 0.30);
-      strip.position.x = STRIP_HOME - 11.4 * (lv * lv);
-      head.visible = false;
-      if (lv >= 1) {
-        leaving = false;
-        loadCard(pendingIx);
-        reset(!REDUCED);
-      }
-      renderer.render(scene, camera);
-      return;
-    }
-
-    /* ratchet */
-    var i, s, u, x = strip.position.x;
-    for (i = 0; i < STEPS.length; i++) {
-      s = STEPS[i];
-      if (T >= s[0]) {
-        u = Math.min(1, (T - s[0]) / (s[1] - s[0]));
-        x = s[2] + (s[3] - s[2]) * ease(u);
-        /* D1: the settle begins AT arrival and decays afterwards. The old term
-           was sin((u-0.82)/0.18*PI)*0.055, which is sin(PI)=0 at u=1 — the
-           overshoot cancelled itself at the exact instant of arrival, so every
-           step dead-stopped on its number and nothing in the shot ever settled.
-           0.13 units is ~15px on screen; the old 0.055 was 6px over two frames. */
-        var dt = T - s[1];
-        if (dt >= 0 && dt < 0.5) {
-          x += (s[3] > s[2] ? 1 : -1) * 0.13 * Math.sin(dt * 33) * Math.exp(-dt * 10.5);
-        }
-      }
-    }
-    strip.position.x = x;
-
-    /* D4: one decaying impulse per strike. The lamp dips because the head
-       eats the light on its way down, and the paper is driven into the tray —
-       the contact shadow is what the eye actually reads as impact. */
-    var imp = T > impT ? Math.exp(-(T - impT) / 0.09) : 0;
-    spot.intensity *= (1 - 0.12 * imp);
-    strip.position.y = 0.075 - 0.05 * imp;
-
-    /* the filament never sits perfectly still */
-    spot.intensity *= 1 + 0.020 * Math.sin(T * 0.85) + 0.011 * Math.sin(T * 2.37 + 1.1);
-
-    /* hover: the strip lifts toward the light and the pool comes up with it.
-       Feedback — the whole site turns on clicking this thing, and until now it
-       gave no sign it could be clicked. */
-    hoverAmt += ((hovering ? 1 : 0) - hoverAmt) * 0.13;
-    if (hoverAmt > 0.002) {
-      strip.position.y += 0.055 * hoverAmt;
-      spot.intensity *= 1 + 0.13 * hoverAmt;
-    }
-
-    /* the bay mark rides the strip. 0 when the paper is off at the slot, 1 when
-       it is home and square in the holder. */
-    var prog = 1 - Math.min(1, Math.abs(strip.position.x) / STRIP_START);
-    if (Math.abs(prog - bayProg) > 0.002) {
-      bayProg = prog;
-      bayEl.style.setProperty('--prog', prog.toFixed(3));
-    }
-    var hit = T > impT ? Math.exp(-(T - impT) / 0.16) : 0;
-    if (Math.abs(hit - bayHit) > 0.004) {
-      bayHit = hit;
-      bayEl.style.setProperty('--hit', hit.toFixed(3));
-    }
-
-    /* and the camera is held by a person, not bolted to the desk */
-    camera.position.set(camBase.x + Math.sin(T * 0.37) * 0.055,
-                        camBase.y + Math.sin(T * 0.29 + 1.3) * 0.035,
-                        camBase.z + Math.sin(T * 0.23 + 2.1) * 0.040);
-    camera.lookAt(lookBase);
-    /* the holder is nudged by the strip landing in it */
-    holder.position.x = Math.sin(Math.max(0, T - 1.34) * 26) * 0.012 *
-                        Math.exp(-Math.max(0, T - 1.34) * 7);
-
-    /* strikes */
-    while (burstAt < BURSTS.length && T >= BURSTS[burstAt][0]) {
-      var b = BURSTS[burstAt];
-      struck[b[1]] = b[2];
-      headX = headParked = Math.min(
-        fieldRight(b[1]) - 30,
-        FIELDS[b[1]].x + b[2] * FIELDS[b[1]].size * 0.60
-      );
-      impT = T;
-      burstAt++;
-      drawFace();
-    }
-
-    /* the wider pool lights the head all the way up, so it has to be cut,
-       not just raised — it used to hang in the black above the strip */
-    head.visible = T > 1.44 && T < STAMP_T + 0.55;
-
-    /* the head crosses to the empty box, strikes it, and lifts away.
-       D5: this is what used to be 2 seconds of freeze frame. */
-    if (SIGN) {
-      if (T > HEAD_GO && T < STAMP_T) {
-        headX = headParked + (FIELDS[4].x + 76 - headParked) *
-                ease(Math.min(1, (T - HEAD_GO) / (STAMP_T - HEAD_GO)));
-      }
-      if (T >= STAMP_T) {
-        if (stamp === 0) impT = T;
-        var ns = Math.min(1, (T - STAMP_T) / 0.20);
-        if (ns !== stamp) { stamp = ns; drawFace(); }
-        headX = FIELDS[4].x + 76;
-      }
-    }
-
-    head.position.x = headWorldX(headX);
-    head.position.y = (T >= STAMP_T + 0.26)
-      ? HEAD_UP + 0.9 * Math.min(1, (T - STAMP_T - 0.26) / 0.5)   /* lifts out of shot */
-      : HEAD_UP - (HEAD_UP - HEAD_DOWN) * imp;
-
-    if (!lit && T > PLATE_T) { plate.classList.add('on'); lit = true; }
-    if (!cued && T > CUE_T) { cue.classList.add('on'); cued = true; }
+    rv.forEach(function (el) { el.classList.add('in'); });
   }
 
-  renderer.render(scene, camera);
-}
-
-addEventListener('resize', function () {
-  renderer.setSize(innerWidth, innerHeight);
-  frame();
-});
-/* ============================================================ WORKING THE BAY
-   A strip bay ratchets. So does this: there is no free scroll — one gesture
-   moves one strip, the outgoing one is pulled left out of the pool and the
-   next is fed in from the slot and struck. The opening is not a title
-   sequence, it is the site's only verb, run once per card. */
-var leaving = false, leaveFrom = 0, pendingIx = -1, lastNav = 0;
-
-function goTo(i) {
-  if (bookOpen || leaving || i === CARD || i < 0 || i >= CARDS.length) return;
-  pendingIx = i; leaving = true; leaveFrom = T;
-  lit = cued = false;
-  plate.classList.remove('on'); cue.classList.remove('on');
-}
-
-function nav(d) {
-  var now = performance.now();
-  if (now - lastNav < 260) return;          /* one gesture, one strip */
-  lastNav = now;
-  /* the bay wraps. A real bay is worked round and round, and dead-ending on the
-     last strip left the only exit as scrolling back up through nine of them.
-     Wrapped here rather than in goTo(), because goTo() also takes an absolute
-     index from the bay marks, where an out-of-range index is a bug, not a wrap. */
-  goTo((CARD + d + CARDS.length) % CARDS.length);
-}
-
-/* ------------------------------------------------------------- the logbook */
-var bookOpen = false, returnFocus = null;
-function openBook() {
-  var c = CARDS[CARD];
-  if (!c.art || bookOpen) return;
-  /* whatever the card's body is — a list, or grouped pills */
-  var body = '';
-  [].forEach.call(c.art.children, function (el) {
-    if (el.tagName !== 'H3' && !el.classList.contains('meta')) body += el.outerHTML;
-  });
-  sheetEl.innerHTML =
-    '<h3 id="bookttl">' + c.art.querySelector('h3').innerHTML + '</h3>' +
-    '<p class="meta">' + c.art.querySelector('.meta').innerHTML + '</p>' + body +
-    '<div class="bk"><span>' + c.f[3].t + ' &middot; ' + c.f[2].t + '</span>' +
-    '<button type="button" id="bkc">Return the strip &#8593;</button></div>';
-  /* index every row so the cascade follows the reading order */
-  [].forEach.call(sheetEl.children, function (el, n) { el.style.setProperty('--i', n); });
-  [].forEach.call(sheetEl.querySelectorAll('li'), function (el, n) { el.style.setProperty('--i', n); });
-  bookOpen = true;
-  returnFocus = document.activeElement;
-  document.documentElement.classList.add('reading');
-  bookEl.classList.add('on');
-  document.getElementById('bkc').addEventListener('click', closeBook);
-  repEl.style.opacity = '0'; repEl.style.pointerEvents = 'none';
-  sheetEl.scrollTop = 0;
-  sheetEl.focus();
-}
-function closeBook() {
-  if (!bookOpen) return;
-  bookOpen = false;
-  document.documentElement.classList.remove('reading');
-  bookEl.classList.remove('on');
-  repEl.style.opacity = ''; repEl.style.pointerEvents = '';
-  /* hand focus back where it came from, or to this strip's mark in the bay */
-  var back = (returnFocus && document.contains(returnFocus) && returnFocus !== document.body)
-             ? returnFocus : bayEl.children[CARD];
-  if (back && back.focus) back.focus();
-  returnFocus = null;
-}
-
-/* ------------------------------------------------------------------ input */
-addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') { closeBook(); return; }
-  if (bookOpen) return;
-  /* a focused bay button activates itself on Enter/Space — without this the
-     global handler would fire too and open the log of the strip being left */
-  var onBay = e.target && e.target.closest && e.target.closest('.bay');
-  if (onBay && (e.key === 'Enter' || e.key === ' ')) return;
-  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBook(); return; }
-  if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); nav(1); }
-  if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft'  || e.key === 'PageUp')   { e.preventDefault(); nav(-1); }
-  if (e.key === 'r' || e.key === 'R') reset(true);
-});
-repEl.addEventListener('click', function () { reset(true); repEl.blur(); });
-addEventListener('wheel', function (e) {
-  if (bookOpen) return;
-  if (Math.abs(e.deltaY) < 8) return;
-  nav(e.deltaY > 0 ? 1 : -1);
-}, { passive: true });
-
-var touchY = null;
-addEventListener('touchstart', function (e) { if (!bookOpen) touchY = e.touches[0].clientY; }, { passive: true });
-addEventListener('touchend', function (e) {
-  if (bookOpen || touchY === null) return;
-  var dy = touchY - e.changedTouches[0].clientY;
-  if (Math.abs(dy) > 42) nav(dy > 0 ? 1 : -1);
-  touchY = null;
-});
-bookEl.addEventListener('click', function (e) { if (e.target === bookEl) closeBook(); });
-renderer.domElement.addEventListener('pointermove', function (e) {
-  var over = !bookOpen && !leaving && !!CARDS[CARD].art && pointerOverStrip(e);
-  if (over !== hovering) {
-    hovering = over;
-    renderer.domElement.style.cursor = over ? 'pointer' : '';
+  /* 3. mark the section you are actually in, in the nav */
+  var links = [].slice.call(document.querySelectorAll('.nav ul a'));
+  var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); })
+                     .filter(Boolean);
+  if ('IntersectionObserver' in window && targets.length) {
+    var seen = {};
+    var obs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { seen[e.target.id] = e.isIntersecting; });
+      var active = null;
+      targets.forEach(function (t) { if (seen[t.id] && !active) active = t.id; });
+      links.forEach(function (a) {
+        if (active && a.getAttribute('href') === '#' + active) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-30% 0px -55% 0px' });
+    targets.forEach(function (t) { obs.observe(t); });
   }
-});
-renderer.domElement.addEventListener('pointerleave', function () {
-  hovering = false; renderer.domElement.style.cursor = '';
-});
-renderer.domElement.addEventListener('click', function (e) {
-  /* opening on a click anywhere was too loose — it fired on the empty desk */
-  if (!bookOpen && CARDS[CARD].art && pointerOverStrip(e)) openBook();
-});
-
-
-/* ---------------------------------------------------------------- the bay */
-CARDS.forEach(function (c, i) {
-  var b = document.createElement('button');
-  var what = c.art ? c.art.querySelector('h3').textContent : 'On station';
-  /* the second line normally names the client, but on the cards where the
-     title already IS the client ("Listify / LISTIFY") it names the domain
-     instead, so the label never just repeats itself */
-  var who;
-  if (!c.art) {
-    who = 'Sherif Shalaby \u00B7 Sofia';
-  } else {
-    var org = c.art.dataset.org;
-    var echo = what.toUpperCase().indexOf(org) === 0 || org.indexOf(what.toUpperCase()) === 0;
-    who = (echo ? c.art.dataset.domain : org) + ' \u00B7 ' + c.art.dataset.period;
-  }
-  b.type = 'button';
-  /* no title attribute: the native tooltip is slow, unstyleable, and would sit
-     on top of the real one */
-  b.setAttribute('aria-label', 'Strip ' + (i + 1) + ' of ' + CARDS.length + ': ' +
-                 what + ', ' + who);
-  var tip = document.createElement('span');
-  tip.className = 'tip';
-  tip.setAttribute('aria-hidden', 'true');   /* aria-label already says it */
-  tip.innerHTML = '<b></b><i></i>';
-  tip.querySelector('b').textContent = what;
-  tip.querySelector('i').textContent = who;
-  b.appendChild(tip);
-  b.style.setProperty('--n', i);
-  b.addEventListener('click', function () { goTo(i); });
-  bayEl.appendChild(b);
-});
-
-console.log('strip fit: ' + assertFits() + ' cards, all fields inside their boxes');
-loadCard(0);
-reset();
-requestAnimationFrame(tick);
+})();
 </script>
 </body>
 </html>
